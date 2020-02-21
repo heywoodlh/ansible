@@ -5,6 +5,6 @@
   - vars/postgres.yml
   - vars/nginx.yml
   roles:
-  - role: nextcloud-db-install
-  - role: nextcloud-install
-  - role: nextcloud-proxy-install
+  - { role: nextcloud-db-install }
+  - { role: nextcloud-install }
+  - { role: nextcloud-proxy-install }
