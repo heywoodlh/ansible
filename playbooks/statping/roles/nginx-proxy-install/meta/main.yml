@@ -1,4 +1,4 @@
 ---
 dependencies:
   - role: postgres-install
-  - role: nextcloud-install
+  - role: statping-install
