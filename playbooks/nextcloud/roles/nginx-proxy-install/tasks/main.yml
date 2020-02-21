@@ -24,12 +24,6 @@
   copy:
     src: nginx/ssl/
     dest: "{{ nginx_dir }}/ssl"
-- name: "chown everything in {{ nginx_dir }} to nginx user (101:101)"
-  file:
-    path: "{{ nginx_dir }}"
-    owner: 101
-    group: 101
-    recurse: yes
 - name: run nginx container
   docker_container:
     name: "{{ nginx_name }}"
