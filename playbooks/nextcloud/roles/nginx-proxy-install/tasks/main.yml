@@ -35,6 +35,8 @@
     name: "{{ nginx_name }}"
     image: "nginx:{{ nginx_version }}"
     restart_policy: unless-stopped
+    ports:
+    - "{{ nginx_port }}:{{ nginx_port }}"
     volumes:
     - "{{ nginx_dir }}/nginx.conf:/etc/nginx/nginx.conf:ro"
     - "{{ nginx_dir }}/sites-enabled:/etc/nginx/sites-enabled"
