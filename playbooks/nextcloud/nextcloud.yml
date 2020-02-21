@@ -1,7 +1,9 @@
 ---
 - hosts: localhost
-  include_vars:
-    dir: vars
+  vars_files:
+  - vars/nextcloud.yml
+  - vars/postgres.yml
+  - vars/nginx.yml
   roles:
   - nextcloud-db-install
   - nextcloud-install
