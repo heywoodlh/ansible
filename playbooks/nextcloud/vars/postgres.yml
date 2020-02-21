@@ -1,0 +1,7 @@
+---
+postgres_name: "nextcloud-db"
+postgres_db_dir: "{{ nextcloud_root_dir }}/nextcloud-db"
+postgres_db: "nextcloud"
+postgres_user: "nextcloud_db_user"
+postgres_password: "changeme"
+postgres_version: "latest"

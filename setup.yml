@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  tasks:
+  - name: create /etc/ansible directory
+    file:
+      path: /etc/ansible
+      state: directory
+      force: no
+    become: true
+  - name: move hosts.yml to /etc/ansible/hosts.yml
+    copy:
+      src: hosts.yml
+      dest: /etc/ansible/hosts.yml
+      force: no
+    become: true
+  - name: move ansible.cfg to /etc/ansible/ansible.cfg
+    copy:
+      src: ansible.cfg
+      dest: /etc/ansible/ansible.cfg
+      force: no
+    become: true
+  - name: install roles in requirements.yml
+    command: ansible-galaxy install -r requirements.yml

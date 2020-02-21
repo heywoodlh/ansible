@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  include_vars:
+    dir: vars
+  roles:
+  - nextcloud-db-install
+  - nextcloud-install
+  - nextcloud-proxy-install

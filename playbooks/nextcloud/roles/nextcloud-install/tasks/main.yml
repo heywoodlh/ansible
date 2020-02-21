@@ -1,0 +1,27 @@
+---
+- name: "create {{ nextcloud_root_dir }}"
+  file:
+    path: "{{ nextcloud_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ nextcloud_data_dir }}"
+  file:
+    path: "{{ nextcloud_data_dir }}"
+    state: directory
+- name: "create {{ nextcloud_dir }}"
+  file:
+    path: "{{ nextcloud_dir }}"
+    state: directory
+- name: "pull nextcloud:{{ nextcloud_version }} image"
+  docker_image:
+    name: nextcloud
+    tag: "{{ nextcloud_version }}"
+    source: pull
+- name: run nextcloud container
+  docker_container:
+    name: nextcloud
+    image: "nextcloud:{{ nextcloud_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ nextcloud_volumes }}"
+    links:
+    - nextcloud-db:nextcloud-db

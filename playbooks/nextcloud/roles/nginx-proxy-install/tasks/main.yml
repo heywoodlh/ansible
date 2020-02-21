@@ -1,0 +1,42 @@
+---
+- name: "create {{ nginx_dir }}"
+  file:
+    path: "{{ nginx_dir }}"
+    state: directory
+- name: "create {{ nginx_dir }}/sites-enabled"
+  file:
+    path: "{{ nginx_dir }}/sites-enabled"
+    state: directory
+- name: "pull nginx:{{ nginx_version }} image"
+  docker_image:
+    name: nginx
+    tag: "{{ nginx_version }}"
+    source: pull
+- name: use server.j2 template file to create nginx server config
+  template:
+    src: nginx/sites-enabled/server.j2
+    dest: "{{ nginx_dir }}/sites-enabled/proxy.conf"
+- name: "copy nginx.conf to {{ nginx_dir }}/nginx.conf"
+  copy:
+    src: nginx.conf
+    dest: "{{ nginx_dir }}/nginx.conf"
+- name: "copy contents of ssl folder to {{ nginx_dir }}/ssl"
+  copy:
+    src: nginx/ssl/
+    dest: "{{ nginx_dir }}/ssl"
+- name: "chown everything in {{ nginx_dir }} to nginx user (101:101)"
+  file:
+    path: "{{ nginx_dir }}"
+    owner: 101
+    group: 101
+    recurse: yes
+- name: run nginx container
+  docker_container:
+    name: "{{ nginx_name }}"
+    image: "nginx:{{ nginx_version }}"
+    restart_policy: unless-stopped
+    volumes:
+    - "{{ nginx_dir }}/nginx.conf:/etc/nginx/nginx.conf:ro"
+    - "{{ nginx_dir }}/sites-enabled:/etc/nginx/sites-enabled"
+    - "{{ nginx_dir }}/ssl:/opt/ssl/"
+    links: "{{ nginx_links }}"
