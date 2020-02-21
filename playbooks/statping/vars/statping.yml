@@ -1,0 +1,6 @@
+---
+statping_root_dir: "/home/heywoodlh/core/statping"
+statping_data_dir: "{{ statping_root_dir }}/data"
+statping_version: "latest"
+statping_volumes:
+- statping:/app
