@@ -3,6 +3,7 @@ nextcloud_root_dir: "/home/heywoodlh/core/nextcloud"
 nextcloud_dir: "{{ nextcloud_root_dir }}/nextcloud"
 nextcloud_data_dir: "{{ nextcloud_root_dir }}/data"
 nextcloud_volumes:
+- "{{ nextcloud_data_dir }}:/var/www/html/data"
 - /tmp/data1:/tmp/data1
 - /tmp/data2:/tmp/data2
 nextcloud_version: "latest"
