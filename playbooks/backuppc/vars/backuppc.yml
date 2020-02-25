@@ -2,8 +2,8 @@
 backuppc_root_dir: "/home/heywoodlh/core/backuppc"
 backuppc_version: "latest"
 backuppc_port: 8080
-backuppc_uuid: 1000
-backuppc_guid: 1000
+backuppc_uuid: "1000"
+backuppc_guid: "1000"
 backuppc_timezone: "America/Denver"
 backuppc_etc_dir: "{{ backuppc_root_dir }}/config"
 backuppc_ssh_keys: "{{ backuppc_root_dir }}/config/ssh_keys"
