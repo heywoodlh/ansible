@@ -1,4 +1,6 @@
 ---
+backuppc_username: "username"
+backuppc_password: "changeme"
 backuppc_root_dir: "/home/heywoodlh/core/backuppc"
 backuppc_version: "latest"
 backuppc_port: 8080

@@ -29,3 +29,5 @@
       BACKUPPC_GUID: "{{ backuppc_guid }}"
       USE_SSL: "true"
       TZ: "{{ backuppc_timezone }}"
+      BACKUPPC_WEB_USER: "{{ backuppc_username }}"
+      BACKUPPC_WEB_PASSWD: "{{ backuppc_password }}"
