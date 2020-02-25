@@ -11,6 +11,7 @@
   - "{{ backuppc_etc_dir }}"
   - "{{ backuppc_ssh_keys }}"
   - "{{ backuppc_data_dir }}"
+  become: true
 - name: "pull backuppc:{{ backuppc_version }} image"
   docker_image:
     name: adferrand/backuppc
