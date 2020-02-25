@@ -1,0 +1,14 @@
+---
+backuppc_root_dir: "/home/heywoodlh/core/backuppc"
+backuppc_version: "latest"
+backuppc_port: 8080
+backuppc_uuid: 1000
+backuppc_guid: 1000
+backuppc_timezone: "America/Denver"
+backuppc_etc_dir: "{{ backuppc_root_dir }}/config"
+backuppc_ssh_keys: "{{ backuppc_root_dir }}/config/ssh_keys"
+backuppc_data_dir: "{{ backuppc_root_dir }}/data"
+backuppc_volumes:
+- "{{ backuppc_etc_dir }}:/etc/backuppc"
+- "{{ backuppc_ssh_keys }}:/home/backuppc/.ssh"
+- "{{ backuppc_data_dir }}:/data/backuppc"

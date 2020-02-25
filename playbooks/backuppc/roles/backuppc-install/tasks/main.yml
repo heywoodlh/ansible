@@ -1,0 +1,31 @@
+---
+- name: "create backuppc directories in {{ backuppc_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ backuppc_uuid }}"
+    group: "{{ backuppc_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ backuppc_etc_dir }}"
+  - "{{ backuppc_ssh_keys }}"
+  - "{{ backuppc_data_dir }}"
+- name: "pull backuppc:{{ backuppc_version }} image"
+  docker_image:
+    name: adferrand/backuppc
+    tag: "{{ backuppc_version }}"
+    source: pull
+- name: run backuppc container
+  docker_container:
+    name: backuppc
+    image: "adferrand/backuppc:{{ backuppc_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - "{{ backuppc_port }}:8080"
+    volumes: "{{ backuppc_volumes }}"
+    env:
+      BACKUPPC_UUID: "{{ backuppc_uuid }}"
+      BACKUPPC_GUID: "{{ backuppc_guid }}"
+      USE_SSL: "true"
+      TZ: "{{ backuppc_timezone }}"
