@@ -28,4 +28,4 @@
       DB_PORT: "5432"
       DB_DATABASE: "{{ postgres_db }}"
       ADMIN_USER: "{{ statping_admin_username }}" 
-      ADMIN_PASS: "{{ statping_admin_password }}"
+      ADMIN_PASSWORD: "{{ statping_admin_password }}"
