@@ -1,0 +1,29 @@
+---
+- name: "create {{ thelounge_root_dir }}"
+  file:
+    path: "{{ thelounge_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ thelounge_data_dir }}"
+  file:
+    path: "{{ thelounge_data_dir }}"
+    state: directory
+- name: "pull thelounge:{{ thelounge_version }} image"
+  docker_image:
+    name: thelounge/thelounge
+    tag: "{{ thelounge_version }}"
+    source: pull
+- name: "chown {{ thelounge_data_dir }} to apache (33:33)"
+  file:
+    path: "{{ thelounge_data_dir }}"
+    state: directory
+    owner: 1000
+    group: 1000
+    recurse: yes
+  become: true
+- name: run thelounge container
+  docker_container:
+    name: thelounge
+    image: "thelounge/thelounge:{{ thelounge_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ thelounge_volumes }}"

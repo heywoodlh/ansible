@@ -1,0 +1,6 @@
+---
+thelounge_root_dir: "/home/heywoodlh/core/thelounge"
+thelounge_data_dir: "{{ thelounge_root_dir }}/data"
+thelounge_volumes:
+- "{{ thelounge_data_dir }}:/var/opt/thelounge"
+thelounge_version: "latest"

@@ -1,0 +1,10 @@
+---
+nginx_name: "thelounge-proxy"
+nginx_dir: "{{ thelounge_root_dir }}/thelounge-proxy"
+nginx_certificate_file: "fullchain.pem"
+nginx_key_file: "privkey.pem"
+nginx_server_name: "example.com"
+nginx_port: 9000
+nginx_links:
+- thelounge:thelounge
+nginx_version: "latest"
