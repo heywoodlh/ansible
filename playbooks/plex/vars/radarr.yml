@@ -1,0 +1,11 @@
+---
+radarr_root_dir: "{{ plex_root_dir }}/radarr"
+radarr_version: "latest"
+radarr_uuid: "1000"
+radarr_guid: "1000"
+radarr_port: "7878"
+radarr_timezone: "America/Denver"
+radarr_volumes:
+- "{{ radarr_root_dir }}:/config"
+- "{{ plex_media_dir }}:/media"
+- "{{ nzbget_download_dir }}:/downloads"

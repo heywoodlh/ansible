@@ -1,0 +1,30 @@
+---
+- name: "create {{ radarr_root_dir }} directory"
+  file:
+    path: "{{ radarr_root_dir }}"
+    state: directory
+    force: no
+    owner: "{{ radarr_uuid }}"
+    group: "{{ radarr_guid }}"
+    recurse: yes
+  become: true
+- name: "pull radarr:{{ radarr_version }} image"
+  docker_image:
+    name: linuxserver/radarr
+    tag: "{{ radarr_version }}"
+    source: pull
+- name: run radarr container
+  docker_container:
+    name: radarr
+    image: "linuxserver/radarr:{{ radarr_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - "{{ radarr_port }}:7878"
+    links:
+    - nzbget:nzbget
+    volumes: "{{ radarr_volumes }}"
+    env:
+      PUID: "{{ radarr_uuid }}"
+      PGID: "{{ radarr_guid }}"
+      TZ: "{{ radarr_timezone }}"
+      VERSION: "latest"

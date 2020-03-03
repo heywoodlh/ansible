@@ -1,0 +1,31 @@
+---
+- name: "create plex directories in {{ plex_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ plex_uuid }}"
+    group: "{{ plex_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ plex_data_dir }}"
+  - "{{ plex_media_dir }}"
+  become: true
+- name: "pull plex:{{ plex_version }} image"
+  docker_image:
+    name: linuxserver/plex
+    tag: "{{ plex_version }}"
+    source: pull
+- name: run plex container
+  docker_container:
+    name: plex
+    image: "linuxserver/plex:{{ plex_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - 32400:32400
+    volumes: "{{ plex_volumes }}"
+    env:
+      PUID: "{{ plex_uuid }}"
+      PGID: "{{ plex_guid }}"
+      TZ: "{{ plex_timezone }}"
+      VERSION: "latest"

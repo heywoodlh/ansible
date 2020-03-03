@@ -1,0 +1,31 @@
+---
+- name: "create nzbget directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ nzbget_uuid }}"
+    group: "{{ nzbget_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ nzbget_root_dir }}"
+  - "{{ nzbget_download_dir }}" 
+  become: true
+- name: "pull nzbget:{{ nzbget_version }} image"
+  docker_image:
+    name: linuxserver/nzbget
+    tag: "{{ nzbget_version }}"
+    source: pull
+- name: run nzbget container
+  docker_container:
+    name: nzbget
+    image: "linuxserver/nzbget:{{ nzbget_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - "{{ nzbget_port }}:6789"
+    volumes: "{{ nzbget_volumes }}"
+    env:
+      PUID: "{{ nzbget_uuid }}"
+      PGID: "{{ nzbget_guid }}"
+      TZ: "{{ nzbget_timezone }}"
+      VERSION: "latest"

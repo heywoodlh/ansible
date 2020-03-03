@@ -1,0 +1,30 @@
+---
+- name: "create {{ sonarr_root_dir }} directory"
+  file:
+    path: "{{ sonarr_root_dir }}"
+    state: directory
+    force: no
+    owner: "{{ sonarr_uuid }}"
+    group: "{{ sonarr_guid }}"
+    recurse: yes
+  become: true
+- name: "pull sonarr:{{ sonarr_version }} image"
+  docker_image:
+    name: linuxserver/sonarr
+    tag: "{{ sonarr_version }}"
+    source: pull
+- name: run sonarr container
+  docker_container:
+    name: sonarr
+    image: "linuxserver/sonarr:{{ sonarr_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - "{{ sonarr_port }}:8989"
+    links:
+    - nzbget:nzbget
+    volumes: "{{ sonarr_volumes }}"
+    env:
+      PUID: "{{ sonarr_uuid }}"
+      PGID: "{{ sonarr_guid }}"
+      TZ: "{{ sonarr_timezone }}"
+      VERSION: "latest"

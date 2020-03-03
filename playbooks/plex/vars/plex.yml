@@ -1,0 +1,11 @@
+---
+plex_root_dir: "/home/heywoodlh/core/plex"
+plex_data_dir: "{{ plex_root_dir }}/plex"
+plex_version: "latest"
+plex_uuid: "1000"
+plex_guid: "1000"
+plex_timezone: "America/Denver"
+plex_media_dir: "{{ plex_root_dir }}/media"
+plex_volumes:
+- "{{ plex_data_dir }}:/config"
+- "{{ plex_media_dir }}:/media"

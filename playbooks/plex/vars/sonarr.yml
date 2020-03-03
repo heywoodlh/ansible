@@ -1,0 +1,11 @@
+---
+sonarr_root_dir: "{{ plex_root_dir }}/sonarr"
+sonarr_version: "latest"
+sonarr_uuid: "1000"
+sonarr_guid: "1000"
+sonarr_port: "8989"
+sonarr_timezone: "America/Denver"
+sonarr_volumes:
+- "{{ sonarr_root_dir }}:/config"
+- "{{ plex_media_dir }}/media:/media"
+- "{{ nzbget_download_dir }}:/downloads"
