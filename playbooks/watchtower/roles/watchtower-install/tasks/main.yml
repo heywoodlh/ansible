@@ -1,0 +1,12 @@
+---
+- name: "pull watchtower:{{ watchtower_version }} image"
+  docker_image:
+    name: containrrr/watchtower
+    tag: "{{ watchtower_version }}"
+    source: pull
+- name: run watchtower container
+  docker_container:
+    name: containrrr/watchtower
+    image: "watchtower:{{ watchtower_version }}"
+    restart_policy: unless-stopped
+    env: "{{ watchtower_env }}"

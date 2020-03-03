@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/watchtower.yml
+  roles:
+  - role: watchtower-install
