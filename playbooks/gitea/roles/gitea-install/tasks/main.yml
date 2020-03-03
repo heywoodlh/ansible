@@ -21,3 +21,7 @@
     volumes: "{{ gitea_volumes }}"
     links:
     - gitea-db:gitea-db
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "{{ postgres_db }}" 
