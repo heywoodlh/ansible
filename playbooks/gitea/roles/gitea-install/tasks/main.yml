@@ -19,8 +19,10 @@
     image: "gitea/gitea:{{ gitea_version }}"
     restart_policy: unless-stopped
     volumes: "{{ gitea_volumes }}"
+    ports:
+    - "{{ gitea_ssh_port }}:22"
     links:
-    - gitea-db:gitea-db
+    - gitea-db:db
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
