@@ -19,6 +19,8 @@
     image: "gitea/gitea:{{ gitea_version }}"
     restart_policy: unless-stopped
     volumes: "{{ gitea_volumes }}"
+    ports:
+    - "{{ gitea_ssh_port }}:22"
     links:
     - gitea-db:gitea-db
     env:
