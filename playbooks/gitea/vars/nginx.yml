@@ -1,0 +1,10 @@
+---
+nginx_name: "gitea-proxy"
+nginx_dir: "{{ gitea_root_dir }}/gitea-proxy"
+nginx_certificate_file: "fullchain.pem"
+nginx_key_file: "privkey.pem"
+nginx_server_name: "example.com"
+nginx_port: 7070
+nginx_links:
+- gitea:gitea
+nginx_version: "latest"

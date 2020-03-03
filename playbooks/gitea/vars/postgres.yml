@@ -1,0 +1,7 @@
+---
+postgres_name: "gitea-db"
+postgres_db_dir: "{{ gitea_root_dir }}/gitea-db"
+postgres_db: "gitea"
+postgres_user: "gitea_db_user"
+postgres_password: "changeme"
+postgres_version: "latest"
