@@ -1,0 +1,9 @@
+---
+gitea_root_dir: "/home/heywoodlh/core/gitea"
+gitea_data_dir: "{{ gitea_root_dir }}/data"
+gitea_ssh_port: 2222
+gitea_volumes:
+- "{{ gitea_data_dir }}:/data"
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+gitea_version: "latest"

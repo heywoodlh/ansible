@@ -1,0 +1,23 @@
+---
+- name: "create {{ gitea_root_dir }}"
+  file:
+    path: "{{ gitea_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ gitea_data_dir }}"
+  file:
+    path: "{{ gitea_data_dir }}"
+    state: directory
+- name: "pull gitea:{{ gitea_version }} image"
+  docker_image:
+    name: gitea/gitea
+    tag: "{{ gitea_version }}"
+    source: pull
+- name: run gitea container
+  docker_container:
+    name: gitea
+    image: "gitea/gitea:{{ gitea_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ gitea_volumes }}"
+    links:
+    - gitea-db:gitea-db
