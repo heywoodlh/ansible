@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/drone.yml
+  - vars/nginx.yml
+  roles:
+  - role: drone-install
+  - role: nginx-proxy-install

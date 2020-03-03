@@ -1,0 +1,12 @@
+---
+drone_root_dir: "/home/heywoodlh/core/drone"
+drone_data_dir: "{{ drone_root_dir }}/data"
+drone_version: "latest"
+drone_volumes:
+- "{{ drone_data_dir }}:/data"
+drone_env:
+  DRONE_GITHUB_CLIENT_ID: "blah"
+  DRONE_GITHUB_CLIENT_SECRET: "blah"
+  DRONE_RPC_SECRET: "blah"
+  DRONE_SERVER_HOST: "example.com"
+  DRONE_SERVER_PROTO: "http"
