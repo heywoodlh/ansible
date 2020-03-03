@@ -2,9 +2,9 @@
 - hosts: localhost
   vars_files:
   - vars/plex.yml
-  - vars/sonarr
-  - vars/radarr
-  - vars/nzbget
+  - vars/sonarr.yml
+  - vars/radarr.yml
+  - vars/nzbget.yml
   roles:
   - role: plex-install
   - role: nzbget-install
