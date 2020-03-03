@@ -9,4 +9,5 @@
     name: watchtower
     image: "containrrr/watchtower:{{ watchtower_version }}"
     restart_policy: unless-stopped
+    volumes: "{{ watchtower_volumes }}"
     env: "{{ watchtower_env }}"
