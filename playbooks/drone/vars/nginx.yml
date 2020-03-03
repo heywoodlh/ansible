@@ -1,0 +1,10 @@
+---
+nginx_name: "drone-proxy"
+nginx_dir: "{{ drone_root_dir }}/drone-proxy"
+nginx_certificate_file: "fullchain.pem"
+nginx_key_file: "privkey.pem"
+nginx_server_name: "example.com"
+nginx_port: 
+nginx_links:
+- drone:drone
+nginx_version: "latest"
