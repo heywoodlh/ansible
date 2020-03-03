@@ -24,6 +24,8 @@
     links:
     - gitea-db:gitea-db
     env:
+      USER_UID: "{{ gitea_uuid }}"
+      USER_GID: "{{ gitea_guid }}"
       DB_TYPE: "postgres"
       DB_HOST: "gitea-db:5432"
       DB_NAME: "{{ postgres_db }}" 
