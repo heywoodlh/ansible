@@ -4,6 +4,7 @@ elastalert_dir: "{{ elk_root_dir }}/elastalert"
 elastalert_links:
 - elasticsearch:elasticsearch
 elastalert_volumes:
+- "{{ elastalert_dir }}:/opt/elastalert"
 - "{{ elastalert_dir }}/config/elastalert.yaml:/opt/elastalert/config.yaml"
 - "{{ elastalert_dir }}/elastalert-test.yaml:/opt/elastalert/config-test.yaml"
 - "{{ elastalert_dir }}/config/config.json:/opt/elastalert-server/config/config.json"
