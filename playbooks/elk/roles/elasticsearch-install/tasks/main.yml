@@ -12,6 +12,7 @@
   docker_container:
     name: elasticsearch
     image: "elasticsearch:{{ elk_version }}"
+    user: "{{ elk_uuid }}"
     state: started
     restart_policy: unless-stopped
     ports:
