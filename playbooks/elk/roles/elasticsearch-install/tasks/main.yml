@@ -8,11 +8,14 @@
 - name: increase max memory for elasticsearch
   shell: sysctl -w vm.max_map_count=262144
   become: true
+- name: create elasticsearch volume
+  docker_volume:
+    name: elasticsearch
 - name: run elasticsearch docker container
   docker_container:
     name: elasticsearch
     image: "elasticsearch:{{ elk_version }}"
-    user: root
+    user: "{{ elk_uuid }}"
     state: started
     restart_policy: unless-stopped
     ports:
