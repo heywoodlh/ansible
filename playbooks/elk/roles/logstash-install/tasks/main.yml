@@ -58,6 +58,7 @@
     - "{{ logstash_syslog_port }}:{{ logstash_syslog_port }}"
     - "{{ logstash_beats_port }}:{{ logstash_beats_port }}"
     - "{{ logstash_netflow_port }}:{{ logstash_netflow_port }}"
+    - "{{ logstash_netflow_port }}:{{ logstash_netflow_port }}/udp"
     volumes: "{{ logstash_volumes }}"
     env:
       XPACK_MONITORING_ENABLED: "true"
