@@ -1,0 +1,10 @@
+---
+logstash_dir: "{{ elk_root_dir }}/logstash"
+logstash_links:
+- elasticsearch:elasticsearch
+logstash_syslog_port: 1514
+logstash_beats_port: 5044
+logstash_netflow_port: 9995 
+logstash_volumes:
+- "{{ logstash_dir }}/conf:/usr/share/logstash/pipeline"
+- "{{ logstash_dir }}/patterns:/usr/share/logstash/patterns"

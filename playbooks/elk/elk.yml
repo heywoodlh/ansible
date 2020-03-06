@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/elasticsearch.yml
+  - vars/elastalert.yml
+  - vars/kibana.yml
+  - vars/logstash.yml
+  roles:
+  - role: elasticsearch-install
+  - role: elastalert-install
+  - role: kibana-install
+  - role: logstash-install

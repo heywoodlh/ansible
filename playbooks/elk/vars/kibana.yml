@@ -1,0 +1,10 @@
+---
+kibana_dir: "{{ elk_root_dir }}/kibana"
+kibana_http_port: "5601"
+self_sign_ssl_options: "'/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=10.10.10.10'"
+kibana_links:
+- elasticsearch:elasticsearch
+- elastalert:elastalert
+kibana_volumes:
+- "{{ kibana_dir }}/ssl:/opt/ssl"
+- "{{ kibana_dir }}/plugins:/usr/share/kibana/plugins"

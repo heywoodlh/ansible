@@ -1,0 +1,15 @@
+---
+elk_root_dir: "/home/heywoodlh/core/elk"
+elk_uri: "10.10.10.10"
+elk_ip: "10.10.10.10"
+elasticsearch_rest_port: "9200"
+elasticsearch_com_port: "9300"
+xpack_encryption_key: "changeme"
+elasticsearch_data_dir: "{{ elk_root_dir }}/elasticsearch/data"
+elk_uuid: "1000"
+elk_guid: "1000"
+elasticsearch_dir: "{{ elk_root_dir }}/elasticsearch"
+elasticsearch_password: "changeme"
+elasticsearch_volumes:
+- "{{ elasticsearch_data_dir }}:/usr/share/elasticsearch/data"
+elk_version: "7.6.0"

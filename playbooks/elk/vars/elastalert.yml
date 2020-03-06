@@ -1,0 +1,11 @@
+---
+elastalert_version: "3.0.0-beta.0"
+elastalert_dir: "{{ elk_root_dir }}/elastalert" 
+elastalert_links:
+- elasticsearch:elasticsearch
+elastalert_volumes:
+- "{{ elastalert_dir }}/config/elastalert.yaml:/opt/elastalert/config.yaml"
+- "{{ elastalert_dir }}/elastalert-test.yaml:/opt/elastalert/config-test.yaml"
+- "{{ elastalert_dir }}/config/config.json:/opt/elastalert-server/config/config.json"
+- "{{ elastalert_dir }}/rules:/opt/elastalert/rules"
+- "{{ elastalert_dir }}/rule_templates:/opt/elastalert/rule_templates"
