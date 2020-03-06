@@ -3,7 +3,7 @@
   docker_image:
     name: bitsensor/elastalert
     source: pull
-    tag: "{{ elastalert_tag }}"
+    tag: "{{ elastalert_version }}"
   become: true
 - name: "create {{ elastalert_dir }} directory"
   file:
