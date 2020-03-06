@@ -1,0 +1,44 @@
+---
+- name: pull elastalert docker image
+  docker_image:
+    name: bitsensor/elastalert
+    source: pull
+    tag: "{{ elastalert_tag }}"
+  become: true
+- name: "create {{ elastalert_dir }} directory"
+  file:
+    path: "{{ elastalert_dir }}"
+    state: directory
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+    mode: 0700
+  become: true
+- name: "copy elastalert files to {{ elastalert_dir }}"
+  copy:
+    src: elastalert/
+    dest: "{{ elastalert_dir }}"
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+    force: no
+  become: true
+- name: add elasticsearch username and password to elastalert config
+  replace:
+    path: "{{ elastalert_dir }}/config/elastalert.yaml"
+    regexp: '#es_username: someusername'
+    replace: "es_username: {{ elasticsearch_username }}"
+  become: true
+- name: add elasticsearch username and password to elastalert config
+  replace:
+    path: "{{ elastalert_dir }}/config/elastalert.yaml"
+    regexp: '#es_password: somepassword'
+    replace: "es_password: {{ elasticsearch_password }}"
+  become: true
+- name: run elastalert docker container
+  docker_container:
+    name: elastalert
+    image: "bitsensor/elastalert:{{ elastalert_version }}"
+    state: started
+    restart_policy: unless-stopped
+    links: "{{ elastalert_links }}"
+    volumes: "{{ elastalert_volumes }}"
+  become: true

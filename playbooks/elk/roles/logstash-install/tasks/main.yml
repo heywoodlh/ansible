@@ -1,0 +1,69 @@
+---
+- name: pull logstash docker image
+  docker_image:
+    name: logstash
+    source: pull
+    tag: "{{ elk_version_tag }}"
+  become: true
+- name: "create {{ logstash_dir }}/conf"
+  file:
+    path: "{{ logstash_dir }}/conf/"
+    mode: 0744
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+    state: directory
+  become: true
+- name: "copy logstash config files to {{ logstash_dir }}/conf"
+  copy:
+    src: logstash/
+    dest: "{{ logstash_dir }}/conf"
+    mode: 0744
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+  become: true
+- name: "copy logstash grok patterns to {{ logstash_dir }}/patterns"
+  copy:
+    src: logstash/patterns
+    dest: "{{ logstash_dir }}/patterns/"
+    mode: 0744
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+  become: true
+- name: "replace logstash elasticsearch username in {{ item }}"
+  replace:
+    path: "{{ item }}"
+    regexp: 'user => ansible-logstash'
+    replace: "user => elastic"
+  with_items:
+  - "{{ logstash_dir }}/conf/logstash-beats.conf"
+  - "{{ logstash_dir }}/conf/logstash-netflow.conf"
+  - "{{ logstash_dir }}/conf/logstash-syslog.conf" 
+- name: "replace logstash elasticsearch password in {{ item }}"
+  replace:
+    path: "{{ item }}"
+    regexp: 'password => ansible-logstash'
+    replace: "password => {{ elasticsearch_password }}"
+  with_items:
+  - "{{ logstash_dir }}/conf/logstash-beats.conf"
+  - "{{ logstash_dir }}/conf/logstash-netflow.conf"
+  - "{{ logstash_dir }}/conf/logstash-syslog.conf"
+- name: run logstash docker container
+  docker_container:
+    name: logstash
+    image: "logstash:{{ elk_version_tag }}"
+    restart_policy: unless-stopped
+    links: "{{ logstash_links }}"
+    ports:
+    - "{{ logstash_syslog_port }}:{{ logstash_syslog_port }}"
+    - "{{ logstash_beats_port }}:{{ logstash_beats_port }}"
+    - "{{ logstash_netflow_port }}:{{ logstash_netflow_port }}"
+    volumes: "{{ logstash_volumes }}"
+    env:
+      XPACK_MONITORING_ENABLED: "true"
+      XPACK_MONITORING_ELASTICSEARCH_HOSTS: "http://elasticsearch:9200" 
+      XPACK_MONITORING_ELASTICSEARCH_USERNAME: "elastic"
+      XPACK_MONITORING_ELASTICSEARCH_PASSWORD: "{{ elasticsearch_password }}"
+    log_options:
+      max-size: "200m"
+      max-file: "3"
+  become: true

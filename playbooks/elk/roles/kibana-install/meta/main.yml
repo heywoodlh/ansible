@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: elasticsearch-install }
+  - { role: elastalert-install }

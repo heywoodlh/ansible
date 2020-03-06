@@ -1,0 +1,78 @@
+---
+- name: "create {{ kibana_dir }} directory"
+  file:
+    path: "{{ kibana_dir }}/ssl"
+    mode: 0700
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+    state: directory
+  become: true
+- name: "create {{ kibana_dir }} directory"
+  file:
+    path: "{{ kibana_dir }}/plugins"
+    mode: 0700
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+    state: directory
+  become: true
+- name: configure openssl (add ip address to subjectAltName in /etc/ssl/openssl.cnf)
+  lineinfile:
+    path: /etc/ssl/openssl.cnf
+    insertafter: '\[ v3_ca \]'
+    line: "subjectAltName = IP:{{ elk_ip }}"
+  become: true
+- name: check if cert exists
+  stat:
+    path: "{{ kibana_dir }}/ssl/server.cert"
+  register: file
+  become: true 
+- name: generate cert
+  shell: "openssl req -x509 -newkey rsa:4096 -nodes -keyout {{ kibana_dir }}/ssl/server.key -out {{ kibana_dir }}/ssl/server.cert -days 365 -subj {{ self_sign_ssl_options }}"
+  become: true
+  when: file.stat.exists == False
+- name: change permissions to elk system user for SSL cert and keys
+  file:
+    path: "{{ kibana_dir }}/ssl/server.cert"
+    mode: 0600
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+  become: true
+- name: change permissions to elk system user for SSL cert and keys
+  file:
+    path: "{{ kibana_dir }}/ssl/server.key"
+    mode: 0600
+    owner: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+  become: true
+- name: pull kibana docker image
+  docker_image:
+    name: kibana
+    source: pull
+    tag: "{{ elk_version }}"
+  become: true
+- name: run kibana docker container
+  docker_container:
+    name: kibana
+    image: "kibana:{{ elk_version }}"
+    state: started
+    restart_policy: unless-stopped
+    user: "{{ elk_uuid }}"
+    group: "{{ elk_guid }}"
+    volumes: "{{ kibana_volumes }}"
+    links: "{{ kibana_links }}"
+    ports:
+    - "{{ kibana_http_port }}:5601"
+    log_options:
+      max-size: "10g"
+    env:
+      SERVER_NAME: "{{ elk_uri }}"
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: "elastic"
+      ELASTICSEARCH_PASSWORD: "{{ elasticsearch_password }}"
+      XPACK_SECURITY_ENCRYPTIONKEY: "{{ xpack_encryption_key }}"
+      XPACK_MONITORING_ENABLED: "true"
+      XPACK_MONITORING_UI_ENABLED: "true" 
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY: "/opt/ssl/server.key"
+      SERVER_SSL_CERTIFICATE: "/opt/ssl/server.cert"
+  become: true

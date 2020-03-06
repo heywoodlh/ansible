@@ -1,0 +1,38 @@
+---
+- name: pull elasticsearch docker image
+  docker_image:
+    name: elasticsearch
+    source: pull
+    tag: "{{ elk_version }}"
+  become: true
+- name: increase max memory for elasticsearch
+  shell: sysctl -w vm.max_map_count=262144
+  become: true
+- name: run elasticsearch docker container
+  docker_container:
+    name: elasticsearch
+    image: "elasticsearch:{{ elk_version }}"
+    state: started
+    restart_policy: unless-stopped
+    ports:
+    - "{{ elasticsearch_rest_port }}:9200"
+    - "{{ elasticsearch_com_port }}:9300"
+    volumes: "{{ elasticsearch_volumes }}"
+    log_options:
+      max-size: "200m"
+      max-file: "3"
+    env:
+      http.host: "0.0.0.0"
+      transport.host: "0.0.0.0"
+      xpack.security.enabled: "true"
+      xpack.monitoring.enabled: "true"
+      cluster.routing.allocation.disk.threshold_enabled: "true"
+      cluster.routing.allocation.disk.watermark.flood_stage: "200mb"
+      cluster.routing.allocation.disk.watermark.low: "500mb"
+      cluster.routing.allocation.disk.watermark.high: "300mb"
+      cluster.name: "elk"
+      discovery.type: "single-node"
+      ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
+    ulimits:
+    - nofile:65536:65536
+  become: true
