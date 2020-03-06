@@ -51,6 +51,7 @@
   docker_container:
     name: logstash
     image: "logstash:{{ elk_version }}"
+    user: root
     restart_policy: unless-stopped
     links: "{{ logstash_links }}"
     ports:
