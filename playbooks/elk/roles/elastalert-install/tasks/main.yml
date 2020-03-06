@@ -25,7 +25,7 @@
   replace:
     path: "{{ elastalert_dir }}/config/elastalert.yaml"
     regexp: '#es_username: someusername'
-    replace: "es_username: {{ elasticsearch_username }}"
+    replace: "es_username: elastic"
   become: true
 - name: add elasticsearch username and password to elastalert config
   replace:
