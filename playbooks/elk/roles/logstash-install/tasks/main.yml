@@ -3,7 +3,7 @@
   docker_image:
     name: logstash
     source: pull
-    tag: "{{ elk_version_tag }}"
+    tag: "{{ elk_version }}"
   become: true
 - name: "create {{ logstash_dir }}/conf"
   file:
@@ -50,7 +50,7 @@
 - name: run logstash docker container
   docker_container:
     name: logstash
-    image: "logstash:{{ elk_version_tag }}"
+    image: "logstash:{{ elk_version }}"
     restart_policy: unless-stopped
     links: "{{ logstash_links }}"
     ports:
