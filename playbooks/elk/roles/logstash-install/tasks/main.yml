@@ -3,7 +3,7 @@
   docker_image:
     name: logstash
     source: pull
-    tag: "{{ elk_version_tag }}"
+    tag: "{{ elk_version }}"
   become: true
 - name: "create {{ logstash_dir }}/conf"
   file:
