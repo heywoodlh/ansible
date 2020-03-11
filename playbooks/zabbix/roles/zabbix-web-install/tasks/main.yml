@@ -10,7 +10,7 @@
     source: pull
 - name: "copy contents of ssl folder to {{ zabbix_web_dir }}/ssl"
   copy:
-    src: zabbix_web/ssl/
+    src: ssl/
     dest: "{{ zabbix_web_dir }}/ssl"
 - name: run zabbix_web container
   docker_container:
