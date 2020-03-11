@@ -3,8 +3,8 @@
   vars_files:
   - vars/zabbix.yml
   - vars/postgres.yml
-  - vars/nginx.yml
+  - vars/zabbix-web.yml
   roles:
   - role: postgres-install
   - role: zabbix-install
-  - role: nginx-proxy-install
+  - role: zabbix-web-install
