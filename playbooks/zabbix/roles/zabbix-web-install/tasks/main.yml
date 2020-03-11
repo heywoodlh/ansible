@@ -20,5 +20,5 @@
     ports:
     - "{{ zabbix_web_port }}:443"
     env: "{{ zabbix_env }}"
-    volumes: "{{ zabbix_volumes }}"
+    volumes: "{{ zabbix_web_volumes }}"
     links: "{{ zabbix_web_links }}"
