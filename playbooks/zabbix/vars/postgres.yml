@@ -1,0 +1,7 @@
+---
+postgres_name: "{{ application_name }}-db"
+postgres_db_dir: "{{ zabbix_root_dir }}/zabbix-db"
+postgres_db: "zabbix"
+postgres_user: "zabbix_db_user"
+postgres_password: "changeme"
+postgres_version: "latest"

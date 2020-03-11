@@ -1,0 +1,33 @@
+---
+- name: "create {{ zabbix_root_dir }}"
+  file:
+    path: "{{ zabbix_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ zabbix_data_dir }}"
+  file:
+    path: "{{ zabbix_data_dir }}"
+    state: directory
+- name: "pull zabbix:{{ zabbix_version }} image"
+  docker_image:
+    name: zabbix
+    tag: "{{ zabbix_version }}"
+    source: pull
+- name: "chown {{ zabbix_data_dir }} to zabbix (999:1000)"
+  file:
+    path: "{{ zabbix_data_dir }}"
+    state: directory
+    owner: 999
+    group: 1000
+    recurse: yes
+  become: true
+- name: run zabbix container
+  docker_container:
+    name: "{{ application_name }}"
+    image: "zabbix:{{ zabbix_version }}"
+    capabilities:
+    - net_admin
+    restart_policy: unless-stopped
+    links: "{{ zabbix_links }}"
+    volumes: "{{ zabbix_volumes }}"
+    env: "{{ zabbix_env }}"

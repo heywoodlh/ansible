@@ -1,0 +1,24 @@
+---
+application_name: "zabbix"
+zabbix_root_dir: "/home/heywoodlh/core/zabbix"
+zabbix_data_dir: "{{ zabbix_root_dir }}/data"
+zabbix_volumes:
+- "{{ zabbix_data_dir }}/alertscripts:/usr/lib/zabbix/alertscripts"
+- "{{ zabbix_data_dir }}/externalscripts:/usr/lib/zabbix/externalscripts"
+- "{{ zabbix_data_dir }}/modules:/usr/lib/zabbix/modules"
+- "{{ zabbix_data_dir }}/enc:/usr/lib/zabbix/enc"
+- "{{ zabbix_data_dir }}/ssh_keys:/var/lib/zabbix/ssh_keys"
+- "{{ zabbix_data_dir }}/ssl/certs:/var/lib/zabbix/ssl/certs"
+- "{{ zabbix_data_dir }}/ssl/keys:/var/lib/zabbix/ssl/keys"
+- "{{ zabbix_data_dir }}/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca"
+- "{{ zabbix_data_dir }}/snmptraps:/var/lib/zabbix/snmptraps"
+- "{{ zabbix_data_dir }}/mibs:/var/lib/zabbix/mibs"
+- "{{ zabbix_data_dir }}/export:/var/lib/zabbix/export"
+zabbix_links:
+- "{{ postgres_name }}:{{ postgres_name }}"
+zabbix_env:
+  POSTGRES_DB: "{{ postgres_docker_ip }}"
+  DB_SERVER_HOST: "{{ postgres_name }}"
+  POSTGRES_USER: "{{ postgres_user }}"
+  POSTGRES_PASSWORD: "{{ postgres_password }}"
+zabbix_version: "latest"

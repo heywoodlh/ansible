@@ -1,0 +1,10 @@
+---
+nginx_name: "{{ application_name }}-proxy"
+nginx_dir: "{{ nginx_root_dir }}/nginx-proxy"
+nginx_certificate_file: "fullchain.pem"
+nginx_key_file: "privkey.pem"
+nginx_server_name: "example.com"
+nginx_port: 3090
+nginx_links:
+- zabbix:zabbix
+nginx_version: "latest"
