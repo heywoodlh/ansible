@@ -6,6 +6,8 @@ zabbix_web_volumes:
 - "{{ zabbix_web_dir }}/ssl:/etc/ssl/nginx"
 zabbix_web_env:
   ZBX_SERVER_HOST: "{{ application_name }}"
+  ZBX_SERVER_PORT: "10051"
+  ZBX_SERVER: "{{ application_name }}"
   DB_SERVER_HOST: "{{ postgres_name }}"
   POSTGRES_DB: "{{ postgres_db }}"
   POSTGRES_USER: "{{ postgres_user }}"
