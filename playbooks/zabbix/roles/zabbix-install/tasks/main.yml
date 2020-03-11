@@ -8,9 +8,9 @@
   file:
     path: "{{ zabbix_data_dir }}"
     state: directory
-- name: "pull zabbix/zabbix-server-psql:{{ zabbix_version }} image"
+- name: "pull zabbix/zabbix-server-pgsql:{{ zabbix_version }} image"
   docker_image:
-    name: zabbix/zabbix-server-psql
+    name: zabbix/zabbix-server-pgsql
     tag: "{{ zabbix_version }}"
     source: pull
 - name: "chown {{ zabbix_data_dir }} to zabbix (999:1000)"
@@ -24,7 +24,7 @@
 - name: run zabbix container
   docker_container:
     name: "{{ application_name }}"
-    image: "zabbix/zabbix-server-psql:{{ zabbix_version }}"
+    image: "zabbix/zabbix-server-pgsql:{{ zabbix_version }}"
     capabilities:
     - net_admin
     restart_policy: unless-stopped
