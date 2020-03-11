@@ -13,7 +13,7 @@ server {
   proxy_set_header X-Forwarded-Proto $scheme;
   add_header Front-End-Https on;
   proxy_buffering off;
-  proxy_pass   http://{{ application_name }};
+  proxy_pass   http://{{ application_name }}:{{ application_port }};
   }
 
 
