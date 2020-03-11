@@ -18,7 +18,7 @@
     image: "zabbix/zabbix-web-nginx-pgsql:{{ zabbix_web_version }}"
     restart_policy: unless-stopped
     ports:
-    - "{{ zabbix_web_port }}:80"
+    - "{{ zabbix_web_port }}:443"
     env: "{{ zabbix_env }}"
     volumes: "{{ zabbix_volumes }}"
     links: "{{ zabbix_web_links }}"
