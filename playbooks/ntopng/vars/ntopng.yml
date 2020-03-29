@@ -1,0 +1,8 @@
+---
+ntopng_root_dir: "/home/heywoodlh/core/ntopng"
+ntopng_dir: "{{ ntopng_root_dir }}/ntopng"
+ntopng_data_dir: "{{ ntopng_root_dir }}/data"
+ntopng_collector_port: "2055"
+ntopng_links:
+- "{{ redis_name }}:redis"
+ntopng_version: "latest"
