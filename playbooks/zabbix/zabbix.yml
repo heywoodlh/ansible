@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/zabbix.yml
+  - vars/postgres.yml
+  - vars/zabbix-web.yml
+  roles:
+  - role: postgres-install
+  - role: zabbix-install
+  - role: zabbix-web-install

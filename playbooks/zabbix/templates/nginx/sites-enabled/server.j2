@@ -1,0 +1,22 @@
+server {
+  listen {{ nginx_port }} ssl;
+  server_name {{ nginx_server_name }};
+
+  client_max_body_size 10G;
+  underscores_in_headers on;
+
+  location / {
+  proxy_set_header X-Forwarded-Host $host;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  add_header Front-End-Https on;
+  proxy_buffering off;
+  proxy_pass   http://{{ application_name }}:{{ application_port }};
+  }
+
+
+  ssl_certificate /opt/ssl/{{ nginx_certificate_file }};
+  ssl_certificate_key /opt/ssl/{{ nginx_key_file }};
+}

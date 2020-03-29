@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/ntopng.yml
+  - vars/nginx.yml
+  roles:
+  - role: ntopng-install
+  - role: nginx-proxy-install

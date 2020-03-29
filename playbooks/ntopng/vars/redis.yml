@@ -1,0 +1,6 @@
+---
+redis_name: "ntopng_redis"
+redis_dir: "{{ ntopng_root_dir }}/redis"
+redis_volumes:
+- "{{ redis_dir }}:/data"
+redis_version: "latest"

@@ -1,0 +1,24 @@
+---
+- name: "create {{ zabbix_web_dir }}"
+  file:
+    path: "{{ zabbix_web_dir }}"
+    state: directory
+- name: "pull zabbix/zabbix-web-nginx-pgsql:{{ zabbix_web_version }} image"
+  docker_image:
+    name: zabbix/zabbix-web-nginx-pgsql
+    tag: "{{ zabbix_web_version }}"
+    source: pull
+- name: "copy contents of ssl folder to {{ zabbix_web_dir }}/ssl"
+  copy:
+    src: ssl/
+    dest: "{{ zabbix_web_dir }}/ssl"
+- name: run zabbix_web container
+  docker_container:
+    name: "{{ zabbix_web_name }}"
+    image: "zabbix/zabbix-web-nginx-pgsql:{{ zabbix_web_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - "{{ zabbix_web_port }}:443"
+    env: "{{ zabbix_env }}"
+    volumes: "{{ zabbix_web_volumes }}"
+    links: "{{ zabbix_web_links }}"

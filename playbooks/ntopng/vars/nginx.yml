@@ -1,0 +1,10 @@
+---
+nginx_name: "ntopng-proxy"
+nginx_dir: "{{ ntopng_root_dir }}/ntopng-proxy"
+nginx_certificate_file: "fullchain.pem"
+nginx_key_file: "privkey.pem"
+nginx_server_name: "example.com"
+nginx_port: 3000
+nginx_links:
+- ntopng:ntopng
+nginx_version: "latest"

@@ -1,0 +1,18 @@
+---
+zabbix_web_name: "zabbix_web"
+zabbix_web_dir: "{{ zabbix_root_dir }}/zabbix_web"
+zabbix_web_port: 3090
+zabbix_web_volumes:
+- "{{ zabbix_web_dir }}/ssl:/etc/ssl/nginx"
+zabbix_web_env:
+  ZBX_SERVER_HOST: "{{ application_name }}"
+  ZBX_SERVER_PORT: "10051"
+  ZBX_SERVER: "{{ application_name }}"
+  DB_SERVER_HOST: "{{ postgres_name }}"
+  POSTGRES_DB: "{{ postgres_db }}"
+  POSTGRES_USER: "{{ postgres_user }}"
+  POSTGRES_PASSWORD: "{{ postgres_password }}"
+zabbix_web_links:
+- "{{ application_name }}:{{ application_name }}"
+- "{{ postgres_name }}:{{ postgres_name }}"
+zabbix_web_version: "latest"
