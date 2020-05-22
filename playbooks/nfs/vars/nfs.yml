@@ -5,7 +5,8 @@ nfs_uuid: "1000"
 nfs_guid: "1000"
 nfs_port: "2049"
 nfs_volumes:
-- /mnt/drive:/nfs_share 
+- /mnt/drive:/nfs_share
+- "{{ nfs_root_dir }}/exports:/etc/exports:ro" 
 - /etc/timezone:/etc/timezone:ro
 - /etc/localtime:/etc/localtime:ro
 nfs_version: "latest"

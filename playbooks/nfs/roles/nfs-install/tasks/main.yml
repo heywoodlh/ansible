@@ -17,6 +17,10 @@
   file:
     path: "{{ nfs_data_dir }}"
     state: directory
+- name: "copy exports to {{ nfs_root_dir }}"
+  copy:
+    src: exports
+    dest: "{{ nfs_root_dir}}/exports"
 - name: "pull erichough/nfs-server:{{ nfs_version }} image"
   docker_image:
     name: erichough/nfs-server
