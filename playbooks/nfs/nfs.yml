@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/nfs.yml
+  roles:
+  - role: nfs-install
