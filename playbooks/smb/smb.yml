@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/smb.yml
+  roles:
+  - role: smb-install

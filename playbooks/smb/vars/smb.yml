@@ -1,0 +1,19 @@
+---
+smb_root_dir: "/home/heywoodlh/core/smb"
+smb_data_dir: "{{ smb_root_dir }}/data"
+smb_uuid: "1000"
+smb_guid: "1000"
+smb_env:
+  USERNAME: "joe"
+  PASSWORD: "mypassword" 
+smb_ports: 
+- "137:137/udp"
+- "138:138/udp"
+- "139:139"
+- "445:445"
+smb_volumes:
+- "{{ smb_data_dir }}/mnt:/mnt/"
+- "{{ smb_root_dir }}/smb.conf:/etc/samba/smb.conf:ro" 
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+smb_version: "latest"

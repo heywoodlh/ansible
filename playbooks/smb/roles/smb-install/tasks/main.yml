@@ -1,0 +1,29 @@
+---
+- name: "create {{ smb_root_dir }}"
+  file:
+    path: "{{ smb_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ smb_data_dir }}"
+  file:
+    path: "{{ smb_data_dir }}"
+    state: directory
+- name: "copy smb.conf to {{ smb_root_dir }}"
+  copy:
+    src: smb.conf
+    dest: "{{ smb_root_dir}}/smb.conf"
+- name: "pull joebiellik/samba-server:{{ smb_version }} image"
+  docker_image:
+    name: joebiellik/samba-server
+    tag: "{{ smb_version }}"
+    source: pull
+- name: run smb container
+  docker_container:
+    name: smb
+    image: "joebiellik/samba-server:{{ smb_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ smb_volumes }}"
+    ports: "{{ smb_ports }}"
+    capabilities:
+    - SYS_ADMIN
+    env: "{{ smb_env }}"
