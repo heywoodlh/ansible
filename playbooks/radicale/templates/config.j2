@@ -1,0 +1,34 @@
+[server]
+hosts = 0.0.0.0:5232
+daemon = False
+max_connections = 40
+max_content_length = 10000000
+timeout = 10
+ssl = False
+dns_lookup = False
+base_prefix = /
+realm = Caldav
+
+[encoding]
+request = utf-8
+stock = utf-8
+
+[auth]
+type = None
+
+[rights]
+type = owner_only
+
+[storage]
+type = multifilesystem
+fsync = True
+filesystem_folder = {{ radicale_data_dir }}/collections
+
+[logging]
+config = {{ radicale_config_dir }}/logging
+debug = False
+full_environment = False
+mask_passwords = True
+
+[headers]
+Access-Control-Allow-Origin = *

@@ -1,0 +1,36 @@
+---
+- name: create radicale user and group
+  user:
+    name: "{{ radicale_user }}"
+    group: "{{ radicale_group }}"
+    system: yes
+  become: true
+- name: create radicale directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ radicale_user }}"
+    group: "{{ radicale_group }}"
+  with_items:
+  - "{{ radicale_data_dir }}/collections"
+  - "{{ radicale_config_dir }}"
+  - "{{ radicale_log_dir }}"
+  become: true
+- name: "copy config to {{ radicale_config_dir }}"
+  template:
+    src: config.j2
+    dest: "{{ radicale_config_dir}}/config"
+    owner: "{{ radicale_user }}"
+    group: "{{ radicale_group }}"
+  become: true
+- name: copy radicale.service to /lib/systemd/system/radicale.service
+  template:
+    src: radicale.service.j2
+    dest: /etc/systemd/system/radicale.service
+  become: true
+- name: start radicale service
+  systemd:
+    name: radicale.service
+    enabled: true
+    state: started
+  become: true

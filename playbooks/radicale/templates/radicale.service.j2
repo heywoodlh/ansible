@@ -1,0 +1,14 @@
+[Unit]
+Description=Radicale server
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+User={{ radicale_user }}
+Group={{ radicale_group }}
+ReadWriteDirectories={{ radicale_log_dir }}
+ExecStart=/usr/bin/radicale
+
+[Install]
+WantedBy=multi-user.target
