@@ -1,34 +1,61 @@
-[server]
-hosts = 0.0.0.0:5232
-daemon = False
-max_connections = 40
-max_content_length = 10000000
-timeout = 10
-ssl = False
-dns_lookup = False
-base_prefix = /
-realm = Caldav
+# -*- mode: conf -*-
+# vim:ft=cfg
 
-[encoding]
-request = utf-8
-stock = utf-8
+[server]
+# CalDAV server hostnames separated by a comma
+# IPv4 syntax: address:port
+# IPv6 syntax: [address]:port
+# For example: 0.0.0.0:9999, [::]:9999
+hosts = 0.0.0.0:5232
+
+# Max parallel connections
+max_connections = 8
+
+# Max size of request body (bytes)
+max_content_length = 100000000
+
+# Socket timeout (seconds)
+timeout = 30
+
+# SSL flag, enable HTTPS protocol
+#ssl = False
+
+# SSL certificate path
+#certificate = /etc/ssl/radicale.cert.pem
+
+# SSL private key
+#key = /etc/ssl/radicale.key.pem
+
+# CA certificate for validating clients. This can be used to secure
+# TCP traffic between Radicale and a reverse proxy
+#certificate_authority =
 
 [auth]
-type = None
+# Authentication method
+# Value: none | htpasswd | remote_user | http_x_remote_user
+#type = none
 
-[rights]
-type = owner_only
+# Htpasswd filename
+#htpasswd_filename = /etc/radicale/users
+
+# Htpasswd encryption method
+# Value: plain | bcrypt | md5
+# bcrypt requires the installation of radicale[bcrypt].
+#htpasswd_encryption = md5
+
+# Incorrect authentication delay (seconds)
+#delay = 1
+
+# Message displayed in the client when a password is needed
+#realm = Radicale - Password Required
 
 [storage]
-type = multifilesystem
-fsync = True
 filesystem_folder = {{ radicale_data_dir }}/collections
 
-[logging]
-config = {{ radicale_config_dir }}/logging
-debug = False
-full_environment = False
-mask_passwords = True
+[web]
+type = internal
 
-[headers]
-Access-Control-Allow-Origin = *
+
+[logging]
+level = warning
+mask_passwords = True
