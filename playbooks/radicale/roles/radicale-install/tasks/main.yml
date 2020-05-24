@@ -1,5 +1,9 @@
 ---
-- name: create radicale user and group
+- name: create radicale group
+  group:
+    name: "{{ radicale_group }}"
+  become: true
+- name: create radicale user
   user:
     name: "{{ radicale_user }}"
     group: "{{ radicale_group }}"
