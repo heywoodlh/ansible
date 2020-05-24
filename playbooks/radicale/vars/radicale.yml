@@ -4,5 +4,5 @@ radicale_data_dir: "/opt/radicale"
 radicale_log_dir: "/var/log/radicale"
 radicale_user: "radicale"
 radicale_group: "radicale"
-pip_packages:
+global_pip_packages:
 - "radicale" 
