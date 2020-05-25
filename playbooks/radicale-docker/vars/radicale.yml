@@ -7,7 +7,7 @@ radicale_ports:
 - 5232:5232
 radicale_volumes:
 - "{{ radicale_data_dir }}:/data"
-- "{{ radicale_root_dir }}/config:/config"
+- "{{ radicale_root_dir }}/config:/config/config"
 - /etc/timezone:/etc/timezone:ro
 - /etc/localtime:/etc/localtime:ro
 radicale_version: "latest"
