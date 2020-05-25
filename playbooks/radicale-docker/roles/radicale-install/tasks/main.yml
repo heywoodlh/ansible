@@ -8,19 +8,18 @@
   file:
     path: "{{ radicale_data_dir }}"
     state: directory
-- name: "copy exports to {{ radicale_root_dir }}"
+- name: "copy config to {{ radicale_root_dir }}"
   copy:
-    src: exports
-    dest: "{{ radicale_root_dir}}/exports"
-- name: "pull tomsquest/docker-radicale:{{ radicale_version }} image"
+    src: config
+    dest: "{{ radicale_root_dir}}/config"
+- name: "pull tomsquest/docker-radicale image"
   docker_image:
     name: tomsquest/docker-radicale
-    tag: "{{ radicale_version }}"
     source: pull
 - name: run radicale container
   docker_container:
     name: radicale
-    image: "tomsquest/docker-radicale:{{ radicale_version }}"
+    image: "tomsquest/docker-radicale"
     restart_policy: unless-stopped
     volumes: "{{ radicale_volumes }}"
     ports: "{{ radicale_ports }}"
