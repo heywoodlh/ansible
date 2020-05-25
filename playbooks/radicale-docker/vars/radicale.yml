@@ -1,0 +1,13 @@
+---
+radicale_root_dir: "/home/heywoodlh/core/radicale"
+radicale_data_dir: "{{ radicale_root_dir }}/data"
+radicale_uuid: "1000"
+radicale_guid: "1000"
+radicale_ports: 
+- 5232:5232
+radicale_volumes:
+- "{{ radicale_data_dir }}:/data"
+- "{{ radicale_root_dir }}/config:/config:ro"
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+radicale_version: "latest"

@@ -1,0 +1,36 @@
+---
+- name: "create {{ radicale_root_dir }}"
+  file:
+    path: "{{ radicale_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ radicale_data_dir }}"
+  file:
+    path: "{{ radicale_data_dir }}"
+    state: directory
+- name: "copy exports to {{ radicale_root_dir }}"
+  copy:
+    src: exports
+    dest: "{{ radicale_root_dir}}/exports"
+- name: "pull tomsquest/docker-radicale:{{ radicale_version }} image"
+  docker_image:
+    name: tomsquest/docker-radicale
+    tag: "{{ radicale_version }}"
+    source: pull
+- name: run radicale container
+  docker_container:
+    name: radicale
+    image: "tomsquest/docker-radicale:{{ radicale_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ radicale_volumes }}"
+    ports: "{{ radicale_ports }}"
+    capabilities:
+    - SYS_ADMIN
+    - CHOWN
+    - SETUID
+    - SETGID
+    - KILL
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5232"]
+      interval: 30s
+      retries: 3

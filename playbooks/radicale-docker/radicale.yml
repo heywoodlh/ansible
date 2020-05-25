@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/radicale.yml
+  roles:
+  - role: radicale-install
