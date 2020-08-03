@@ -1,0 +1,41 @@
+---
+- name: "create invidious directories in {{ invidious_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ invidious_uuid }}"
+    group: "{{ invidious_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ invidious_data_dir }}"
+  - "{{ invidious_db_dir }}"
+  become: true
+- name: "git clone https://github.com/iv-org/invidious {{ invidious_git_dir }}"
+  git:
+    repo: "https://github.com/iv-org/invidious"
+    dest: "{{ invidious_git_dir }}"
+    force: yes
+  become: true
+- name: "cp docker-compose.yml docker-compose.yml.orig"
+  copy:
+    src: "{{ invidious_git_dir }}/docker-compose.yml"
+    dest: "{{ invidious_git_dir }}/docker-compose.yml.orig"
+    owner: "{{ invidious_uuid }}"
+    group: "{{ invidious_guid }}"
+  become: true
+- name: "overwrite old docker-compose.yml"
+  template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ invidious_git_dir }}/docker-compose.yml"
+    force: yes
+    owner: "{{ invidious_uuid }}"
+    group: "{{ invidious_guid }}"
+  become: true
+- name: "docker-compose up -d ."
+  docker_compose:
+    project_src: "{{ invidious_git_dir }}"
+  environment:
+    POSTGRES_USER: "{{ invidious_postgres_user }}"
+    POSTGRES_PASSWORD: "{{ invidious_postgres_password }}"
+  become: true

@@ -1,0 +1,42 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:10
+    restart: unless-stopped
+    volumes:
+      - "{{ invidious_db_dir }}":/var/lib/postgresql/data
+      - "{{ invidios_root_dir }}/sql":/config/sql
+      - "{{ invidious_root_dir }}/docker/init-invidious-db.sh":/docker-entrypoint-initdb.d/init-invidious-db.sh
+    environment:
+      POSTGRES_DB: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_USER: $POSTGRES_USER
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+  invidious:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "{{ invidious_http_port }}:3000"
+    environment:
+      # Adapted from ./config/config.yml
+      INVIDIOUS_CONFIG: |
+        channel_threads: 1
+        check_tables: true
+        feed_threads: 1
+        db:
+          user: $POSTGRES_USER
+          password: $POSTGRES_PASSWORD
+          host: postgres
+          port: 5432
+          dbname: $POSTGRES_USER
+        full_refresh: false
+        https_only: false
+        domain:
+    depends_on:
+      - postgres
+
+volumes:
+  postgresdata:

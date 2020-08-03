@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/invidious.yml
+  roles:
+  - role: invidious-install
