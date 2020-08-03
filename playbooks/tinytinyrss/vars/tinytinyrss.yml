@@ -1,0 +1,11 @@
+---
+tinytinyrss_root_dir: "/home/heywoodlh/core/tinytinyrss"
+tinytinyrss_git_dir: "{{ tinytinyrss_root_dir }}/git"
+tinytinyrss_data_dir: "{{ tinytinyrss_root_dir }}/tinytinyrss"
+tinytinyrss_db_dir: "{{ tinytinyrss_root_dir }}/db"
+tinytinyrss_version: "latest"
+tinytinyrss_uuid: "1000"
+tinytinyrss_guid: "1000"
+tinytinyrss_postgres_user: "changeme"
+tinytinyrss_postgres_password: "changeme"
+tinytinyrss_http_port: "2015"

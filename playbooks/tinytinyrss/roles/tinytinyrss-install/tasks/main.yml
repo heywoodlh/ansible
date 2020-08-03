@@ -1,0 +1,62 @@
+---
+- name: "create tinytinyrss directories in {{ tinytinyrss_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ tinytinyrss_uuid }}"
+    group: "{{ tinytinyrss_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ tinytinyrss_data_dir }}"
+  - "{{ tinytinyrss_db_dir }}"
+  become: true
+- name: "git clone https://git.tt-rss.org/fox/ttrss-docker-compose {{ tinytinyrss_git_dir }}"
+  git:
+    repo: "https://git.tt-rss.org/fox/ttrss-docker-compose"
+    dest: "{{ tinytinyrss_git_dir }}"
+- name: "cp docker-compose.yml docker-compose.yml.orig"
+  copy:
+    remote_src: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    dest: "{{ tinytinyrss_git_dir }}/docker-compose.yml.orig"
+    owner: "{{ tinytinyrss_uuid }}"
+    group: "{{ tinytinyrss_guid }}"
+  become: true
+- name: "remove strings in docker-compose.yml"
+  lineinfile:
+    path: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    regexp: "{{ item }}"
+    state: absent
+  with_items:
+  - "^volumes:"
+  - "^  db:"
+  - "^  app:"
+  - "^  certs:"
+  become: true
+- name: "replace strings in docker-compose.yml"
+  replace:
+    path: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    regexp: "- db:/var/lib/postgresql/data"
+    replace: "- {{ tinytinyrss_db_dir }}:/var/lib/postgresql/data"
+  become: true
+- name: "replace strings in docker-compose.yml"
+  replace:
+    path: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    regexp: '- app:/var/www/html:ro'
+    replace: "- {{ tinytinyrss_data_dir }}:/var/www/html:ro"
+  become: true
+- name: "replace strings in docker-compose.yml"
+  replace:
+    path: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    regexp: '- app:/var/www/html'
+    replace: "- {{ tinytinyrss_data_dir }}:/var/www/html"
+  become: true
+- name: "docker-compose up -d ."
+  docker_compose:
+    project_src: "{{ tinytinyrss_git_dir }}"
+  environment:
+    POSTGRES_USER: "{{ tinytinyrss_postgres_user }}"
+    POSTGRES_PASSWORD: "{{ tinytinyrss_postgres_password }}"
+    OWNER_UID: "{{ tinytinyrss_uuid }}"
+    OWNER_GID: "{{ tinytinyrss_guid }}"
+  become: true

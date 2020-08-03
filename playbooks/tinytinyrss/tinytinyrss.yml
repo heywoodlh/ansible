@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/tinytinyrss.yml
+  roles:
+  - role: tinytinyrss-install
