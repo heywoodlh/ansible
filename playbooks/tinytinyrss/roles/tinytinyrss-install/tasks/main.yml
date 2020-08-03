@@ -22,16 +22,13 @@
     owner: "{{ tinytinyrss_uuid }}"
     group: "{{ tinytinyrss_guid }}"
   become: true
-- name: "remove strings in docker-compose.yml"
-  lineinfile:
-    path: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
-    regexp: "{{ item }}"
-    state: absent
-  with_items:
-  - "^volumes:"
-  - "^  db:"
-  - "^  app:"
-  - "^  certs:"
+- name: "overwrite old docker-compose.yml"
+  copy:
+    src: "docker-compose.yml"
+    dest: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    force: yes
+    owner: "{{ tinytinyrss_uuid }}"
+    group: "{{ tinytinyrss_guid }}"
   become: true
 - name: "replace strings in docker-compose.yml"
   replace:
