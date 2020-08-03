@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/bibliogram.yml
+  roles:
+  - role: bibliogram-install

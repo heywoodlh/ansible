@@ -1,0 +1,22 @@
+---
+- name: "create bibliogram directories in {{ bibliogram_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ bibliogram_uuid }}"
+    group: "{{ bibliogram_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ bibliogram_db_dir }}"
+  become: true
+- name: run bibliogram container
+  docker_container:
+    name: bibliogram
+    image: cloudrac3r/bibliogram"
+    restart_policy: unless-stopped
+    volumes:
+    - "{{ bibliogram_db_dir }}:/app/db"
+    ports:
+    - "{{ bibliogram_http_port }}:10407"
+  become: true
