@@ -4,9 +4,9 @@ services:
     image: postgres:10
     restart: unless-stopped
     volumes:
-      - "{{ invidious_db_dir }}":/var/lib/postgresql/data
-      - "{{ invidious_root_dir }}/sql":/config/sql
-      - "{{ invidious_root_dir }}/docker/init-invidious-db.sh":/docker-entrypoint-initdb.d/init-invidious-db.sh
+      - {{ invidious_db_dir }}:/var/lib/postgresql/data
+      - {{ invidious_root_dir }}/sql:/config/sql
+      - {{ invidious_root_dir }}/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
       POSTGRES_DB: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
@@ -37,6 +37,3 @@ services:
         domain:
     depends_on:
       - postgres
-
-volumes:
-  postgresdata:
