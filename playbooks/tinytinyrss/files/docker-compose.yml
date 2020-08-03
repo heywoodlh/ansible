@@ -31,6 +31,8 @@ services:
       - app:/var/www/html
     depends_on:
       - db
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
 
   updater:
     build:
@@ -51,6 +53,8 @@ services:
     depends_on:
       - app
     command: /updater.sh
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
 
   web-nginx:
     build: ./web-nginx
@@ -61,3 +65,5 @@ services:
       - app:/var/www/html:ro
     depends_on:
       - app
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"

@@ -13,6 +13,8 @@ services:
       POSTGRES_USER: $POSTGRES_USER
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
   invidious:
     build:
       context: .
@@ -37,3 +39,5 @@ services:
         domain:
     depends_on:
       - postgres
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
