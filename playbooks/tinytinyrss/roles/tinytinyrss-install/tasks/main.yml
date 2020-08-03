@@ -32,14 +32,6 @@
     owner: "{{ tinytinyrss_uuid }}"
     group: "{{ tinytinyrss_guid }}"
   become: true
-- name: "overwrite old caddy/Dockerfile with cross-architecture Docker image/Dockerfile"
-  copy:
-    src: caddy/Dockerfile
-    dest: "{{ tinytinyrss_git_dir }}/web/Dockerfile"
-    force: yes
-    owner: "{{ tinytinyrss_uuid }}"
-    group: "{{ tinytinyrss_guid }}"
-  become: true
 - name: "replace strings in docker-compose.yml"
   replace:
     path: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
