@@ -15,8 +15,6 @@
   git:
     repo: "https://git.tt-rss.org/fox/ttrss-docker-compose"
     dest: "{{ tinytinyrss_git_dir }}"
-    owner: "{{ tinytinyrss_uuid }}"
-    group: "{{ tinytinyrss_guid }}"
     force: yes
   become: true
 - name: "cp docker-compose.yml docker-compose.yml.orig"
