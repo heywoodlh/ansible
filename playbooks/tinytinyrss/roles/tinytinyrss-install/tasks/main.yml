@@ -59,4 +59,5 @@
     POSTGRES_PASSWORD: "{{ tinytinyrss_postgres_password }}"
     OWNER_UID: "{{ tinytinyrss_uuid }}"
     OWNER_GID: "{{ tinytinyrss_guid }}"
+    HTTP_PORT: "{{ tinytinyrss_http_port }}"
   become: true
