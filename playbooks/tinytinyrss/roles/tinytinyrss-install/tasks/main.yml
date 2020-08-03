@@ -17,7 +17,7 @@
     dest: "{{ tinytinyrss_git_dir }}"
 - name: "cp docker-compose.yml docker-compose.yml.orig"
   copy:
-    remote_src: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    src: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
     dest: "{{ tinytinyrss_git_dir }}/docker-compose.yml.orig"
     owner: "{{ tinytinyrss_uuid }}"
     group: "{{ tinytinyrss_guid }}"
