@@ -10,10 +10,22 @@
   with_items:
   - "{{ bibliogram_db_dir }}"
   become: true
+- name: "git clone https://git.sr.ht/~cadence/bibliogram {{ bibliogram_git_dir }}"
+  git:
+    repo: https://git.sr.ht/~cadence/bibliogram
+    dest: "{{ bibliogram_git_dir }}"
+    force: yes
+- name: build local bibliogram image
+  docker_image:
+    name: local/bibliogram
+    tag: latest
+    path: "{{ bibliogram_git_dir }}"
+    state: present
+  become: true
 - name: run bibliogram container
   docker_container:
     name: bibliogram
-    image: cloudrac3r/bibliogram"
+    image: local/bibliogram
     restart_policy: unless-stopped
     volumes:
     - "{{ bibliogram_db_dir }}:/app/db"

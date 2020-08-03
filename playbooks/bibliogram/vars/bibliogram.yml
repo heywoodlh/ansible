@@ -1,6 +1,7 @@
 ---
 bibliogram_root_dir: "/home/heywoodlh/core/bibliogram"
 bibliogram_db_dir: "{{ bibliogram_root_dir }}/db"
+bibliogram_db_dir: "{{ bibliogram_root_dir }}/git"
 bibliogram_version: "latest"
 bibliogram_uuid: "1000"
 bibliogram_guid: "1000"
