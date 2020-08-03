@@ -15,6 +15,10 @@
   git:
     repo: "https://git.tt-rss.org/fox/ttrss-docker-compose"
     dest: "{{ tinytinyrss_git_dir }}"
+    owner: "{{ tinytinyrss_uuid }}"
+    group: "{{ tinytinyrss_guid }}"
+    force: yes
+  become: true
 - name: "cp docker-compose.yml docker-compose.yml.orig"
   copy:
     src: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
@@ -26,6 +30,14 @@
   copy:
     src: "docker-compose.yml"
     dest: "{{ tinytinyrss_git_dir }}/docker-compose.yml"
+    force: yes
+    owner: "{{ tinytinyrss_uuid }}"
+    group: "{{ tinytinyrss_guid }}"
+  become: true
+- name: "overwrite old caddy/Dockerfile with cross-architecture Docker image/Dockerfile"
+  copy:
+    src: caddy/Dockerfile
+    dest: "{{ tinytinyrss_git_dir }}/web/Dockerfile"
     force: yes
     owner: "{{ tinytinyrss_uuid }}"
     group: "{{ tinytinyrss_guid }}"
