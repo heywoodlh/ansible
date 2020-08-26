@@ -21,15 +21,15 @@
   copy:
     src: exports
     dest: "{{ nfs_root_dir}}/exports"
-- name: "pull erichough/nfs-server:{{ nfs_version }} image"
+- name: "pull heywoodlh/docker-nfs-server:{{ nfs_version }} image"
   docker_image:
-    name: erichough/nfs-server
+    name: heywoodlh/docker-nfs-server
     tag: "{{ nfs_version }}"
     source: pull
 - name: run nfs container
   docker_container:
     name: nfs
-    image: "erichough/nfs-server:{{ nfs_version }}"
+    image: "heywoodlh/docker-nfs-server:{{ nfs_version }}"
     restart_policy: unless-stopped
     volumes: "{{ nfs_volumes }}"
     ports: "{{ nfs_ports }}"
