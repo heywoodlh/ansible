@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars_files:
-  - vars/nfs.yml
+  - vars/send.yml
   roles:
   - { role: redis }
   - { role: send }
