@@ -11,4 +11,5 @@
     env:
       REDIS_HOST: "redis"
       NODE_ENV: "production"
+      BASE_URL: "https://{{ send_hostname }}"
   become: true
