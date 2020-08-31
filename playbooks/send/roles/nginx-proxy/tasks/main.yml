@@ -20,13 +20,14 @@
   docker_container:
     name: ssl_setup
     image: nginx
-    auto_remove: yes
     detach: no
+    auto_remove: yes
     volumes:
       - "{{ send_root_dir }}/nginx/:{{ send_root_dir }}/nginx/"
-    command: "openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout {{ send_root_dir }}/nginx/send-docker.key -out {{ send_root_dir }}/nginx/send-docker.crt -subj {{ self_sign_ssl_options }}"
+    command: "openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout {{ send_root_dir }}/nginx/send-docker.key -out {{ send_root_dir }}/nginx/send-docker.crt -subj '{{ self_sign_ssl_options }}'"
   become: true
   when: (key_file_result.stat.exists == False and crt_file_result.stat.exists == False)
+  ignore_errors: yes
 - name: "change ownership of {{ send_root_dir }}/nginx/send-docker.key to {{ container_user }}"
   file:
     path: "{{ send_root_dir }}/nginx/send-docker.key"
@@ -59,6 +60,6 @@
     - "443:443"
     volumes: 
     - "{{ send_root_dir }}/nginx/nginx.conf:/etc/nginx/nginx.conf"
-    - "{{ send_root_dir }}/nginx/send-docker.key:{{ send_root_dir }}/nginx.key"
-    - "{{ send_root_dir }}/nginx/send-docker.crt:{{ send_root_dir }}/nginx.crt"
+    - "{{ send_root_dir }}/nginx/send-docker.key:/opt/nginx/nginx.key"
+    - "{{ send_root_dir }}/nginx/send-docker.crt:/opt/nginx/nginx.crt"
   become: true
