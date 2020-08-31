@@ -1,0 +1,14 @@
+---
+- name: run mozilla send container
+  docker_container:
+    name: send
+    image: mozilla/send
+    restart_policy: unless-stopped
+    links:
+      - "{{ redis_container_name }}:redis"
+    log_options:
+      max-size: "2g"
+    env:
+      REDIS_HOST: "redis"
+      NODE_ENV: "production"
+  become: true

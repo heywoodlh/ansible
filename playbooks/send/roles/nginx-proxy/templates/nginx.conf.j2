@@ -1,0 +1,38 @@
+worker_processes 1;
+
+events { worker_connections 1024; }
+
+http {
+
+    sendfile on;
+
+
+    upstream docker-send {
+        server send:1443;
+    }    
+
+    server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+        server_name {{ send_hostname }};
+	return 301 https://$server_name$request_uri;
+    }
+
+    server {
+        listen 443 ssl;
+        server_name {{ send_hostname }};
+        ssl on;
+        ssl_certificate /opt/send-docker.crt;
+        ssl_certificate_key /opt/send-docker.key;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         HIGH:!aNULL:!MD5;
+        location / {
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            rewrite ^/(.*)$  /$1  break;
+            proxy_set_header Host "$server_name";
+            proxy_pass http://send:1443/;
+        }
+    }
+}

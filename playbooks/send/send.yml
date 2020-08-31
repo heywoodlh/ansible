@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/nfs.yml
+  roles:
+  - { role: redis }
+  - { role: send }
+  - { role: nginx-proxy }

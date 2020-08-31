@@ -1,0 +1,57 @@
+---
+- name: create /opt/send-docker directory
+  file:
+    path: /opt/send-docker
+    mode: 0700
+    owner: "{{ container_uid }}"
+    state: directory
+  become: true
+- name: Check that /opt/send-docker/send-docker.key exists
+  stat:
+    path: /opt/send-docker/send-docker.key
+  become: true
+  register: key_file_result
+- name: Check that /opt/send-docker/send-docker.crt exists
+  stat:
+    path: /opt/send-docker/send-docker.crt
+  become: true
+  register: crt_file_result
+- name: generate openssl certificate if files don't exist
+  shell: openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout /opt/send-docker/send-docker.key -out /opt/send-docker/send-docker.crt -subj "{{ self_sign_ssl_options }}"
+  become: true
+  when: (key_file_result.stat.exists == False and crt_file_result.stat.exists == False)
+- name: change ownership of /opt/send-docker/send-docker.key to "{{ container_user }}"
+  file:
+    path: /opt/send-docker/send-docker.key
+    owner: "{{ container_uid }}"
+    mode: 0600
+  become: true
+- name: change ownership of /opt/send-docker/send-docker.crt to "{{ container_user }}"
+  file:
+    path: /opt/send-docker/send-docker.crt
+    owner: "{{ container_uid }}"
+    mode: 0600
+  become: true
+- name: copy nginx config to /opt/send-docker/nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: /opt/send-docker/nginx.conf
+    owner: "{{ container_uid }}"
+    force: no
+    mode: 0600
+  become: true
+- name: run nginx docker container
+  docker_container:
+    name: send_nginx
+    image: nginx
+    restart_policy: unless-stopped
+    links:
+    - "send:send"
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes: 
+    - /opt/send-docker/nginx.conf:/etc/nginx/nginx.conf
+    - /opt/send-docker/send-docker.key:/opt/send-docker.key
+    - /opt/send-docker/send-docker.crt:/opt/send-docker.crt
+  become: true
