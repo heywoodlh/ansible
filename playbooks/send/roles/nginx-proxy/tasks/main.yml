@@ -17,7 +17,14 @@
   become: true
   register: crt_file_result
 - name: generate openssl certificate if files don't exist
-  shell: "openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout {{ send_root_dir }}/nginx/send-docker.key -out {{ send_root_dir }}/nginx/send-docker.crt -subj {{ self_sign_ssl_options }}"
+  docker_container:
+    name: ssl_setup
+    image: nginx
+    auto_remove: yes
+    detach: no
+    volumes:
+      - "{{ send_root_dir }}/nginx/:{{ send_root_dir }}/nginx/"
+    command: "openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout {{ send_root_dir }}/nginx/send-docker.key -out {{ send_root_dir }}/nginx/send-docker.crt -subj {{ self_sign_ssl_options }}"
   become: true
   when: (key_file_result.stat.exists == False and crt_file_result.stat.exists == False)
 - name: "change ownership of {{ send_root_dir }}/nginx/send-docker.key to {{ container_user }}"
