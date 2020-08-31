@@ -2,7 +2,7 @@
 - name: run mozilla send container
   docker_container:
     name: send
-    image: mozilla/send
+    image: "mozilla/send:{{ send_version }}"
     restart_policy: unless-stopped
     links:
       - send_redis:redis
