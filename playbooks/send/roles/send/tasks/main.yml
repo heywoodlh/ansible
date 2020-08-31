@@ -5,7 +5,7 @@
     image: mozilla/send
     restart_policy: unless-stopped
     links:
-      - "{{ redis_container_name }}:redis"
+      - send_redis:redis
     log_options:
       max-size: "2g"
     env:

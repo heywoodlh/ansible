@@ -1,5 +1,6 @@
+send_root_dir: "/home/heywoodlh/core/send"
 container_user: send_docker
 container_uid: 1100
 redis_container_name: send_redis
-self_sign_ssl_options: "/C=US/ST=UT/L=Salt Lake City/O=My Awesome Company/OU=Security/CN=send.example.com"
 send_hostname: send.example.com
+self_sign_ssl_options: "/C=US/ST=UT/L=Salt Lake City/O=My Awesome Company/OU=Security/CN={{ send_hostname }}"
