@@ -35,7 +35,4 @@
 - name: "docker-compose up -d ."
   docker_compose:
     project_src: "{{ invidious_git_dir }}"
-  environment:
-    POSTGRES_USER: "{{ invidious_postgres_user }}"
-    POSTGRES_PASSWORD: "{{ invidious_postgres_password }}"
   become: true
