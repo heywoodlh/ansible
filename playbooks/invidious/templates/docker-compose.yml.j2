@@ -8,9 +8,9 @@ services:
       - {{ invidious_root_dir }}/git/config/sql:/config/sql
       - {{ invidious_root_dir }}/git/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
-      POSTGRES_DB: {{ invidious_postgres_user }}
-      POSTGRES_PASSWORD: {{ invidious_postgres_password }}
-      POSTGRES_USER: {{ invidious_postgres_user }}
+      POSTGRES_DB: invidious
+      POSTGRES_PASSWORD: kemal
+      POSTGRES_USER: kemal
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     labels:
@@ -29,11 +29,11 @@ services:
         check_tables: true
         feed_threads: 1
         db:
-          user: {{ invidious_postgres_user }}
-          password: {{ invidious_postgres_password }}
+          user: kemal
+          password: kemal
           host: postgres
           port: 5432
-          dbname: {{ invidious_postgres_user }}
+          dbname: invidious
         full_refresh: false
         https_only: false
         domain:

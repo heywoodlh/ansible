@@ -8,7 +8,6 @@
     group: "{{ invidious_guid }}"
     recurse: yes
   with_items:
-  - "{{ invidious_data_dir }}"
   - "{{ invidious_db_dir }}"
   become: true
 - name: "git clone https://github.com/iv-org/invidious {{ invidious_git_dir }}"

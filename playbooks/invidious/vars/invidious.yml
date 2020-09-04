@@ -1,11 +1,8 @@
 ---
 invidious_root_dir: "/home/heywoodlh/core/invidious"
 invidious_git_dir: "{{ invidious_root_dir }}/git"
-invidious_data_dir: "{{ invidious_root_dir }}/invidious"
 invidious_db_dir: "{{ invidious_root_dir }}/db"
 invidious_version: "latest"
 invidious_uuid: "1000"
 invidious_guid: "1000"
 invidious_http_port: "3000"
-invidious_postgres_user: "changeme"
-invidious_postgres_password: "changeme"
