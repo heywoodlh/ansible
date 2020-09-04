@@ -6,7 +6,7 @@ services:
     volumes:
       - {{ invidious_db_dir }}:/var/lib/postgresql/data
       - {{ invidious_root_dir }}/sql:/config/sql
-      - {{ invidious_root_dir }}/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+      - {{ invidious_root_dir }}/git/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
       POSTGRES_DB: {{ invidious_postgres_user }}
       POSTGRES_PASSWORD: {{ invidious_postgres_password }}
