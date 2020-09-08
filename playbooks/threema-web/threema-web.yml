@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/threema-web.yml
+  roles:
+  - role: threema-web-install

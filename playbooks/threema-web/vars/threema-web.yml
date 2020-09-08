@@ -1,0 +1,11 @@
+---
+threema_web_root_dir: "/opt/core/threema_web"
+threema_web_data_dir: "{{ threema_web_root_dir }}/data"
+threema_web_uuid: "1000"
+threema_web_guid: "1000"
+threema_web_ports: 
+- 8080:80
+threema_web_volumes:
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+threema_web_version: "latest"

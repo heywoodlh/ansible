@@ -1,0 +1,22 @@
+---
+- name: "create {{ threema_web_root_dir }}"
+  file:
+    path: "{{ threema_web_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ threema_web_data_dir }}"
+  file:
+    path: "{{ threema_web_data_dir }}"
+    state: directory
+- name: "pull threema/threema-web:{{ threema_web_version }} image"
+  docker_image:
+    name: threema/threema-web
+    tag: "{{ threema_web_version }}"
+    source: pull
+- name: run threema_web container
+  docker_container:
+    name: threema_web
+    image: "threema/threema-web:{{ threema_web_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ threema_web_volumes }}"
+    ports: "{{ threema_web_ports }}"
