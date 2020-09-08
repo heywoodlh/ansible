@@ -4,4 +4,4 @@ threema_web_ports:
 threema_web_volumes:
 - /etc/timezone:/etc/timezone:ro
 - /etc/localtime:/etc/localtime:ro
-threema_web_version: "latest"
+threema_web_version: "v2"
