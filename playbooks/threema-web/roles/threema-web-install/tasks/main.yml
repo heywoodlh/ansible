@@ -1,13 +1,4 @@
 ---
-- name: "create {{ threema_web_root_dir }}"
-  file:
-    path: "{{ threema_web_root_dir }}"
-    state: directory
-    force: no
-- name: "create {{ threema_web_data_dir }}"
-  file:
-    path: "{{ threema_web_data_dir }}"
-    state: directory
 - name: "pull threema/threema-web:{{ threema_web_version }} image"
   docker_image:
     name: threema/threema-web
