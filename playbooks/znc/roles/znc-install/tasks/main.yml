@@ -3,9 +3,9 @@
   pip:
     name: pexpect
   become: true
-- name: check if data dir exists
+- name: check if config exists
   stat:
-    path: "{{ znc_data_dir }}"
+    path: "{{ znc_data_dir }}/configs/znc.conf"
   register: file
   become: true
 - name: "create znc directories in {{ znc_root_dir }}"
