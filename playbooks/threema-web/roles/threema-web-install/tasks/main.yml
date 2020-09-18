@@ -4,6 +4,7 @@
     name: threema/threema-web
     tag: "{{ threema_web_version }}"
     source: pull
+  become: true
 - name: run threema_web container
   docker_container:
     name: threema_web
@@ -11,3 +12,5 @@
     restart_policy: unless-stopped
     volumes: "{{ threema_web_volumes }}"
     ports: "{{ threema_web_ports }}"
+  become: true
+

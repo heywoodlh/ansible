@@ -1,0 +1,17 @@
+---
+znc_username: "changeme"
+znc_password: "changeme"
+irc_nick: "changeme"
+real_name: ""
+znc_root_dir: "/opt/core/znc"
+znc_data_dir: "{{ znc_root_dir }}/data"
+znc_version: "latest"
+znc_uuid: "1000"
+znc_guid: "1000"
+znc_port: "12345"
+znc_ports: 
+- "{{ znc_port }}:12345"
+znc_volumes:
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+- "{{ znc_data_dir }}:/znc-data"

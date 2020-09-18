@@ -1,0 +1,52 @@
+---
+- name: check if data dir exists
+  stat:
+    path: "{{ znc_data_dir }}"
+  register: file
+  become: true
+- name: "create znc directories in {{ znc_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ znc_uuid }}"
+    group: "{{ znc_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ znc_data_dir }}"
+  become: true
+- name: "pull znc:{{ znc_version }} image"
+  docker_image:
+    name: znc
+    tag: "{{ znc_version }}"
+    source: pull
+  become: true
+- name: "run initial configuration if {{ znc_data_dir }} didn't exist before"
+  expect:
+     command: "docker run -it --rm -v {{ znc_data_dir }}:/znc-data znc --makeconf"
+     responses:
+       Question:
+         - "{{ znc_port }}"
+         - "no"
+         - "no"
+         - "{{ znc_username }}"
+         - "{{ znc_password }}"
+         - "{{ znc_password }}"
+         - "{{ irc_nick }}"
+         - "{{ irc_nick }}_"
+         - "{{ znc_username }}"
+         - "{{ real_name }}"
+         - ""
+         - "no"
+         - "no"
+  no_log: true
+  when: file.stat.exists == False
+  become: true
+- name: run znc container
+  docker_container:
+    name: znc
+    image: "znc:{{ znc_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ znc_volumes }}"
+    ports: "{{ znc_ports }}"
+  become: true

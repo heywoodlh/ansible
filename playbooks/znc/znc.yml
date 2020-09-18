@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/znc.yml
+  roles:
+  - role: znc-install
