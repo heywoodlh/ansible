@@ -24,7 +24,7 @@
 - name: "copy initial configuration if {{ znc_data_dir }}/config/znc.conf didn't exist before"
   template:
     src: znc.conf.j2
-    dest: {{ znc_data_dir }}/config/znc.conf
+    dest: "{{ znc_data_dir }}/config/znc.conf"
     owner: "{{ znc_uuid }}"
     group: "{{ znc_guid }}"
     mode: 0640
