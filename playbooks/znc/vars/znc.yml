@@ -12,8 +12,9 @@ znc_data_dir: "{{ znc_root_dir }}/data"
 znc_version: "latest"
 znc_uuid: "1000"
 znc_guid: "1000"
+znc_port: "12345"
 znc_ports: 
-- "12345:12345"
+- "{{ znc_port }}:12345"
 znc_volumes:
 - /etc/timezone:/etc/timezone:ro
 - /etc/localtime:/etc/localtime:ro
