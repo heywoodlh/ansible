@@ -1,8 +1,12 @@
 ---
 znc_username: "changeme"
-znc_password: "changeme"
+znc_password_sha256_hash: "changeme" #run the following command to generate this hash: docker run -it --rm znc --makepass
+znc_password_salt: "12345678901234567890" #any random characters: run pwgen -N1 20
 irc_nick: "changeme"
+alt_nick: "changeme_"
 real_name: ""
+primary_network_name: "freenode"
+primary_network_server: "chat.freenode.net +7000"
 znc_root_dir: "/opt/core/znc"
 znc_data_dir: "{{ znc_root_dir }}/data"
 znc_version: "latest"

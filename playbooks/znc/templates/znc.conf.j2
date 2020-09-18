@@ -1,0 +1,27 @@
+Version = 1.8.2
+<Listener l>
+	Port = {{ znc_port }}
+	IPv4 = true
+	IPv6 = false
+	SSL = false
+</Listener>
+
+<User {{ znc_username }}>
+	Admin      = true
+	Nick       = {{ irc_nick }}
+	AltNick    = {{ alt_nick }}
+	Ident      = {{ irc_nick }}
+	RealName   = {{ real_name }}
+	LoadModule = chansaver
+
+    <Pass password>
+        Method = sha256
+        Hash = {{ znc_password_sha256_hash }}
+        Salt = {{ znc_password_salt }}
+    </Pass>
+
+	<Network {{ primary_network_name }}>
+		LoadModule = simple_away
+		Server     = {{ primary_network_server }}
+	</Network>
+</User>

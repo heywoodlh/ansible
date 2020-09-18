@@ -1,8 +1,4 @@
 ---
-- name: install pexpect pip module
-  pip:
-    name: pexpect
-  become: true
 - name: check if config exists
   stat:
     path: "{{ znc_data_dir }}/configs/znc.conf"
@@ -17,7 +13,7 @@
     group: "{{ znc_guid }}"
     recurse: yes
   with_items:
-  - "{{ znc_data_dir }}"
+  - "{{ znc_data_dir }}/configs"
   become: true
 - name: "pull znc:{{ znc_version }} image"
   docker_image:
@@ -25,24 +21,13 @@
     tag: "{{ znc_version }}"
     source: pull
   become: true
-- name: "run initial configuration if {{ znc_data_dir }} didn't exist before"
-  expect:
-     command: "docker run -it --rm -v {{ znc_data_dir }}:/znc-data znc --makeconf"
-     responses:
-       Question:
-         - "(.*)Listen on port(.*): {{ znc_port }}"
-         - "(.*)Listen using SSL(.*): no"
-         - "(.*)Listen using both IPv4 and IPv6(.*): no"
-         - "(.*)Username (.*): {{ znc_username }}"
-         - "(.*)Enter password: {{ znc_password }}"
-         - "(.*)Confirm password: {{ znc_password }}"
-         - "(.*)Nick(.*): {{ irc_nick }}"
-         - "(.*)Alternate nick(.*): {{ irc_nick }}_"
-         - "(.*)Ident(.*): {{ znc_username }}"
-         - "(.*)Real name(.*): {{ real_name }}"
-         - "(.*)Bind host(.*): "
-         - "(.*)Set up a network?(.*): no"
-         - "(.*)Launch ZNC now?(.*): no"
+- name: "copy initial configuration if {{ znc_data_dir }}/config/znc.conf didn't exist before"
+  template:
+    src: znc.conf.j2
+    dest: {{ znc_data_dir }}/config/znc.conf
+    owner: "{{ znc_uuid }}"
+    group: "{{ znc_guid }}"
+    mode: 0640
   when: file.stat.exists == False
   become: true
 - name: run znc container
