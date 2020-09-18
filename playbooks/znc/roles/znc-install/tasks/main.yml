@@ -39,7 +39,6 @@
          - ""
          - "no"
          - "no"
-  no_log: true
   when: file.stat.exists == False
   become: true
 - name: run znc container
