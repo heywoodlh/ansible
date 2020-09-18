@@ -30,19 +30,19 @@
      command: "docker run -it --rm -v {{ znc_data_dir }}:/znc-data znc --makeconf"
      responses:
        Question:
-         - "{{ znc_port }}"
-         - "no"
-         - "no"
-         - "{{ znc_username }}"
-         - "{{ znc_password }}"
-         - "{{ znc_password }}"
-         - "{{ irc_nick }}"
-         - "{{ irc_nick }}_"
-         - "{{ znc_username }}"
-         - "{{ real_name }}"
-         - ""
-         - "no"
-         - "no"
+         - "(.*)Listen on port(.*): {{ znc_port }}"
+         - "(.*)Listen using SSL(.*): no"
+         - "(.*)Listen using both IPv4 and IPv6(.*): no"
+         - "(.*)Username (.*): {{ znc_username }}"
+         - "(.*)Enter password: {{ znc_password }}"
+         - "(.*)Confirm password: {{ znc_password }}"
+         - "(.*)Nick(.*): {{ irc_nick }}"
+         - "(.*)Alternate nick(.*): {{ irc_nick }}_"
+         - "(.*)Ident(.*): {{ znc_username }}"
+         - "(.*)Real name(.*): {{ real_name }}"
+         - "(.*)Bind host(.*): "
+         - "(.*)Set up a network?(.*): no"
+         - "(.*)Launch ZNC now?(.*): no"
   when: file.stat.exists == False
   become: true
 - name: run znc container
