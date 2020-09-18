@@ -1,0 +1,30 @@
+---
+- name: "create {{ lazylibrarian_root_dir }} directory"
+  file:
+    path: "{{ lazylibrarian_root_dir }}"
+    state: directory
+    force: no
+    owner: "{{ lazylibrarian_uuid }}"
+    group: "{{ lazylibrarian_guid }}"
+    recurse: yes
+  become: true
+- name: "pull lazylibrarian:{{ lazylibrarian_version }} image"
+  docker_image:
+    name: linuxserver/lazylibrarian
+    tag: "{{ lazylibrarian_version }}"
+    source: pull
+- name: run lazylibrarian container
+  docker_container:
+    name: lazylibrarian
+    image: "linuxserver/lazylibrarian:{{ lazylibrarian_version }}"
+    restart_policy: unless-stopped
+    ports:
+    - "{{ lazylibrarian_port }}:5299"
+    links:
+    - nzbget:nzbget
+    volumes: "{{ lazylibrarian_volumes }}"
+    env:
+      PUID: "{{ lazylibrarian_uuid }}"
+      PGID: "{{ lazylibrarian_guid }}"
+      TZ: "{{ lazylibrarian_timezone }}"
+      VERSION: "latest"

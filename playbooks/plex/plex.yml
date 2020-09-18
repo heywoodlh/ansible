@@ -5,8 +5,10 @@
   - vars/sonarr.yml
   - vars/radarr.yml
   - vars/nzbget.yml
+  - vars/lazylibrarian.yml
   roles:
   - role: plex-install
   - role: nzbget-install
   - role: sonarr-install
   - role: radarr-install
+  - role: lazylibrarian-install
