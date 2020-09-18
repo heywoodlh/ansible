@@ -1,4 +1,8 @@
 ---
+- name: install pexpect pip module
+  pip:
+    name: pexpect
+  become: true
 - name: check if data dir exists
   stat:
     path: "{{ znc_data_dir }}"
