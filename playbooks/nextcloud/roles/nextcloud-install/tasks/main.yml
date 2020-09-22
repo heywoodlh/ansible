@@ -31,5 +31,6 @@
     image: "nextcloud:{{ nextcloud_version }}"
     restart_policy: unless-stopped
     volumes: "{{ nextcloud_volumes }}"
-    #links:
-    #- nextcloud-db:nextcloud-db
+    nextcloud_env: "{{ nextcloud_env }}"
+    links:
+    - "{{ postgres_name }}:db"
