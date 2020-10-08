@@ -61,4 +61,5 @@
     - "{{ bitwarden_root_dir }}/nginx/nginx.conf:/etc/nginx/nginx.conf"
     - "{{ bitwarden_root_dir }}/nginx/bitwarden-docker.key:/opt/nginx/nginx.key"
     - "{{ bitwarden_root_dir }}/nginx/bitwarden-docker.crt:/opt/nginx/nginx.crt"
+    - "{{ bitwarden_root_dir }}/nginx/access.log:/var/log/nginx/bitwarden-access.log"
   become: true
