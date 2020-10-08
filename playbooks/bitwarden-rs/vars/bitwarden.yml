@@ -6,3 +6,11 @@ container_user: bitwarden_docker
 container_uid: 1000
 bitwarden_hostname: localhost
 self_sign_ssl_options: "/C=US/ST=UT/L=Salt Lake City/O=My Awesome Company/OU=Security/CN={{ bitwarden_hostname }}"
+bitwarden_env:
+  SMTP_HOST: "smtp.example.com"
+  SMTP_FROM: "bitwarden@example.com"
+  SMTP_PORT: 587
+  SMTP_SSL: "true"
+  SMTP_USERNAME: "blah@example.com"
+  SMTP_PASSWORD: "blahblahblah"
+  SIGNUPS_ALLOWED: "true"

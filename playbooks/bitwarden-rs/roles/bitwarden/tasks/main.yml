@@ -15,4 +15,5 @@
       max-size: "2g"
     volumes:
     - "{{ bitwarden_data_dir }}:/data"
+    env: "{{ bitwarden_env }}"
   become: true
