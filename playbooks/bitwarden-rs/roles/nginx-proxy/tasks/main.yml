@@ -11,6 +11,7 @@
     path: "{{ bitwarden_root_dir }}/nginx/access.log"
     mode: 0600
     owner: "{{ container_uid }}"
+    state: file
   become: true
 - name: "Check that {{ bitwarden_root_dir }}/nginx/bitwarden-docker.key exists"
   stat:
