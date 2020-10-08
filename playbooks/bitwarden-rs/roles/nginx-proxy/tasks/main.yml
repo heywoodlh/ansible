@@ -6,6 +6,12 @@
     owner: "{{ container_uid }}"
     state: directory
   become: true
+- name: "create {{ bitwarden_root_dir }}/access.log file"
+  file:
+    path: "{{ bitwarden_root_dir }}/nginx/access.log"
+    mode: 0600
+    owner: "{{ container_uid }}"
+  become: true
 - name: "Check that {{ bitwarden_root_dir }}/nginx/bitwarden-docker.key exists"
   stat:
     path: "{{ bitwarden_root_dir }}/nginx/bitwarden-docker.key"
