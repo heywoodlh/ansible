@@ -63,7 +63,8 @@
     links:
     - "bitwarden:bitwarden"
     ports:
-    - "{{ bitwarden_nginx_port }}:8443"
+    - "{{ bitwarden_nginx_http_port }}:80"
+    - "{{ bitwarden_nginx_https_port }}:443"
     volumes: 
     - "{{ bitwarden_root_dir }}/nginx/nginx.conf:/etc/nginx/nginx.conf"
     - "{{ bitwarden_root_dir }}/nginx/bitwarden-docker.key:/opt/nginx/nginx.key"

@@ -5,10 +5,17 @@ events { worker_connections 1024; }
 http {
 
     sendfile on;
+    
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name {{ bitwarden_hostname }};
+        return 301 https://$host$request_uri;
+    }
 
     server {
         access_log /var/log/nginx/bitwarden-access.log;
-        listen 8443 ssl http2;
+        listen 443 ssl http2;
         server_name {{ bitwarden_hostname }};
 	client_max_body_size 128M;
         ssl on;
