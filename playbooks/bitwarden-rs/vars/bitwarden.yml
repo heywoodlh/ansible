@@ -2,7 +2,8 @@
 bitwarden_root_dir: "/opt/core/bitwarden"
 bitwarden_data_dir: "/opt/core/bitwarden/data"
 bitwarden_version: "latest"
-bitwarden_nginx_port: 443
+bitwarden_nginx_http_port: 80
+bitwarden_nginx_https_port: 443
 container_user: bitwarden_docker
 container_uid: 1000
 bitwarden_hostname: localhost
