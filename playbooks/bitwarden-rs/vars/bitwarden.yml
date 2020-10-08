@@ -1,0 +1,8 @@
+bitwarden_root_dir: "/opt/core/bitwarden"
+bitwarden_data_dir: "/opt/core/bitwarden/data"
+bitwarden_version: "latest"
+bitwarden_nginx_port: 443
+container_user: bitwarden_docker
+container_uid: 1000
+bitwarden_hostname: localhost
+self_sign_ssl_options: "/C=US/ST=UT/L=Salt Lake City/O=My Awesome Company/OU=Security/CN={{ bitwarden_hostname }}"

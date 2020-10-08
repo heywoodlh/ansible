@@ -1,0 +1,18 @@
+---
+- name: "create {{ bitwarden_data_dir }}"
+  file:
+    path: "{{ bitwarden_data_dir }}"
+    state: directory
+    owner: "{{ container_uid }}"
+    group: "{{ container_uid }}"
+  become: true
+- name: run bitwarden-rs container
+  docker_container:
+    name: bitwarden
+    image: "bitwardenrs/server:{{ bitwarden_version }}"
+    restart_policy: unless-stopped
+    log_options:
+      max-size: "2g"
+    volumes:
+    - "{{ bitwarden_data_dir }}:/data"
+  become: true

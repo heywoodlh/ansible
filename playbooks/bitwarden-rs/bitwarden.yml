@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/bitwarden.yml
+  roles:
+  - { role: bitwarden }
+  - { role: nginx-proxy }
