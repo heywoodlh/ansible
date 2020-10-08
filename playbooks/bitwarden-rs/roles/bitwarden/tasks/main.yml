@@ -6,6 +6,13 @@
     owner: "{{ container_uid }}"
     group: "{{ container_uid }}"
   become: true
+- name: "create {{ bitwarden_root_dir }}/bitwarden.log"
+  file:
+    path: "{{ bitwarden_root_dir }}/bitwarden.log"
+    state: touch
+    owner: "{{ container_uid }}"
+    group: "{{ container_uid }}"
+  become: true
 - name: run bitwarden-rs container
   docker_container:
     name: bitwarden
@@ -15,5 +22,6 @@
       max-size: "2g"
     volumes:
     - "{{ bitwarden_data_dir }}:/data"
+    - "{{ bitwarden_root_dir }}/bitwarden.log:/data/bitwarden.log"
     env: "{{ bitwarden_env }}"
   become: true

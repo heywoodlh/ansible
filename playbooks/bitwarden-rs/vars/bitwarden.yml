@@ -1,3 +1,4 @@
+---
 bitwarden_root_dir: "/opt/core/bitwarden"
 bitwarden_data_dir: "/opt/core/bitwarden/data"
 bitwarden_version: "latest"
@@ -14,3 +15,4 @@ bitwarden_env:
   SMTP_USERNAME: "blah@example.com"
   SMTP_PASSWORD: "blahblahblah"
   SIGNUPS_ALLOWED: "true"
+  LOG_FILE: "/data/bitwarden.log" #don't change this path
