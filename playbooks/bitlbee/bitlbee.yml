@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
   vars_files:
-  - vars/ntopng.yml
+  - vars/bitlbee.yml
   roles:
-  - role: ntopng
+  - role: bitlbee

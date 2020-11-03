@@ -1,0 +1,27 @@
+---
+- name: "create bitlebee directories in {{ bitlebee_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ bitlebee_uuid }}"
+    group: "{{ bitlebee_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ bitlebee_root_dir }}"
+  - "{{ bitlebee_data_dir }}"
+  become: true
+- name: "pull heywoodlh/bitlebee-libpurple:{{ bitlebee_version }} image"
+  docker_image:
+    name: heywoodlh/bitlebee-libpurple
+    tag: "{{ bitlebee_version }}"
+    source: pull
+  become: true
+- name: run bitlebee container
+  docker_container:
+    name: bitlebee
+    image: "heywoodlh/bitlebee-libpurple:{{ bitlebee_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ bitlebee_volumes }}"
+    ports: "{{ bitlebee_ports }}"
+  become: true

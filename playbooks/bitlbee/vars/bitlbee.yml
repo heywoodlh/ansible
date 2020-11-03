@@ -1,0 +1,13 @@
+---
+bitlebee_root_dir: "/opt/core/bitlebee"
+bitlebee_data_dir: "{{ bitlebee_root_dir }}/data"
+bitlebee_version: "latest"
+bitlebee_uuid: "1000"
+bitlebee_guid: "1000"
+bitlebee_port: "6667"
+bitlebee_ports: 
+- "{{ bitlebee_port }}:6667"
+bitlebee_volumes:
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+- "{{ bitlebee_data_dir }}:/var/lib/bitlbee"
