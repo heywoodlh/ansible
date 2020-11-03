@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/ferdi.yml
+  roles:
+  - role: ferdi

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: plex-install
+  - role: nzbget-install

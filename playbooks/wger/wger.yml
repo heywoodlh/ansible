@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/wger.yml
+  roles:
+  - role: wger

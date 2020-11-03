@@ -1,0 +1,17 @@
+---
+ferdi_root_dir: "/opt/core/ferdi"
+ferdi_data_dir: "{{ ferdi_root_dir }}/data"
+ferdi_config_dir: "{{ ferdi_root_dir }}/config"
+ferdi_recipe_dir: "{{ ferdi_root_dir }}/recipes"
+ferdi_version: "latest"
+ferdi_uuid: "1000"
+ferdi_guid: "1000"
+ferdi_port: "10000"
+ferdi_ports: 
+- "{{ ferdi_port }}:80"
+ferdi_volumes:
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+- "{{ ferdi_data_dir }}:/app/database"
+- "{{ ferdi_config_dir }}:/config"
+- "{{ ferdi_recipe_dir }}:/app/recipes"
