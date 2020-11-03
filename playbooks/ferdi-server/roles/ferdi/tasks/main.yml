@@ -13,16 +13,16 @@
   - "{{ ferdi_config_dir }}"
   - "{{ ferdi_recipe_dir }}"
   become: true
-- name: "pull heywoodlh/ferdi-server:{{ ferdi_version }} image"
+- name: "pull getferdi/ferdi-server:{{ ferdi_version }} image"
   docker_image:
-    name: heywoodlh/ferdi-server
+    name: getferdi/ferdi-server
     tag: "{{ ferdi_version }}"
     source: pull
   become: true
 - name: run ferdi container
   docker_container:
     name: ferdi
-    image: "heywoodlh/ferdi-server:{{ ferdi_version }}"
+    image: "getferdi/ferdi-server:{{ ferdi_version }}"
     restart_policy: unless-stopped
     volumes: "{{ ferdi_volumes }}"
     ports: "{{ ferdi_ports }}"
