@@ -1,27 +1,28 @@
 ---
-- name: "create bitlebee directories in {{ bitlebee_root_dir }}"
+- name: "create bitlbee directories in {{ bitlbee_root_dir }}"
   file:
     path: "{{ item }}"
     state: directory
     force: no
-    owner: "{{ bitlebee_uuid }}"
-    group: "{{ bitlebee_guid }}"
+    owner: "{{ bitlbee_uuid }}"
+    group: "{{ bitlbee_guid }}"
     recurse: yes
   with_items:
-  - "{{ bitlebee_root_dir }}"
-  - "{{ bitlebee_data_dir }}"
+  - "{{ bitlbee_root_dir }}"
+  - "{{ bitlbee_data_dir }}"
   become: true
-- name: "pull ezkrg/bitlbee-libpurple:{{ bitlebee_version }} image"
+- name: "pull ezkrg/bitlbee-libpurple:{{ bitlbee_version }} image"
   docker_image:
     name: ezkrg/bitlbee-libpurple
-    tag: "{{ bitlebee_version }}"
+    tag: "{{ bitlbee_version }}"
     source: pull
   become: true
-- name: run bitlebee container
+- name: run bitlbee container
   docker_container:
-    name: bitlebee
-    image: "ezkrg/bitlbee-libpurple:{{ bitlebee_version }}"
+    name: bitlbee
+    image: "ezkrg/bitlbee-libpurple:{{ bitlbee_version }}"
+    user: "{{ bitlbee_uuid }}"
     restart_policy: unless-stopped
-    volumes: "{{ bitlebee_volumes }}"
-    ports: "{{ bitlebee_ports }}"
+    volumes: "{{ bitlbee_volumes }}"
+    ports: "{{ bitlbee_ports }}"
   become: true
