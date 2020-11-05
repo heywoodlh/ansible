@@ -1,0 +1,16 @@
+---
+filebot_root_dir: "/opt/core/filebot"
+filebot_data_dir: "{{ filebot_root_dir }}/data"
+filebot_home_dir: "{{ filebot_root_dir }}/home"
+filebot_image: "jlesage/filebot"
+filebot_version: "latest"
+filebot_uuid: "1000"
+filebot_guid: "1000"
+filebot_port: "5800"
+filebot_ports: 
+- "{{ filebot_port }}:5800"
+filebot_volumes:
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+- "{{ filebot_data_dir }}:/config"
+- "{{ filebot_home_dir }}:/storage"

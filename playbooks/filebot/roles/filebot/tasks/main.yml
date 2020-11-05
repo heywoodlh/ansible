@@ -1,0 +1,27 @@
+---
+- name: "create filebot directories in {{ filebot_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ filebot_uuid }}"
+    group: "{{ filebot_guid }}"
+    recurse: yes
+  with_items:
+  - "{{ filebot_root_dir }}"
+  - "{{ filebot_data_dir }}"
+  become: true
+- name: "pull {{ filebot_image }}:{{ filebot_version }} image"
+  docker_image:
+    name: "{{ filebot_image }}"
+    tag: "{{ filebot_version }}"
+    source: pull
+  become: true
+- name: run filebot container
+  docker_container:
+    name: filebot
+    image: "{{ filebot_image }}:{{ filebot_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ filebot_volumes }}"
+    ports: "{{ filebot_ports }}"
+  become: true

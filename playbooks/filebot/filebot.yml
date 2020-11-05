@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/filebot.yml
+  roles:
+  - role: filebot
