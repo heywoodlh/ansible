@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/freshrss.yml
+  roles:
+  - role: freshrss

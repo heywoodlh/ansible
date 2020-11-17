@@ -1,0 +1,21 @@
+---
+freshrss_root_dir: "/opt/core/freshrss"
+freshrss_data_dir: "{{ freshrss_root_dir }}/data"
+freshrss_extension_dir: "{{ freshrss_root_dir }}/extensions"
+freshrss_dirs:
+- "{{ freshrss_root_dir }}"
+- "{{ freshrss_data_dir }}"
+- "{{ freshrss_extension_dir }}"
+freshrss_version: "latest"
+freshrss_image: "freshrss/freshrss"
+freshrss_uuid: "1000"
+freshrss_guid: "1000"
+freshrss_port: "80"
+freshrss_ports: 
+- "{{ freshrss_port }}:80"
+freshrss_env:
+  TZ: "America/Denver"
+  CRON_MIN: "4,34"
+freshrss_volumes:
+- "{{ freshrss_data_dir }}:/var/www/FreshRSS/data"
+- "{{ freshrss_extension_dir }}:/var/www/FreshRSS/extensions"

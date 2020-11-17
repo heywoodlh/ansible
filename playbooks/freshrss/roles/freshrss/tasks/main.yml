@@ -1,0 +1,26 @@
+---
+- name: "create freshrss directories in {{ freshrss_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ freshrss_uuid }}"
+    group: "{{ freshrss_guid }}"
+    recurse: yes
+  with_items: "{{ freshrss_dirs }}"
+  become: true
+- name: "pull {{ freshrss_image }}:{{ freshrss_version }} image"
+  docker_image:
+    name: "{{ freshrss_image }}"
+    tag: "{{ freshrss_version }}"
+    source: pull
+  become: true
+- name: run freshrss container
+  docker_container:
+    name: freshrss
+    image: "{{ freshrss_image }}:{{ freshrss_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ freshrss_volumes }}"
+    ports: "{{ freshrss_ports }}"
+    env: "{{ freshrss_env }}"
+  become: true
