@@ -1,0 +1,26 @@
+---
+- name: "create ossec directories in {{ ossec_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ ossec_uuid }}"
+    group: "{{ ossec_guid }}"
+    recurse: yes
+  with_items: "{{ ossec_dirs }}"
+  become: true
+- name: "pull {{ ossec_image }}:{{ ossec_version }} image"
+  docker_image:
+    name: "{{ ossec_image }}"
+    tag: "{{ ossec_version }}"
+    source: pull
+  become: true
+- name: run ossec container
+  docker_container:
+    name: ossec
+    image: "{{ ossec_image }}:{{ ossec_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ ossec_volumes }}"
+    ports: "{{ ossec_ports }}"
+    env: "{{ ossec_env }}"
+  become: true

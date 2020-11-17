@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/ossec.yml
+  roles:
+  - role: ossec

@@ -1,0 +1,17 @@
+---
+ossec_root_dir: "/opt/core/ossec"
+ossec_data_dir: "{{ ossec_root_dir }}/data"
+ossec_dirs:
+- "{{ ossec_root_dir }}"
+- "{{ ossec_data_dir }}"
+ossec_version: "latest"
+ossec_image: "heywoodlh/ossec-server"
+ossec_uuid: "1000"
+ossec_guid: "1000"
+ossec_ports: 
+- "1514:1514/udp"
+- "1515:1515"
+ossec_env:
+  TZ: "America/Denver"
+ossec_volumes:
+- "{{ ossec_data_dir }}:/var/ossec/data"
