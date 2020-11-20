@@ -9,6 +9,13 @@
     recurse: yes
   with_items: "{{ cloudtube_dirs }}"
   become: true
+- name: "copy template to {{ cloudtube_config_dir }}/config.js"
+  template:
+    src: config.js.j2
+    dest: "{{ cloudtube_config_dir }}/config.js"
+    owner: "{{ cloudtube_uuid }}"
+    group: "{{ cloudtube_guid }}"
+  become: true
 - name: "pull {{ cloudtube_image }}:{{ cloudtube_version }} image"
   docker_image:
     name: "{{ cloudtube_image }}"

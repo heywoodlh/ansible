@@ -1,8 +1,9 @@
 ---
 second_version: "latest"
+second_uri: "http://localhost:3000"
 second_image: "heywoodlh/second"
 second_uuid: "1000"
 second_guid: "1000"
 second_env:
   TZ: "America/Denver"
-  WEBSITE_ORIGIN: "http://localhost:3000"
+  WEBSITE_ORIGIN: "{{ second_uri }}"

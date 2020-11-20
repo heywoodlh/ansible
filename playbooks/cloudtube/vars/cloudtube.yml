@@ -1,10 +1,11 @@
 ---
 cloudtube_root_dir: "/opt/core/cloudtube"
 cloudtube_data_dir: "{{ cloudtube_root_dir }}/data"
-cloudtube_utils_dir: "{{ cloudtube_root_dir }}/utils"
+cloudtube_config_dir: "{{ cloudtube_root_dir }}/config"
 cloudtube_dirs:
 - "{{ cloudtube_root_dir }}"
 - "{{ cloudtube_data_dir }}"
+- "{{ cloudtube_config_dir }}"
 cloudtube_version: "latest"
 cloudtube_image: "heywoodlh/cloudtube"
 cloudtube_uuid: "1000"
@@ -13,4 +14,4 @@ cloudtube_env:
   TZ: "America/Denver"
 cloudtube_volumes:
 - "{{ cloudtube_data_dir }}:/opt/cloudtube/db"
-- "{{ cloudtube_utils_dir }}:/opt/cloudtube/utils"
+- "{{ cloudtube_utils_dir }}:/opt/cloudtube/config"
