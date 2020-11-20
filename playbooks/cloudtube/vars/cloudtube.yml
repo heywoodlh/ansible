@@ -1,0 +1,17 @@
+---
+cloudtube_root_dir: "/opt/core/cloudtube"
+cloudtube_data_dir: "{{ cloudtube_root_dir }}/db"
+cloudtube_dirs:
+- "{{ cloudtube_root_dir }}"
+- "{{ cloudtube_data_dir }}"
+cloudtube_version: "latest"
+cloudtube_image: "heywoodlh/cloudtube"
+cloudtube_uuid: "1000"
+cloudtube_guid: "1000"
+cloudtube_port: "10412"
+cloudtube_ports: 
+- "{{ cloudtube_port }}:10412"
+cloudtube_env:
+  TZ: "America/Denver"
+cloudtube_volumes:
+- "{{ cloudtube_data_dir }}:/opt/cloudtube/db"

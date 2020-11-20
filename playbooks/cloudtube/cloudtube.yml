@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/cloudtube.yml
+  - vars/second.yml
+  roles:
+  - role: second
+  - role: cloudtube

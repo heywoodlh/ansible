@@ -1,0 +1,26 @@
+---
+- name: "create cloudtube directories in {{ cloudtube_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ cloudtube_uuid }}"
+    group: "{{ cloudtube_guid }}"
+    recurse: yes
+  with_items: "{{ cloudtube_dirs }}"
+  become: true
+- name: "pull {{ cloudtube_image }}:{{ cloudtube_version }} image"
+  docker_image:
+    name: "{{ cloudtube_image }}"
+    tag: "{{ cloudtube_version }}"
+    source: pull
+  become: true
+- name: run cloudtube container
+  docker_container:
+    name: cloudtube
+    image: "{{ cloudtube_image }}:{{ cloudtube_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ cloudtube_volumes }}"
+    ports: "{{ cloudtube_ports }}"
+    env: "{{ cloudtube_env }}"
+  become: true

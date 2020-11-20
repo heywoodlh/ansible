@@ -1,0 +1,14 @@
+---
+- name: "pull {{ second_image }}:{{ second_version }} image"
+  docker_image:
+    name: "{{ second_image }}"
+    tag: "{{ second_version }}"
+    source: pull
+  become: true
+- name: run second container
+  docker_container:
+    name: second
+    image: "{{ second_image }}:{{ second_version }}"
+    restart_policy: unless-stopped
+    env: "{{ second_env }}"
+  become: true
