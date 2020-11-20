@@ -23,7 +23,5 @@
     user: "{{ cloudtube_uuid }}"
     volumes: "{{ cloudtube_volumes }}"
     env: "{{ cloudtube_env }}"
-    links:
-    - second:second
     network_mode: host
   become: true
