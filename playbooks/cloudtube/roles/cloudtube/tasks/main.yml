@@ -1,4 +1,14 @@
 ---
+- name: "create freshrss directories in {{ freshrss_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ freshrss_uuid }}"
+    group: "{{ freshrss_guid }}"
+    recurse: yes
+  with_items: "{{ freshrss_dirs }}"
+  become: true
 - name: "pull {{ cloudtube_image }}:{{ cloudtube_version }} image"
   docker_image:
     name: "{{ cloudtube_image }}"
