@@ -14,4 +14,4 @@ cloudtube_env:
   TZ: "America/Denver"
 cloudtube_volumes:
 - "{{ cloudtube_data_dir }}:/opt/cloudtube/db"
-- "{{ cloudtube_utils_dir }}:/opt/cloudtube/config"
+- "{{ cloudtube_config_dir }}:/opt/cloudtube/config"
