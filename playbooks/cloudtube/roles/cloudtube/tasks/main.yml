@@ -20,6 +20,7 @@
     name: cloudtube
     image: "{{ cloudtube_image }}:{{ cloudtube_version }}"
     restart_policy: unless-stopped
+    user: "{{ cloudtube_uuid }}"
     volumes: "{{ cloudtube_volumes }}"
     ports: "{{ cloudtube_ports }}"
     env: "{{ cloudtube_env }}"
