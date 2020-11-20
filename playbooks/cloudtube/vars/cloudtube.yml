@@ -1,6 +1,7 @@
 ---
 cloudtube_version: "latest"
 cloudtube_image: "heywoodlh/cloudtube"
+cloudtube_volume: "cloudtube_db"
 cloudtube_uuid: "1000"
 cloudtube_guid: "1000"
 cloudtube_port: "10412"
@@ -9,4 +10,4 @@ cloudtube_ports:
 cloudtube_env:
   TZ: "America/Denver"
 cloudtube_volumes:
-- cloudtube_db:/opt/cloudtube/db
+- "{{ cloudtube_volume }}:/opt/cloudtube/db"

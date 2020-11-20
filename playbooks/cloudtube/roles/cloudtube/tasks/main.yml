@@ -5,6 +5,9 @@
     tag: "{{ cloudtube_version }}"
     source: pull
   become: true
+- name: Create a volume
+  docker_volume:
+    name: "{{ cloudtube_volume }}"
 - name: run cloudtube container
   docker_container:
     name: cloudtube
