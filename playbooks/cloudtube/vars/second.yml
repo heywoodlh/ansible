@@ -5,3 +5,4 @@ second_uuid: "1000"
 second_guid: "1000"
 second_env:
   TZ: "America/Denver"
+  WEBSITE_ORIGIN: "http://localhost:3000"

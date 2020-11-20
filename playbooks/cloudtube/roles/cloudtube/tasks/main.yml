@@ -22,8 +22,8 @@
     restart_policy: unless-stopped
     user: "{{ cloudtube_uuid }}"
     volumes: "{{ cloudtube_volumes }}"
-    ports: "{{ cloudtube_ports }}"
     env: "{{ cloudtube_env }}"
     links:
     - second:second
+    network_mode: host
   become: true
