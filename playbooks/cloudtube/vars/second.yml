@@ -1,7 +1,7 @@
 ---
-cloudtube_version: "latest"
-cloudtube_image: "heywoodlh/cloudtube"
-cloudtube_uuid: "1000"
-cloudtube_guid: "1000"
-cloudtube_env:
+second_version: "latest"
+second_image: "heywoodlh/second"
+second_uuid: "1000"
+second_guid: "1000"
+second_env:
   TZ: "America/Denver"
