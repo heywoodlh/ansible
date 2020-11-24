@@ -20,7 +20,7 @@
     restart_policy: unless-stopped
     volumes: "{{ gitea_volumes }}"
     ports:
-    - "{{ gitea_ssh_port }}:22"
+    - "{{ gitea_ssh_port }}:{{ gitea_ssh_port }}"
     links:
     - gitea-db:gitea-db
     env:
