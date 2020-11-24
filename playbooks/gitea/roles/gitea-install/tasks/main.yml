@@ -31,3 +31,4 @@
       DB_NAME: "{{ postgres_db }}" 
       DB_USER: "{{ postgres_user }}"
       DB_PASSWD: "{{ postgres_password }}"
+      SSH_PORT: "{{ gitea_ssh_port }}:22"
