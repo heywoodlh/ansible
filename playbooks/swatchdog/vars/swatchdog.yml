@@ -1,0 +1,17 @@
+---
+swatchdog_root_dir: "/opt/core/swatchdog"
+swatchdog_config_dir: "{{ swatchdog_root_dir }}/swatch"
+swatchdog_ssmtp_dir: "{{ swatchdog_root_dir }}/ssmtp"
+swatchdog_dirs:
+- "{{ swatchdog_root_dir }}"
+- "{{ swatchdog_config_dir }}"
+swatchdog_version: "latest"
+swatchdog_image: "heywoodlh/swatchdog"
+swatchdog_uuid: "1000"
+swatchdog_guid: "1000"
+swatchdog_env:
+  TZ: "America/Denver"
+swatchdog_volumes:
+- "{{ swatchdog_config_dir }}:/etc/swatch"
+- "{{ swatchdog_ssmtp_dir }}:/etc/ssmtp"
+- /var/log:/var/log

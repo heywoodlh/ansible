@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/swatchdog.yml
+  roles:
+  - role: swatchdog

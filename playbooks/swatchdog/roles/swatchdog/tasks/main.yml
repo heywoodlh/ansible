@@ -1,0 +1,39 @@
+---
+- name: "create swatchdog directories in {{ swatchdog_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ swatchdog_uuid }}"
+    group: "{{ swatchdog_guid }}"
+    recurse: yes
+  with_items: "{{ swatchdog_dirs }}"
+  become: true
+- name: "copy swatchrc to {{ swatchdog_config_dir }}"
+  copy:
+    src: swatchrc
+    dest: "{{ swatchdog_config_dir }}/swatchrc"
+    force: no
+    owner: "{{ swatchdog_uuid }}"
+  become: true
+- name: "copy ssmtp.conf to {{ swatchdog_ssmtp_dir }}"
+  copy:
+    src: ssmtp.conf
+    dest: "{{ swatchdog_ssmtp_dir }}/ssmtp.conf"
+    force: no
+    owner: "{{ swatchdog_uuid }}"
+  become: true
+- name: "pull {{ swatchdog_image }}:{{ swatchdog_version }} image"
+  docker_image:
+    name: "{{ swatchdog_image }}"
+    tag: "{{ swatchdog_version }}"
+    source: pull
+  become: true
+- name: run swatchdog container
+  docker_container:
+    name: swatchdog
+    image: "{{ swatchdog_image }}:{{ swatchdog_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ swatchdog_volumes }}"
+    env: "{{ swatchdog_env }}"
+  become: true
