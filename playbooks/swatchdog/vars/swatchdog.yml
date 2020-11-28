@@ -5,6 +5,7 @@ swatchdog_ssmtp_dir: "{{ swatchdog_root_dir }}/ssmtp"
 swatchdog_dirs:
 - "{{ swatchdog_root_dir }}"
 - "{{ swatchdog_config_dir }}"
+- "{{ swatchdog_ssmtp_dir }}"
 swatchdog_version: "latest"
 swatchdog_image: "heywoodlh/swatchdog"
 swatchdog_uuid: "1000"
