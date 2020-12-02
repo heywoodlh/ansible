@@ -32,6 +32,5 @@
     env: "{{ cloudtube_env }}"
     ports:
     - "{{ cloudtube_port }}:10412"
-    links:
-    - second:second
+    network_mode: host
   become: true
