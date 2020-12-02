@@ -10,7 +10,6 @@ cloudtube_version: "latest"
 cloudtube_image: "heywoodlh/cloudtube"
 cloudtube_uuid: "1000"
 cloudtube_guid: "1000"
-cloudtube_port: "10412"
 cloudtube_env:
   TZ: "America/Denver"
 cloudtube_volumes:
