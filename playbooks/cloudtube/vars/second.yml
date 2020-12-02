@@ -1,6 +1,6 @@
 ---
 second_version: "latest"
-second_uri: "http://localhost:3000"
+second_uri: "http://second:3000"
 second_image: "heywoodlh/second"
 second_uuid: "1000"
 second_guid: "1000"

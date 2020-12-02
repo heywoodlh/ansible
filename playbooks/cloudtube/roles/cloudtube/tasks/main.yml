@@ -30,5 +30,8 @@
     user: "{{ cloudtube_uuid }}"
     volumes: "{{ cloudtube_volumes }}"
     env: "{{ cloudtube_env }}"
-    network_mode: host
+    ports:
+    - "{{ cloudtube_port }}:10412"
+    links:
+    - second:second
   become: true
