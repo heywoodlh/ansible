@@ -9,13 +9,6 @@
     recurse: yes
   with_items: "{{ synapse_dirs }}"
   become: true
-- name: "copy template to {{ synapse_config_dir }}/config.js"
-  template:
-    src: config.js.j2
-    dest: "{{ synapse_config_dir }}/config.js"
-    owner: "{{ synapse_uuid }}"
-    group: "{{ synapse_guid }}"
-  become: true
 - name: "pull {{ synapse_image }}:{{ synapse_version }} image"
   docker_image:
     name: "{{ synapse_image }}"
