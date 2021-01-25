@@ -29,7 +29,6 @@
     name: synapse
     image: "{{ synapse_image }}:{{ synapse_version }}"
     restart_policy: unless-stopped
-    user: "{{ synapse_uuid }}"
     volumes: "{{ synapse_volumes }}"
     env: "{{ synapse_env }}"
     ports:
