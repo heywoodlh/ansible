@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/synapse.yml
+  roles:
+  - role: synapse

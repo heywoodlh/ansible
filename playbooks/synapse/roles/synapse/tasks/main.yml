@@ -1,0 +1,45 @@
+---
+- name: "create synapse directories in {{ synapse_root_dir }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: no
+    owner: "{{ synapse_uuid }}"
+    group: "{{ synapse_guid }}"
+    recurse: yes
+  with_items: "{{ synapse_dirs }}"
+  become: true
+- name: "copy template to {{ synapse_config_dir }}/config.js"
+  template:
+    src: config.js.j2
+    dest: "{{ synapse_config_dir }}/config.js"
+    owner: "{{ synapse_uuid }}"
+    group: "{{ synapse_guid }}"
+  become: true
+- name: "pull {{ synapse_image }}:{{ synapse_version }} image"
+  docker_image:
+    name: "{{ synapse_image }}"
+    tag: "{{ synapse_version }}"
+    source: pull
+  become: true
+- name: run synapse container
+  docker_container:
+    name: synapse
+    image: "{{ synapse_image }}:{{ synapse_version }}"
+    user: "{{ synapse_uuid }}"
+    volumes: "{{ synapse_volumes }}"
+    env: "{{ synapse_env }}"
+    command: "generate"
+    auto_remove: "yes"
+  become: true
+- name: run synapse container
+  docker_container:
+    name: synapse
+    image: "{{ synapse_image }}:{{ synapse_version }}"
+    restart_policy: unless-stopped
+    user: "{{ synapse_uuid }}"
+    volumes: "{{ synapse_volumes }}"
+    env: "{{ synapse_env }}"
+    ports:
+      "{{ synapse_port }}:8008"
+  become: true

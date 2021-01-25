@@ -1,0 +1,19 @@
+---
+synapse_root_dir: "/opt/core/synapse"
+synapse_data_dir: "{{ synapse_root_dir }}/data"
+synapse_server_name: "localhost"
+synapse_report_stats: "no"
+synapse_dirs:
+- "{{ synapse_root_dir }}"
+- "{{ synapse_data_dir }}"
+synapse_version: "latest"
+synapse_image: "matrixdotorg/synapse"
+synapse_uuid: "991"
+synapse_guid: "991"
+synapse_port: "6070"
+synapse_env:
+  TZ: "America/Denver"
+  SYNAPSE_SERVER_NAME: "{{ synapse_server_name }}"
+  SYNAPSE_REPORT_STATS: "{{ synapse_report_stats }}"
+synapse_volumes:
+- "{{ synapse_data_dir }}:/data"
