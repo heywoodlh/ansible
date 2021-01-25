@@ -15,15 +15,14 @@
     tag: "{{ synapse_version }}"
     source: pull
   become: true
-- name: run synapse container
-  docker_container:
-    name: synapse
-    image: "{{ synapse_image }}:{{ synapse_version }}"
-    user: "{{ synapse_uuid }}"
-    volumes: "{{ synapse_volumes }}"
-    env: "{{ synapse_env }}"
-    command: "generate"
-    auto_remove: "yes"
+- name: "copy base config to {{ synapse_data_dir }}/homeserver.yaml"
+  template:
+    src: homeserver.yaml.j2
+    dest: "{{ synapse_data_dir }}/homeserver.yaml"
+    owner: "{{ synapse_uuid }}"
+    group: "{{ synapse_guid }}"
+    force: no
+    mode: 0600
   become: true
 - name: run synapse container
   docker_container:
