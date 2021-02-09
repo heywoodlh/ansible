@@ -9,6 +9,7 @@ primary_network_name: "freenode"
 primary_network_server: "chat.freenode.net +7000"
 znc_root_dir: "/opt/core/znc"
 znc_data_dir: "{{ znc_root_dir }}/data"
+znc_modules_dir: "{{ znc_root_dir }}/modules"
 znc_version: "latest"
 znc_uuid: "1000"
 znc_guid: "1000"
@@ -19,3 +20,4 @@ znc_volumes:
 - /etc/timezone:/etc/timezone:ro
 - /etc/localtime:/etc/localtime:ro
 - "{{ znc_data_dir }}:/znc-data"
+- "{{ znc_modules_dir }}:/znc-data/modules"
