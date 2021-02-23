@@ -11,16 +11,16 @@
   - "{{ bitlbee_root_dir }}"
   - "{{ bitlbee_data_dir }}"
   become: true
-- name: "pull ezkrg/bitlbee-libpurple:{{ bitlbee_version }} image"
+- name: "pull {{ bitlbee_image }}:{{ bitlbee_version }} image"
   docker_image:
-    name: ezkrg/bitlbee-libpurple
+    name: "{{ bitlbee_image }}"
     tag: "{{ bitlbee_version }}"
     source: pull
   become: true
 - name: run bitlbee container
   docker_container:
     name: bitlbee
-    image: "ezkrg/bitlbee-libpurple:{{ bitlbee_version }}"
+    image: "{{ bitlbee_image }}:{{ bitlbee_version }}"
     user: "{{ bitlbee_uuid }}"
     restart_policy: unless-stopped
     volumes: "{{ bitlbee_volumes }}"

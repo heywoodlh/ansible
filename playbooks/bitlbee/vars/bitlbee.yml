@@ -1,4 +1,5 @@
 ---
+bitlbee_image: "heywoodlh/bitlbee-libpurple"
 bitlbee_root_dir: "/opt/core/bitlbee"
 bitlbee_data_dir: "{{ bitlbee_root_dir }}/data"
 bitlbee_version: "latest"
