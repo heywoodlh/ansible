@@ -15,14 +15,15 @@
     tag: "{{ synapse_version }}"
     source: pull
   become: true
-- name: "copy base config to {{ synapse_data_dir }}/homeserver.yaml"
-  template:
-    src: homeserver.yaml.j2
-    dest: "{{ synapse_data_dir }}/homeserver.yaml"
-    owner: "{{ synapse_uuid }}"
-    group: "{{ synapse_guid }}"
-    force: no
-    mode: 0600
+- name: generate initial synapse config
+  docker_container:
+    name: synapse
+    image: "{{ synapse_image }}:{{ synapse_version }}"
+    auto_remove: yes
+    volumes: "{{ synapse_volumes }}"
+    env: "{{ synapse_env }}"
+    ports: "{{ synapse_ports }}"
+    command: generate
   become: true
 - name: run synapse container
   docker_container:
@@ -31,6 +32,6 @@
     restart_policy: unless-stopped
     volumes: "{{ synapse_volumes }}"
     env: "{{ synapse_env }}"
-    ports:
-      "{{ synapse_port }}:8008"
+    ports: "{{ synapse_ports }}"
+    command: start
   become: true

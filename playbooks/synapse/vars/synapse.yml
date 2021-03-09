@@ -7,13 +7,16 @@ synapse_dirs:
 - "{{ synapse_root_dir }}"
 - "{{ synapse_data_dir }}"
 synapse_version: "latest"
-synapse_image: "matrixdotorg/synapse"
+synapse_image: "avhost/docker-matrix"
 synapse_uuid: "991"
 synapse_guid: "991"
-synapse_port: "6070"
+synapse_ports:
+  8448:8448
+  8008:8008
+  3478:3478
 synapse_env:
   TZ: "America/Denver"
-  SYNAPSE_SERVER_NAME: "{{ synapse_server_name }}"
-  SYNAPSE_REPORT_STATS: "{{ synapse_report_stats }}"
+  SERVER_NAME: "{{ synapse_server_name }}"
+  REPORT_STATS: "no"
 synapse_volumes:
 - "{{ synapse_data_dir }}:/data"
