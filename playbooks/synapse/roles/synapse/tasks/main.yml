@@ -22,7 +22,6 @@
     auto_remove: yes
     volumes: "{{ synapse_volumes }}"
     env: "{{ synapse_env }}"
-    ports: "{{ synapse_ports }}"
     command: generate
   become: true
 - name: run synapse container
