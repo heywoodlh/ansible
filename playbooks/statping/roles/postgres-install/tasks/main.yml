@@ -1,19 +1,16 @@
 ---
-- name: "create {{ postgres_name }} docker volume"
-  docker_volume:
-    name: "{{ postgres_name }}"
 - name: "pull postgres:{{ postgres_version }} image"
-  docker_image:
+  community.docker.docker_image:
     name: postgres
     tag: "{{ postgres_version }}"
     source: pull
 - name: run postgres container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ postgres_name }}"
     image: "postgres:{{ postgres_version }}"
     restart_policy: unless-stopped
     volumes:
-    - "{{ postgres_name }}:/var/lib/postgres/data"
+    - "{{ postgres_db_dir }}:/var/lib/postgres/data"
     env:
       POSTGRES_DATABASE: "{{ postgres_db }}"
       POSTGRES_USER: "{{ postgres_user }}"

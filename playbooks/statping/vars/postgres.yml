@@ -1,7 +1,7 @@
 ---
 postgres_db_dir: "{{ statping_root_dir }}/statping-db"
 postgres_name: "statping-db"
-postgres_db: "database"
-postgres_user: "db_user"
+postgres_db: "statping"
+postgres_user: "statping"
 postgres_password: "changeme"
 postgres_version: "latest"

@@ -3,7 +3,7 @@ nginx_name: "statping-proxy"
 nginx_dir: "{{ statping_root_dir }}/statping-proxy"
 nginx_certificate_file: "statping.crt"
 nginx_key_file: "statping.key"
-nginx_server_name: "example.com"
+nginx_server_name: "localhost"
 nginx_port: 5050
 nginx_links:
 - statping:statping

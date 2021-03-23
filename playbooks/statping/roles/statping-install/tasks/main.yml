@@ -4,18 +4,15 @@
     path: "{{ statping_root_dir }}"
     state: directory
     force: no
-- name: create statping volume
-  docker_volume:
-    name: statping 
-- name: "pull statping:{{ statping_version }} image"
-  docker_image:
-    name: hunterlong/statping
+- name: "pull {{ statping_image }}:{{ statping_version }} image"
+  community.docker.docker_image:
+    name: "{{ statping_image }}"
     tag: "{{ statping_version }}"
     source: pull
 - name: run statping container
-  docker_container:
+  community.docker.docker_container:
     name: statping
-    image: "hunterlong/statping:{{ statping_version }}"
+    image: "{{ statping_image }}:{{ statping_version }}"
     restart_policy: unless-stopped
     volumes: "{{ statping_volumes }}"
     links:

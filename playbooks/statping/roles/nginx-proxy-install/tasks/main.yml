@@ -8,7 +8,7 @@
     path: "{{ nginx_dir }}/sites-enabled"
     state: directory
 - name: "pull nginx:{{ nginx_version }} image"
-  docker_image:
+  community.docker.docker_image:
     name: nginx
     tag: "{{ nginx_version }}"
     source: pull
@@ -25,7 +25,7 @@
     src: nginx/ssl/
     dest: "{{ nginx_dir }}/ssl"
 - name: run nginx container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ nginx_name }}"
     image: "nginx:{{ nginx_version }}"
     restart_policy: unless-stopped
