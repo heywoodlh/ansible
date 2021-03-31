@@ -1,5 +1,5 @@
 ---
-nextcloud_root_dir: "/home/heywoodlh/core/nextcloud"
+nextcloud_root_dir: "/opt/core/nextcloud"
 nextcloud_dir: "{{ nextcloud_root_dir }}/nextcloud"
 nextcloud_data_dir: "{{ nextcloud_root_dir }}/data"
 nextcloud_env:
