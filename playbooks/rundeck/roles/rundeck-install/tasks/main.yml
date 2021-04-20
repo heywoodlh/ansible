@@ -1,0 +1,36 @@
+---
+- name: "create {{ rundeck_root_dir }}"
+  file:
+    path: "{{ rundeck_root_dir }}"
+    state: directory
+    force: no
+- name: "create {{ rundeck_data_dir }}"
+  file:
+    path: "{{ rundeck_data_dir }}"
+    state: directory
+- name: create rundeck config directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "1000"
+    group: "0"
+  with_items:
+    - "{{ rundeck_data_dir }}/server/config"
+    - "{{ rundeck_data_dir }}/server/data"
+    - "{{ rundeck_data_dir }}/ssh"
+    - "{{ rundeck_data_dir }}/projects"
+- name: "pull {{ rundeck_image }}:{{ rundeck_image_version }} image"
+  community.docker.docker_image:
+    name: "{{ rundeck_image }}"
+    tag: "{{ rundeck_image_version }}"
+    source: pull
+- name: run rundeck container
+  community.docker.docker_container:
+    name: rundeck
+    image: "{{ rundeck_image }}:{{ rundeck_image_version }}"
+    restart_policy: unless-stopped
+    volumes: "{{ rundeck_volumes }}"
+    links:
+    - rundeck-db:rundeck-db
+    env: "{{ rundeck_env }}"
+    recreate: yes

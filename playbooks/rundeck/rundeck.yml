@@ -1,0 +1,11 @@
+---
+- hosts: rundeck
+  vars_files:
+  - vars/rundeck.yml
+  - vars/postgres.yml
+  - vars/nginx.yml
+  roles:
+  - role: postgres-install
+  - role: rundeck-install
+  - role: nginx-proxy-install
+  become: true

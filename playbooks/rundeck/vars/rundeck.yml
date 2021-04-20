@@ -1,0 +1,19 @@
+---
+rundeck_root_dir: "/opt/core/rundeck"
+rundeck_image: "rundeck/rundeck"
+rundeck_image_version: "SNAPSHOT"
+rundeck_data_dir: "{{ rundeck_root_dir }}/data"
+rundeck_volumes:
+- "{{ rundeck_data_dir }}/server/config:/home/rundeck/server/config"
+- "{{ rundeck_data_dir }}/server/data:/home/rundeck/server/data"
+- "{{ rundeck_data_dir }}/ssh:/home/rundeck/.ssh"
+- "{{ rundeck_data_dir }}/projects:/home/rundeck/projects"
+- /etc/timezone:/etc/timezone:ro
+- /etc/localtime:/etc/localtime:ro
+rundeck_env:
+  RUNDECK_SERVER_FORWARDED: "true"
+  RUNDECK_GRAILS_URL: "https://localhost:8080"
+  RUNDECK_DATABASE_DRIVER: "org.postgresql.Driver"
+  RUNDECK_DATABASE_URL: "jdbc:postgresql://rundeck-db/{{ postgres_db }}?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true"
+  RUNDECK_DATABASE_USERNAME: "{{ postgres_user }}"
+  RUNDECK_DATABASE_PASSWORD: "{{ postgres_password }}"

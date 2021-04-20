@@ -1,0 +1,12 @@
+---
+nginx_name: "rundeck-proxy"
+nginx_dir: "{{ rundeck_root_dir }}/rundeck-proxy"
+nginx_certificate_file: "rundeck.crt"
+nginx_key_file: "rundeck.key"
+nginx_port: 8080
+nginx_links:
+- rundeck:rundeck
+nginx_version: "latest"
+nginx_config_server_name: "localhost"
+nginx_config_proxy_pass_hostname: "rundeck"
+nginx_config_proxy_pass_port: "4440"

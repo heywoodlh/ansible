@@ -1,0 +1,22 @@
+---
+- name: "create {{ postgres_db_dir }}"
+  file:
+    path: "{{ postgres_db_dir }}"
+    state: directory
+    force: no
+- name: "pull postgres:{{ postgres_version }} image"
+  community.docker.docker_image:
+    name: postgres
+    tag: "{{ postgres_version }}"
+    source: pull
+- name: run postgres container
+  community.docker.docker_container:
+    name: "{{ postgres_name }}"
+    image: "postgres:{{ postgres_version }}"
+    restart_policy: unless-stopped
+    volumes:
+    - "{{ postgres_db_dir }}:/var/lib/postgres/data"
+    env:
+      POSTGRES_DATABASE: "{{ postgres_db }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"

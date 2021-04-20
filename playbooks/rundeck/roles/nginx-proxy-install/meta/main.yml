@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: postgres-install
+  - role: rundeck-install
