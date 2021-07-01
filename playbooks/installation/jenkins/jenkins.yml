@@ -1,0 +1,7 @@
+---
+- hosts: all
+  vars_files:
+  - vars/jenkins.yml
+  roles:
+  - role: jenkins-install
+  become: true
