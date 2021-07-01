@@ -4,9 +4,7 @@ jenkins_image: "heywoodlh/jenkins-ansible"
 jenkins_image_version: "latest"
 jenkins_volumes:
 - "{{ jenkins_root_dir }}:/var/jenkins_home"
-- /etc/timezone:/etc/timezone:ro
-- /etc/localtime:/etc/localtime:ro
 jenkins_ports:
-  - "8080:8080"
-  - "50000:50000"
+- "8080:8080"
+- "50000:50000"
 jenkins_env:
