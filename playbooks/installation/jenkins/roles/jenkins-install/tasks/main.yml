@@ -4,10 +4,6 @@
     path: "{{ jenkins_root_dir }}"
     state: directory
     force: no
-- name: "create {{ jenkins_data_dir }}"
-  file:
-    path: "{{ jenkins_data_dir }}"
-    state: directory
 - name: "pull {{ jenkins_image }}:{{ jenkins_image_version }} image"
   community.docker.docker_image:
     name: "{{ jenkins_image }}"
