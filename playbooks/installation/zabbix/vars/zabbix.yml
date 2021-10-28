@@ -1,7 +1,7 @@
 ---
 application_name: "zabbix"
 application_port: "10051"
-zabbix_root_dir: "/home/heywoodlh/core/zabbix"
+zabbix_root_dir: "/opt/zabbix"
 zabbix_data_dir: "{{ zabbix_root_dir }}/data"
 zabbix_volumes:
 - "{{ zabbix_data_dir }}/usr:/usr/lib/zabbix"
