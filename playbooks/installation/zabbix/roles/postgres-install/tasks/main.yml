@@ -15,7 +15,7 @@
     image: "postgres:{{ postgres_version }}"
     restart_policy: unless-stopped
     volumes:
-    - "{{ postgres_db_dir }}:/var/lib/postgres/data"
+    - "{{ postgres_db_dir }}:/var/lib/postgresql/data"
     env:
       POSTGRES_DATABASE: "{{ postgres_db }}"
       POSTGRES_USER: "{{ postgres_user }}"
