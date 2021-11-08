@@ -31,5 +31,5 @@
     links: "{{ zabbix_links }}"
     volumes: "{{ zabbix_volumes }}"
     ports:
-    - 10051:10051
+    - "{{ ZBX_SERVER_PORT }}:10051"
     env: "{{ zabbix_env }}"
