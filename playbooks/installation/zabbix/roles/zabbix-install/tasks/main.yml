@@ -30,4 +30,6 @@
     restart_policy: unless-stopped
     links: "{{ zabbix_links }}"
     volumes: "{{ zabbix_volumes }}"
+    ports:
+    - 10051:10051
     env: "{{ zabbix_env }}"
