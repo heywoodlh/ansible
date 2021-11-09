@@ -1,10 +1,8 @@
 ---
 - hosts: localhost
+  vars_files:
+  - vars/main.yml
   become: true
-  tasks:
-  - name: run security playbooks
-    ansible.builtin.import_tasks: "security/{{ item }}"
-    with_items:
-    - sshd-alert.yml
-  - name: run users playbooks
-    ansible.builtin.import_tasks: "users/heywoodlh.yml"
+  roles:
+  - role: security
+  - role: users

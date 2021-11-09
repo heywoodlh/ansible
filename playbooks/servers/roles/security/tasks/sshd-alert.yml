@@ -40,19 +40,15 @@
   ansible.builtin.stat: 
     path: /usr/local/bin/gotify
   register: gotify_path
-- name: import gotify vars
-  ansible.builtin.include_vars:
-    file: vars/gotify.yml
-  when: gotify_path.stat.exists == true 
 - name: download gotify cli for x86_64
   ansible.builtin.get_url:
     url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-amd64"
     dest: /usr/local/bin/gotify
     mode: '0755'
-  when: ansible_architecture == "x86_64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists == true
+  when: ansible_architecture == "x86_64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists != true
 - name: download gotify cli for arm64
   ansible.builtin.get_url:
     url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-arm64"
     dest: /usr/local/bin/gotify
     mode: '0755'
-  when: ansible_architecture == "arm64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists == true
+  when: ansible_architecture == "arm64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists != true
