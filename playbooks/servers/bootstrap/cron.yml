@@ -2,7 +2,7 @@
 - hosts: localhost
   become: true
   tasks:
-   - name: install cronie
+  - name: install cronie
     community.general.pacman:
       name: cronie
       update_cache: yes
