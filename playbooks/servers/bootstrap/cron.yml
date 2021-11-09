@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   - name: install cronie
+    community.general.pacman:
+      name: cronie
+      update_cache: yes
+    when: ansible_distribution == 'Archlinux'
+  - name: enable and start cronie.service
+    ansible.builtin.systemd:
+      name: cronie
+      state: started
+      enabled: yes
+    when: ansible_distribution == 'Archlinux'
+  - name: create cron to keep state in sync
+    ansible.builtin.cron:
+      name: ansible-pull
+      minute: 0
+      job: ansible-pull https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml  

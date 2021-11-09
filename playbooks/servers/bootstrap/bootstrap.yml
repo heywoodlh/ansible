@@ -4,8 +4,8 @@
   become: true
   tasks:
   - name: install python with pacman
-    raw: pacman -Syu --noconfirm python python-pip
+    raw: pacman -Syu --noconfirm python python-pip git
     when: ansible_os_family == 'Archlinux'
   - name: install python with apt
-    raw: apt-get update && apt-get install -y python3 python3-pip 
+    raw: apt-get update && apt-get install -y python3 python3-pip git
     when: ansible_os_family == 'Debian'
