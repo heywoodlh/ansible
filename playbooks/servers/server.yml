@@ -3,6 +3,8 @@
   become: true
   tasks:
   - name: run security playbooks
-    ansible.builtin.import_playbook: security/*.yml
+    ansible.builtin.import_playbook: "security/{{ items }}"
+    with_items:
+    - sshd-alert.yml
   - name: run users playbooks
     ansible.builtin.import_playbook: users/*.yml
