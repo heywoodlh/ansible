@@ -20,4 +20,4 @@
       force: no
     become: true
   - name: install roles in requirements.yml
-    command: ansible-galaxy install -r requirements.yml
+    command: ansible-galaxy install -r roles/requirements.yml
