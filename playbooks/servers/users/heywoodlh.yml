@@ -1,20 +1,17 @@
 ---
-- hosts: all
-  become: true
-  tasks:
-  - name: import user vars
-    ansible.builtin.include_vars:
-      file: vars/users.yml
-  - name: "passwordless sudo for {{ ssh_user }}"
-    ansible.builtin.lineinfile:
-      path: "/etc/sudoers.d/{{ ssh_user }}"
-      state: present
-      regexp: "^{{ ssh_user }}"
-      line: "{{ ssh_user }} ALL=(ALL) NOPASSWD: ALL"
-      validate: 'visudo -cf %s'
-  - name: grab authorized_keys file
-    ansible.builtin.get_url:
-      url: "{{ authorized_keys_uri }}"
-      dest: "/home/{{ ssh_user }}/.ssh/authorized_keys"
-      mode: '0600'
-      owner: "{{ ssh_user }}"
+- name: import user vars
+  ansible.builtin.include_vars:
+    file: vars/users.yml
+- name: passwordless sudo for heywoodlh
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/heywoodlh
+    state: present
+    regexp: "^heywoodlh"
+    line: "heywoodlh ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+- name: grab authorized_keys file
+  ansible.builtin.get_url:
+    url: http://10.50.50.1:8080/ansible/authorized_keys
+    dest: /home/heywoodlh/.ssh/authorized_keys
+    mode: '0600'
+    owner: heywoodlh

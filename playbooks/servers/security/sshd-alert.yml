@@ -1,61 +1,58 @@
 ---
-- hosts: localhost
-  become: true
-  tasks:
-  - name: set ssh service name to 'ssh' if Debian-based
-    ansible.builtin.set_fact:
-      ssh_service_name: 'ssh'
-    when: ansible_os_family == 'Debian'
-  - name: set ssh service name to 'sshd' if not Debian-based
-    ansible.builtin.set_fact:
-      ssh_service_name: 'sshd'
-    when: ansible_os_family != 'Debian'
-  - name: create /opt/scripts directory
-    ansible.builtin.file:
-      path: /opt/scripts
-      state: directory
-      owner: root
-      group: root
-      mode: '0700'
-  - name: create sshd-alert.sh script
-    ansible.builtin.template:
-      src: sshd-alert.sh.j2
-      dest: /opt/scripts/sshd-alert.sh
-      owner: root
-      group: root
-      mode: '0700'
-  - name: create cron for /opt/scripts/sshd-alert.sh
-    ansible.builtin.cron:
-      name: sshd-alerts
-      job: /opt/scripts/sshd-alert.sh
-  - name: install cronie
-    community.general.pacman:
-      name: cronie
-      update_cache: yes
-    when: ansible_distribution == 'Archlinux'
-  - name: enable and start cronie.service
-    ansible.builtin.systemd:
-      name: cronie
-      state: started
-      enabled: yes
-    when: ansible_distribution == 'Archlinux'
-  - name: check if /usr/local/bin/gotify exists 
-    ansible.builtin.stat: 
-      path: /usr/local/bin/gotify
-    register: gotify_path
-  - name: import gotify vars
-    ansible.builtin.include_vars:
-      file: vars/gotify.yml
-    when: gotify_path.stat.exists == true 
-  - name: download gotify cli for x86_64
-    ansible.builtin.get_url:
-      url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-amd64"
-      dest: /usr/local/bin/gotify
-      mode: '0755'
-    when: ansible_architecture == "x86_64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists == true
-  - name: download gotify cli for arm64
-    ansible.builtin.get_url:
-      url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-arm64"
-      dest: /usr/local/bin/gotify
-      mode: '0755'
-    when: ansible_architecture == "arm64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists == true
+- name: set ssh service name to 'ssh' if Debian-based
+  ansible.builtin.set_fact:
+    ssh_service_name: 'ssh'
+  when: ansible_os_family == 'Debian'
+- name: set ssh service name to 'sshd' if not Debian-based
+  ansible.builtin.set_fact:
+    ssh_service_name: 'sshd'
+  when: ansible_os_family != 'Debian'
+- name: create /opt/scripts directory
+  ansible.builtin.file:
+    path: /opt/scripts
+    state: directory
+    owner: root
+    group: root
+    mode: '0700'
+- name: create sshd-alert.sh script
+  ansible.builtin.template:
+    src: sshd-alert.sh.j2
+    dest: /opt/scripts/sshd-alert.sh
+    owner: root
+    group: root
+    mode: '0700'
+- name: create cron for /opt/scripts/sshd-alert.sh
+  ansible.builtin.cron:
+    name: sshd-alerts
+    job: /opt/scripts/sshd-alert.sh
+- name: install cronie
+  community.general.pacman:
+    name: cronie
+    update_cache: yes
+  when: ansible_distribution == 'Archlinux'
+- name: enable and start cronie.service
+  ansible.builtin.systemd:
+    name: cronie
+    state: started
+    enabled: yes
+  when: ansible_distribution == 'Archlinux'
+- name: check if /usr/local/bin/gotify exists 
+  ansible.builtin.stat: 
+    path: /usr/local/bin/gotify
+  register: gotify_path
+- name: import gotify vars
+  ansible.builtin.include_vars:
+    file: vars/gotify.yml
+  when: gotify_path.stat.exists == true 
+- name: download gotify cli for x86_64
+  ansible.builtin.get_url:
+    url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-amd64"
+    dest: /usr/local/bin/gotify
+    mode: '0755'
+  when: ansible_architecture == "x86_64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists == true
+- name: download gotify cli for arm64
+  ansible.builtin.get_url:
+    url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-arm64"
+    dest: /usr/local/bin/gotify
+    mode: '0755'
+  when: ansible_architecture == "arm64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists == true
