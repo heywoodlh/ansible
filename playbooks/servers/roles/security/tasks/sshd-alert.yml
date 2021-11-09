@@ -51,4 +51,4 @@
     url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-arm64"
     dest: /usr/local/bin/gotify
     mode: '0755'
-  when: ansible_architecture == "arm64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists != true
+  when: ansible_architecture == "aarch64" and (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux') and gotify_path.stat.exists != true
