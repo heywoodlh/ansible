@@ -3,6 +3,6 @@
   become: true
   tasks:
   - name: run security playbooks
-    import_playbook: security/*.yml
+    ansible.builtin.import_playbook: security/*.yml
   - name: run users playbooks
-    import_playbook: users/*.yml
+    ansible.builtin.import_playbook: users/*.yml
