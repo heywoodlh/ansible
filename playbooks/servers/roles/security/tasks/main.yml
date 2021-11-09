@@ -1,0 +1,3 @@
+---
+- name: import sshd-alert.yml tasks
+  import_tasks: sshd-alert.yml
