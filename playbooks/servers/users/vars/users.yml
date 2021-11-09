@@ -1,0 +1,3 @@
+---
+ssh_user: 'heywoodlh'
+authorized_keys_uri: 'http://10.50.50.1:8080/ansible/authorized_keys'

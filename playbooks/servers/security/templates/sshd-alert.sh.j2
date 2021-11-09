@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+### Super simple systemd alerting
+
+### Service name
+service="{{ ssh_service_name }}.service"
+
+### Journalctl time frame (look at `man systemd.time` and `man journalctl`)
+timeframe="1 minutes ago"
+
+### Pattern to match with `grep -E ...`
+grep_regex_pattern='Failed password|Invalid verification code|Invalid user|Accepted publickey|Accepted password'
+
+### Command to pipe logs to if match
+notify_command='/usr/local/bin/gotify push "${logs}"'
+
+
+
+logs=$(journalctl -u ${service} --since "${timeframe}" | grep -iE "${grep_regex_pattern}")
+
+if [[ -n ${logs} ]]
+then
+        eval "${notify_command}"
+fi
