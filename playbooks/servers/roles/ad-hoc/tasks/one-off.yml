@@ -1,0 +1,12 @@
+---
+- name: create cron to keep state in sync
+  ansible.builtin.cron:
+    name: ansible-pull
+    minute: 0
+    job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml
+    state: absent
+- name: remove old cron for /opt/scripts/sshd-alert.sh
+  ansible.builtin.cron:
+    name: sshd-alerts
+    job: /opt/scripts/sshd-alert.sh
+    state: absent
