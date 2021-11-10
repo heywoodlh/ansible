@@ -1,0 +1,20 @@
+image: archlinux
+packages:
+  - git
+  - python
+  - python-pip
+  - ansible
+  - cronie
+sources:
+  - https://git.sr.ht/~heywoodlh/ansible
+tasks:
+  - setup: |
+      cd ansible
+      ansible-playbook setup.yml
+      cd playbooks/servers
+      ansible-playbook server.yml \
+        && ls -l /usr/local/bin/gotify
+triggers:
+  - action: email
+    condition: failure
+    to: heywoodlh@tyrannyofthesun.com
