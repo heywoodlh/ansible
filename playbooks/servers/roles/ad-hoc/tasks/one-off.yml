@@ -3,8 +3,7 @@
   ansible.builtin.cron:
     name: ansible-pull
     minute: 0
-    job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml
-    state: absent
+    job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
 - name: remove old cron for /opt/scripts/sshd-alert.sh
   ansible.builtin.cron:
     name: sshd-alerts
