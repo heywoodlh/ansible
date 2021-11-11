@@ -4,7 +4,6 @@ packages:
   - python
   - python-pip
   - ansible
-  - cronie
 sources:
   - https://git.sr.ht/~heywoodlh/ansible
 tasks:

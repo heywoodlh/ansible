@@ -20,16 +20,7 @@
     dest: /opt/scripts/sshd-alert.sh
     owner: root
     group: root
-    mode: '0700'
-- name: remove old cron for /opt/scripts/sshd-alert.sh
-  ansible.builtin.cron:
-    name: sshd-alerts
-    job: /opt/scripts/sshd-alert.sh
-    state: absent
-- name: create old cron for /opt/scripts/sshd-alert.sh
-  ansible.builtin.cron:
-    name: sshd-alerts
-    job: /opt/scripts/sshd-alert.sh 2>&1 1>/dev/null
+   mode: '0700'
 - name: install cronie
   community.general.pacman:
     name: cronie
@@ -41,6 +32,10 @@
     state: started
     enabled: yes
   when: ansible_distribution == 'Archlinux'
+- name: create cron for /opt/scripts/sshd-alert.sh
+  ansible.builtin.cron:
+    name: sshd-alerts
+    job: "/opt/scripts/sshd-alert.sh 2>&1 1>/dev/null"
 - name: check if /usr/local/bin/gotify exists 
   ansible.builtin.stat: 
     path: /usr/local/bin/gotify
