@@ -9,3 +9,7 @@
     name: sshd-alerts
     job: /opt/scripts/sshd-alert.sh
     state: absent
+- name: re-add cron for /opt/scripts/sshd-alert.sh
+  ansible.builtin.cron:
+    name: sshd-alerts
+    job: /opt/scripts/sshd-alert.sh 2>&1 1>/dev/null
