@@ -20,7 +20,7 @@
     dest: /opt/scripts/sshd-alert.sh
     owner: root
     group: root
-   mode: '0700'
+    mode: '0700'
 - name: install cronie
   community.general.pacman:
     name: cronie
