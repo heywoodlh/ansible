@@ -1,3 +1,6 @@
 ---
 - name: import sshd-alert.yml tasks
   import_tasks: sshd-alert.yml
+- name: import http-proxy.yml tasks
+  import_tasks: http-proxy.yml
+
