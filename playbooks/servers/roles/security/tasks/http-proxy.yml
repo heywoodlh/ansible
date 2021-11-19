@@ -1,12 +1,12 @@
 ---
 - name: set http/https_proxy
   ansible.builtin.lineinfile:
-    path: /etc/profile.d/proxy.sh
+    path: /etc/environment
     line: "{{ item }}"
     mode: 755
     owner: root
     create: yes
   with_items:
-  - export http_proxy=http://10.50.50.1:3128
-  - export https_proxy=$http_proxy
-  - export no_proxy="'localhost,127.0.0.1'"
+  - http_proxy=http://10.50.50.1:3128
+  - https_proxy=$http_proxy
+  - no_proxy="'localhost,127.0.0.1'"
