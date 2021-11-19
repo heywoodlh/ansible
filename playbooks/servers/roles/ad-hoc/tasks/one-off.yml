@@ -13,3 +13,8 @@
   ansible.builtin.cron:
     name: sshd-alerts
     job: /opt/scripts/sshd-alert.sh 2>&1 1>/dev/null
+- name: remove mangled $http_proxy variable line from /etc/environment 
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    line: "^https_proxy=$http_proxy"
+    state: absent
