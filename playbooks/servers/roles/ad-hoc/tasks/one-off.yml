@@ -16,5 +16,5 @@
 - name: remove mangled $http_proxy variable line from /etc/environment 
   ansible.builtin.lineinfile:
     path: /etc/environment
-    line: "^https_proxy=$http_proxy"
+    line: https_proxy=$http_proxy
     state: absent
