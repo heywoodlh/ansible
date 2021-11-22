@@ -7,3 +7,4 @@
   - role: security
   - role: users
   - role: ad-hoc
+  - role: pkgs
