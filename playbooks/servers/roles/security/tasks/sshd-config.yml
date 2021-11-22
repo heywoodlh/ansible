@@ -1,0 +1,5 @@
+---
+- name: disable password auth
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: "PasswordAuthentication no"
