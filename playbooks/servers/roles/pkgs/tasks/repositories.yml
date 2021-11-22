@@ -2,7 +2,7 @@
 - name: arch linux mirrorlist repo configuration
   ansible.builtin.copy:
     src: mirrorlist
-    path: /etc/pacman.d/mirrorlist
+    dest: /etc/pacman.d/mirrorlist
     backup: true
     owner: root
     mode: 644
