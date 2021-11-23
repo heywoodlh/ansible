@@ -1,16 +1,22 @@
 ---
+- name: disable root login
+  ansible.builtin.replace:
+    path: /etc/ssh/sshd_config
+    regexp: 'PermitRootLogin yes'
+    replace: 'PermitRootLogin no'
+  register: ssh_root_conf
 - name: disable password auth
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     line: "PasswordAuthentication no"
-  register: ssh_conf
+  register: ssh_pass_conf
 - name: restart sshd
   ansible.builtin.systemd:
     name: ssh
     state: restarted
-  when: ssh_conf.changed and ansible_os_family == 'Debian'
+  when: (ssh_root_conf.changed or ssh_pass_conf.changed) and ansible_os_family == 'Debian'
 - name: restart sshd
   ansible.builtin.systemd:
     name: sshd
     state: restarted
-  when: ssh_conf.changed and ansible_os_family != 'Debian'
+  when: (ssh_root_conf.changed or ssh_pass_conf.changed) and ansible_os_family != 'Debian'
