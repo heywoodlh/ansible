@@ -11,10 +11,22 @@
 - name: import debian.yml tasks
   ansible.builtin.import_tasks: debian.yml
   when: tarsnap_check.rc != 0 and ansible_os_family == 'Debian'
-#- name: check if /opt/scripts/tarsnap-backup.sh exists
-  #ansible.builtin.stat:
-    #path: /opt/scripts/tarsnap-backup.sh
-  #register: tarsnap_script
-#- name: copy tarsnap-backup.sh to /opt/scripts/tarsnap-backup.sh
-  #ansible.builtin.template:
-  #when: not tarsnap_script.stat.exists
+- name: create /opt/scripts directory
+  ansible.builtin.file:
+    path: /opt/scripts
+    state: directory
+    owner: root
+    group: root
+    mode: '0700'
+- name: create tarsnap-backup.sh script
+  ansible.builtin.template:
+    src: tarsnap-backup.sh.j2
+    dest: /opt/scripts/tarsnap-backup.sh
+    owner: root
+    group: root
+    mode: '0700'
+- name: create cron for /opt/scripts/tarsnap-backup.sh
+  ansible.builtin.cron:
+    name: tarsnap-backup.sh
+    job: "/opt/scripts/tarsnap-backup.sh 2>&1 1>/dev/null"
+    weekday: "1"
