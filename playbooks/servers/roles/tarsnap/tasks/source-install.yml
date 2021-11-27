@@ -3,7 +3,6 @@
   ansible.builtin.unarchive:
     src: 'https://www.tarsnap.com/download/tarsnap-autoconf-1.0.39.tgz'
     dest: /tmp/tarsnap-autoconf
-    remote_src: yes
 - name: configure tarsnap source code
   ansible.builtin.shell: ./configure
   args:
