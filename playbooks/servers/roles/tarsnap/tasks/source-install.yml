@@ -1,8 +1,13 @@
 ---
+- name: download tarsnap source code
+  ansible.builtin.get_url:
+    src: https://www.tarsnap.com/download/tarsnap-autoconf-1.0.39.tgz
+    dest: /tmp/tarsnap-autoconf.tgz
 - name: unarchive tarsnap source code
   ansible.builtin.unarchive:
-    src: 'https://www.tarsnap.com/download/tarsnap-autoconf-1.0.39.tgz'
+    src: '/tmp/tarsnap-autoconf.tgz'
     dest: /tmp/tarsnap-autoconf
+    remote_src: yes
 - name: configure tarsnap source code
   ansible.builtin.shell: ./configure
   args:
@@ -15,6 +20,10 @@
   ansible.builtin.shell: make install
   args:
     chdir: /tmp/tarsnap-autoconf
+- name: clean up /tmp/tarsnap-autoconf
+  ansible.builtin.file:
+    path: /tmp/tarsnap-autoconf
+    state: absent
 - name: clean up /tmp/tarsnap-autoconf
   ansible.builtin.file:
     path: /tmp/tarsnap-autoconf
