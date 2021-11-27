@@ -6,7 +6,7 @@
 - name: unarchive tarsnap source code
   ansible.builtin.unarchive:
     src: '/tmp/tarsnap-autoconf.tgz'
-    dest: /tmp/tarsnap-autoconf
+    dest: /tmp/
     remote_src: yes
 - name: configure tarsnap source code
   ansible.builtin.shell: ./configure
