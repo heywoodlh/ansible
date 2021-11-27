@@ -1,7 +1,7 @@
 ---
 - name: download tarsnap source code
   ansible.builtin.get_url:
-    src: https://www.tarsnap.com/download/tarsnap-autoconf-1.0.39.tgz
+    url: https://www.tarsnap.com/download/tarsnap-autoconf-1.0.39.tgz
     dest: /tmp/tarsnap-autoconf.tgz
 - name: unarchive tarsnap source code
   ansible.builtin.unarchive:
