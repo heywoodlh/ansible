@@ -1,0 +1,3 @@
+---
+- name: import repositories.yml tasks
+  import_tasks: repositories.yml

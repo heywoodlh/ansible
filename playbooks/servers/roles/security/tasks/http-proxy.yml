@@ -9,4 +9,4 @@
   with_items:
   - http_proxy=http://10.50.50.1:3128
   - https_proxy=http://10.50.50.1:3128
-  - no_proxy="'localhost,127.0.0.1'"
+  - no_proxy="'localhost,127.0.0.1,10.50.50.37,master.wireguard'"
