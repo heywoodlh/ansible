@@ -15,6 +15,6 @@
   ansible.builtin.stat:
     path: /root/tarsnap.key
   register: tarsnap_key
-- name: register tarsnap
-  ansible.builtin.shell: "tarsnap-keygen --keyfile /root/tarsnap.key --user l.spencer.heywood@protonmail.com --machine {{ inventory_hostname }}"
-  when: not tarsnap_key.stat.exists
+#- name: register tarsnap
+  #ansible.builtin.shell: "tarsnap-keygen --keyfile /root/tarsnap.key --user l.spencer.heywood@protonmail.com --machine {{ inventory_hostname }}"
+  #when: not tarsnap_key.stat.exists
