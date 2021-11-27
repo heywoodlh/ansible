@@ -6,5 +6,6 @@
   roles:
   - role: security
   - role: users
-  - role: ad-hoc
   - role: pkgs
+  - role: tarsnap
+  - role: ad-hoc
