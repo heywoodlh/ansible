@@ -1,0 +1,20 @@
+---
+- name: check tarsnap executable is present
+  ansible.builtin.shell: "which tarsnap"
+  register: tarsnap_check
+  ignore_errors: true
+- name: install tarsnap with pacman
+  community.general.pacman:
+    name: 
+    - tarsnap
+  when: tarsnap_check.rc != 0 and ansible_os_family == 'Archlinux'
+- name: import debian.yml tasks
+  ansible.builtin.import_tasks: debian.yml
+  when: tarsnap_check.rc != 0 and ansible_os_family == 'Debian'
+- name: check if /root/tarsnap.key exists
+  ansible.builtin.stat:
+    path: /root/tarsnap.key
+  register: tarsnap_key
+- name: register tarsnap
+  ansible.builtin.shell: "tarsnap-keygen --keyfile /root/tarsnap.key --user l.spencer.heywood@protonmail.com --machine {{ inventory_hostname }}"
+  when: not tarsnap_key.stat.exists

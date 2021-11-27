@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+KEYFILE="/root/tarsnap.key"
+BACKUP_NAME="$(uname -n)-server-backup-$(date +%Y-%m-%d_%H-%M-%S)"
+DATA_PATH="{{ backup_paths }}"
+TOTAL_BACKUPS='8'
+EXCLUDE="{{ backup_exclude_paths }}" #space separated paths if you need multiple exclusions
+CACHE_DIR="/usr/local/tarsnap-cache"
+
+DATE="$(date +%b-%d-%y)"
+
+echo "Backup: $BACKUP_NAME"
+
+TARSNAP="/usr/local/bin/tarsnap"
+
+EXCLUDE_ARG=""
+if [[ "$EXCLUDE" != "" ]]
+then
+	for file in $EXCLUDE
+	do
+		EXCLUDE_ARG="$EXCLUDE_ARG--exclude $file "
+	done
+fi
+
+# Create the backup
+$TARSNAP -c $EXCLUDE_ARG --keyfile $KEYFILE --cachedir $CACHE_DIR -f $BACKUP_NAME $DATA_PATH
+
+BACKUP_STATUS="$?"
+
+ARCHIVE_NUMBER="$($TARSNAP --keyfile $KEYFILE --cachedir $CACHE_DIR --list-archives | sort | wc -l)"
+
+##Limit of three stored backups. If limit is reached, delete the oldest backup
+
+if [ "$ARCHIVE_NUMBER" -gt "$TOTAL_BACKUPS" ]
+then
+	OFFENDING_BACKUP="$($TARSNAP --keyfile $KEYFILE --cachedir $CACHE_DIR --list-archives | sort | head -1)"
+	$TARSNAP -d --keyfile $KEYFILE --cachedir $CACHE_DIR -f "$OFFENDING_BACKUP"
+fi
+
+CURRENT_ARCHIVE="$($TARSNAP --keyfile $KEYFILE --cachedir $CACHE_DIR --list-archives | sort)"
+
+if [ "$BACKUP_STATUS" == "0" ]
+then
+    echo "Backup complete"
+    gotify push "Tarsnap backup completed: $DATE. Current backups: $CURRENT_ARCHIVE"
+else
+    echo "Backup failed"
+    gotify push "Tarsnap backup failed: $DATE"
+fi
