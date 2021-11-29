@@ -11,7 +11,12 @@ DATE="$(date +%b-%d-%y)"
 
 echo "Backup: $BACKUP_NAME"
 
-TARSNAP="/usr/local/bin/tarsnap"
+if [[ -e /usr/bin/tarsnap ]]
+then
+	TARSNAP="/usr/bin/tarsnap"
+else
+	TARSNAP="/usr/local/bin/tarsnap"
+fi
 
 EXCLUDE_ARG=""
 if [[ "$EXCLUDE" != "" ]]
