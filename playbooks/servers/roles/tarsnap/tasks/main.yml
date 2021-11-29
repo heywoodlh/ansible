@@ -30,3 +30,5 @@
     name: tarsnap-backup.sh
     job: "/opt/scripts/tarsnap-backup.sh 2>&1 1>/dev/null"
     weekday: "1"
+    hour: 0
+    minute: 0
