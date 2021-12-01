@@ -1,7 +1,7 @@
 ---
 - name: install arch packages
   community.general.pacman:
-    name: {{ item }}
+    name: "{{ item }}"
   with_items:
   - cronie
 - name: enable cronie service
