@@ -32,19 +32,16 @@
     state: started
     enabled: yes
   when: ansible_distribution == 'Archlinux'
-- name: create cron for /opt/scripts/sshd-alert.sh
-  ansible.builtin.cron:
-    name: sshd-alerts
-    job: "/opt/scripts/sshd-alert.sh 2>&1 1>/dev/null"
-    special_time: reboot
-- name: check if sshd-alert.sh is running
-  ansible.builtin.shell: pgrep -a journalctl | grep ssh | grep service
-  ignore_errors: yes
-  changed_when: false
-  register: sshd_alert_status
-- name: start sshd-alert.sh
-  ansible.builtin.shell: nohup /opt/scripts/sshd-alert.sh </dev/null >/dev/null 2>&1 &  
-  when: sshd_alert_status.rc != 0
+- name: copy sshd-alert systemd service
+  ansible.builtin.copy:
+    src: sshd-alert.service
+    dest: /etc/systemd/system/sshd-alert.service
+- name: start and enable sshd-alert.service
+  ansible.builtin.systemd:
+    name: sshd-alert.service
+    daemon_reload: yes
+    state: started
+    enabled: yes
 - name: check if /usr/local/bin/gotify exists 
   ansible.builtin.stat: 
     path: /usr/local/bin/gotify

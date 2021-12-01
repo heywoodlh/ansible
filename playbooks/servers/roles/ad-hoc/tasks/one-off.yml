@@ -9,3 +9,9 @@
     name: sshd-alerts
     job: /opt/scripts/sshd-alert.sh 2>&1 1>/dev/null
     state: absent
+- name: remove cron for /opt/scripts/sshd-alert.sh
+  ansible.builtin.cron:
+    name: sshd-alerts
+    job: "/opt/scripts/sshd-alert.sh 2>&1 1>/dev/null"
+    special_time: reboot
+    state: absent
