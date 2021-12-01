@@ -43,7 +43,7 @@
   changed_when: false
   register: sshd_alert_status
 - name: start sshd-alert.sh
-  ansible.builtin.shell: /opt/scripts/sshd-alert.sh </dev/null >/dev/null 2>&1 &  
+  ansible.builtin.shell: nohup /opt/scripts/sshd-alert.sh </dev/null >/dev/null 2>&1 &  
   when: sshd_alert_status.rc != 0
 - name: check if /usr/local/bin/gotify exists 
   ansible.builtin.stat: 
