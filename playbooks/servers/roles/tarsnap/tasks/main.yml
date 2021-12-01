@@ -24,6 +24,7 @@
     dest: /opt/scripts/tarsnap-backup.sh
     owner: root
     group: root
+    force: no
     mode: '0700'
 - name: create cron for /opt/scripts/tarsnap-backup.sh
   ansible.builtin.cron:
