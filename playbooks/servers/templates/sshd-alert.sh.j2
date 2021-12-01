@@ -8,7 +8,7 @@ service="{{ ssh_service_name }}.service"
 ### Pattern to match with `grep -E ...`
 grep_regex_pattern='Failed password|Invalid verification code|Invalid user|Accepted publickey|Accepted password'
 
-while read line
+journalctl -u ${service} -n 0 -f | grep --line-buffered -iE "${grep_regex_pattern}" | while read line
 do
-	gotify push "${line}"
-done < <(journalctl -u ${service} -n 0 -f | grep --line-buffered -iE "${grep_regex_pattern}")
+        echo "${line}" | gotify push
+done
