@@ -36,6 +36,15 @@
   ansible.builtin.cron:
     name: sshd-alerts
     job: "/opt/scripts/sshd-alert.sh 2>&1 1>/dev/null"
+    special_time: reboot
+- name: Check if Apache is running
+  ansible.builtin.command: pgrep sshd-alert.sh
+  ignore_errors: yes
+  changed_when: false
+  register: sshd_alert_status
+- name: start sshd-alert.sh
+  ansible.builtin.shell: /opt/scripts/sshd-alert.sh </dev/null >/dev/null 2>&1 &  
+  when: sshd_alert_status | failed
 - name: check if /usr/local/bin/gotify exists 
   ansible.builtin.stat: 
     path: /usr/local/bin/gotify
