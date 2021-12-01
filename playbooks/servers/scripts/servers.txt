@@ -4,3 +4,4 @@ security.wireguard
 master.wireguard
 apps.wireguard
 pve-precision.lan
+shadow.wireguard
