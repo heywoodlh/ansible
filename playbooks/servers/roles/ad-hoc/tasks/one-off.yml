@@ -4,22 +4,8 @@
     name: ansible-pull
     minute: 0
     job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
-- name: remove old cron for /opt/scripts/sshd-alert.sh
-  ansible.builtin.cron:
-    name: sshd-alerts
-    job: /opt/scripts/sshd-alert.sh
-    state: absent
-- name: re-add cron for /opt/scripts/sshd-alert.sh
+- name: remove cron for /opt/scripts/sshd-alert.sh
   ansible.builtin.cron:
     name: sshd-alerts
     job: /opt/scripts/sshd-alert.sh 2>&1 1>/dev/null
-- name: remove mangled $http_proxy variable line from /etc/environment 
-  ansible.builtin.lineinfile:
-    path: /etc/environment
-    line: https_proxy=$http_proxy
-    state: absent
-- name: remove mangled $http_proxy variable line from /etc/environment 
-  ansible.builtin.lineinfile:
-    path: /etc/environment
-    line: no_proxy="'localhost,127.0.0.1'"
     state: absent
