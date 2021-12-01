@@ -21,17 +21,6 @@
     owner: root
     group: root
     mode: '0700'
-- name: install cronie
-  community.general.pacman:
-    name: cronie
-    update_cache: yes
-  when: ansible_distribution == 'Archlinux'
-- name: enable and start cronie.service
-  ansible.builtin.systemd:
-    name: cronie
-    state: started
-    enabled: yes
-  when: ansible_distribution == 'Archlinux'
 - name: copy sshd-alert systemd service
   ansible.builtin.copy:
     src: sshd-alert.service
