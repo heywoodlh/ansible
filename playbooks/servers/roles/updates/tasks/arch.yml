@@ -1,5 +1,8 @@
 ---
-- name: run "pacman -Syu"
-  community.general.pacman:
-    update_cache: yes
-    upgrade: yes
+- name: pacman -Syu cron
+  ansible.builtin.cron:
+    name: updates
+    minute: 0
+    hour: 3
+    weekday: 1
+    job: "pacman -Syu --noconfirm"

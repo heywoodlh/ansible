@@ -1,5 +1,8 @@
 ---
-- name: run apt-get update && apt-get dist-upgrade -y
-  apt:
-    update_cache: yes
-    upgrade: dist
+- name: apt-get update && apt-get dist-upgrade -y cron
+  ansible.builtin.cron:
+    name: updates
+    minute: 0
+    hour: 3
+    weekday: 1
+    job: "apt-get update && apt-get dist-upgrade -y"

@@ -5,6 +5,7 @@
   become: true
   roles:
   - role: pkgs
+  - role: updates
   - role: security
   - role: users
   - role: tarsnap
