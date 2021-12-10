@@ -4,14 +4,11 @@
     name: ansible-pull
     minute: 0
     job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
-- name: remove cron for /opt/scripts/sshd-alert.sh
-  ansible.builtin.cron:
-    name: sshd-alerts
-    job: /opt/scripts/sshd-alert.sh 2>&1 1>/dev/null
+- name: remove zabbix-agent
+  community.general.pacman:
+    name: "{{ item }}"
     state: absent
-- name: remove cron for /opt/scripts/sshd-alert.sh
-  ansible.builtin.cron:
-    name: sshd-alerts
-    job: "/opt/scripts/sshd-alert.sh 2>&1 1>/dev/null"
-    special_time: reboot
-    state: absent
+  with_items:
+  - zabbix-agent
+  when: ansible_os_family == 'Archlinux'
+
