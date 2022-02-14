@@ -4,11 +4,24 @@
     name: ansible-pull
     minute: 0
     job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
-- name: remove zabbix-agent
+- name: remove arch pkgs 
   community.general.pacman:
     name: "{{ item }}"
     state: absent
   with_items:
-  - zabbix-agent
+  - filebeat 
   when: ansible_os_family == 'Archlinux'
-
+- name: remove debian pkgs 
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+  - filebeat 
+  when: ansible_os_family == 'Debian'
+- name: stop and disable services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  with_items:
+  - filebeat
