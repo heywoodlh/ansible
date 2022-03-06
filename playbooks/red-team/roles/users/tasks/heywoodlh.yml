@@ -1,0 +1,36 @@
+---
+- name: create heywoodlh
+  ansible.builtin.user:
+    name: heywoodlh
+- name: passwordless sudo for heywoodlh
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/heywoodlh
+    state: present
+    create: yes
+    regexp: "^heywoodlh"
+    line: "heywoodlh ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+- name: remove sudo configuration from archinstall script if exists
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: "^heywoodlh"
+    line: "heywoodlh ALL=(ALL) ALL"
+    validate: 'visudo -cf %s'
+- name: create heywoodlh .ssh directory
+  ansible.builtin.file:
+    path: /home/heywoodlh/.ssh
+    mode: '0700'
+    owner: heywoodlh
+    state: directory
+- name: grab authorized_keys file
+  ansible.builtin.copy:
+    src: authorized_keys
+    dest: /home/heywoodlh/.ssh/authorized_keys
+    mode: '0600'
+    owner: heywoodlh
+- name: add heywoodlh to docker group
+  ansible.builtin.user:
+    name: heywoodlh
+    group: docker
+    append: yes

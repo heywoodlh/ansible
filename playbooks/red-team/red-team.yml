@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/main.yml
+  become: true
+  roles:
+  - role: pkgs
+  - role: updates
+  - role: security
+  - role: users

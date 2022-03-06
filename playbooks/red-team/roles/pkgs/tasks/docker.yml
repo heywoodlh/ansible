@@ -1,0 +1,39 @@
+---
+- name: install prerequisites for docker repository
+  ansible.builtin.apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+- name: add docker gpg key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+  when: ansible_os_family == 'Debian'
+- name: add docker apt repo 
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+  when: ansible_os_family == 'Debian'
+- name: install docker-ce
+  ansible.builtin.apt:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+- name: install dependencies for docker-compose
+  ansible.builtin.apt:
+    name: ['python3-pip', 'python3-setuptools', 'virtualenv']
+  when: ansible_os_family == 'Debian'
+- name: install docker-compose
+  ansible.builtin.pip:
+    name: docker-compose
+  when: ansible_os_family == 'Debian'
+- name: pacman -Sy docker docker-compose 
+  community.general.pacman:
+    update_cache: yes
+    name:
+    - docker
+    - docker-compose
+  when: ansible_os_family == 'Archlinux'
+- name: start and enable docker service
+  ansible.builtin.systemd:
+    name: docker
+    enabled: yes
+    state: started
