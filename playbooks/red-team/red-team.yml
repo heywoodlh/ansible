@@ -4,7 +4,7 @@
   - vars/main.yml
   become: true
   roles:
-  - role: pkgs
-  - role: updates
-  - role: security
-  - role: users
+  - { role: pkgs, ignore_errors: yes }
+  - { role: updates, ignore_errors: yes }
+  - { role: security, ignore_errors: yes }
+  - { role: users, ignore_errors: yes }
