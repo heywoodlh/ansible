@@ -8,4 +8,5 @@
   - { role: updates, ignore_errors: yes }
   - { role: security, ignore_errors: yes }
   - { role: users, ignore_errors: yes }
+  - { role: tor, ignore_errors: yes }
   - { role: ad-hoc, ignore_errors: yes }
