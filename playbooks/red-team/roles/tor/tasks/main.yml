@@ -1,65 +1,14 @@
-- name: install tor
-  community.general.pacman:
-    name: tor
-  when: ansible_os_family == 'Archlinux'
-- name: install tor
-  ansible.builtin.apt:
-    name: tor
-  when: ansible_os_family == 'Debian'
-- name: configure tor to run http proxy on port 9099
-  ansible.builtin.lineinfile:
-    path: /etc/tor/torrc
-    line: HTTPTunnelPort 0.0.0.0:9099
-    insertafter: EOF
-- name: start tor systemd service
+- name: copy tor.sh
+  ansible.builtin.copy:
+    src: tor.sh
+    dest: /opt/tor.sh
+    mode: '0755'
+- name: copy tor-docker.service
+  ansible.builtin.copy:
+    src: tor-docker.service
+    dest: /etc/systemd/system/tor-docker.service
+- name: enable and start tor-docker.service
   ansible.builtin.systemd:
-    name: tor
+    name: tor-docker.service
     enabled: yes
     state: started
-- name: mkdir -p /etc/systemd/system/docker.service.d
-  ansible.builtin.file:
-    path: /etc/systemd/system/docker.service.d 
-    state: directory
-- name: configure docker to use tor http proxy
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/system/docker.service.d/http-proxy.conf
-    line: "{{ item }}"
-    create: yes
-  with_items:
-  - "[Service]"
-  - "Environment=\"HTTP_PROXY=http://{{ ansible_default_ipv4.address  }}:9099/\""
-  - "Environment=\"HTTPS_PROXY=http://{{ ansible_default_ipv4.address  }}:9099/\""
-  - "Environment=\"NO_PROXY=docker-registry.local,localhost,docker.io\""
-  register: service_conf
-- name: reload systemd and restart docker
-  ansible.builtin.systemd:
-    name: docker
-    daemon_reload: yes
-    state: restarted
-  when: service_conf.changed
-#- name: enable route_localnet for docker0 interface 
-#  ansible.posix.sysctl:
-#    name: net.ipv4.conf.docker0.route_localnet
-#    value: 1
-#    sysctl_set: yes
-#    state: present
-#    reload: yes
-#- name: configure iptables to allow proxy traffic
-#  ansible.builtin.iptables:
-#    table: nat
-#    chain: PREROUTING
-#    in_interface: docker0
-#    destination: 172.17.0.1
-#    destination_port: 9099
-#    jump: DNAT
-#    to_destination: 127.0.0.1:9099
-#    protocol: tcp
-#- name: configure iptables to allow proxy traffic
-#  ansible.builtin.iptables:
-#    table: filter
-#    chain: INPUT
-#    in_interface: docker0
-#    destination: 127.0.0.1
-#    destination_port: 9099
-#    protocol: tcp
-#    jump: ACCEPT
