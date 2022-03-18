@@ -6,3 +6,4 @@ pve-precision.lan
 shadow.wireguard
 node-1.wireguard
 node-2.wireguard
+pve-mac.lan
