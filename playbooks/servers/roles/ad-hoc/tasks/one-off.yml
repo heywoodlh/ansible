@@ -9,19 +9,14 @@
     name: "{{ item }}"
     state: absent
   with_items:
-  - filebeat 
+  - falco-bin-dkms
+  - falco-bin
   when: ansible_os_family == 'Archlinux'
 - name: remove debian pkgs 
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
   with_items:
-  - filebeat 
+  - falco 
   when: ansible_os_family == 'Debian'
-- name: stop and disable services
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    state: stopped
-    enabled: false
-  with_items:
-  - filebeat
+
