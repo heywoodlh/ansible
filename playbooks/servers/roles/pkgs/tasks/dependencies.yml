@@ -12,7 +12,7 @@
     enabled: yes
     state: started
   when: ansible_os_family == 'Archlinux'
-- name: install debian packages:
+- name: install debian packages
   ansible.builtin.apt:
     name: "{{ item }}"
   with_items:
