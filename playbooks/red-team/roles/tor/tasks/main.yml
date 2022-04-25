@@ -1,0 +1,14 @@
+- name: copy tor.sh
+  ansible.builtin.copy:
+    src: tor.sh
+    dest: /opt/tor.sh
+    mode: '0755'
+- name: copy tor-docker.service
+  ansible.builtin.copy:
+    src: tor-docker.service
+    dest: /etc/systemd/system/tor-docker.service
+- name: enable and start tor-docker.service
+  ansible.builtin.systemd:
+    name: tor-docker.service
+    enabled: yes
+    state: started

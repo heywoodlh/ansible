@@ -1,0 +1,13 @@
+---
+- name: install arch packages
+  community.general.pacman:
+    name: "{{ item }}"
+  with_items:
+  - cronie
+  when: ansible_os_family == 'Archlinux' 
+- name: enable cronie service
+  ansible.builtin.systemd:
+    name: cronie.service
+    enabled: yes
+    state: started
+  when: ansible_os_family == 'Archlinux' 

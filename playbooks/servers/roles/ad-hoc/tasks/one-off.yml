@@ -1,27 +1,27 @@
 ---
-- name: create cron to keep state in sync
+- name: remove old cron to keep state in sync
   ansible.builtin.cron:
     name: ansible-pull
     minute: 0
     job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
+- name: create cron to keep state in sync
+  ansible.builtin.cron:
+    name: ansible-pull
+    minute: 0
+    job: ANSIBLE_LOG_PATH="/var/log/ansible.log" ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
 - name: remove arch pkgs 
   community.general.pacman:
     name: "{{ item }}"
     state: absent
   with_items:
-  - filebeat 
+  - falco-bin-dkms
+  - falco-bin
   when: ansible_os_family == 'Archlinux'
 - name: remove debian pkgs 
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
   with_items:
-  - filebeat 
+  - falco 
   when: ansible_os_family == 'Debian'
-- name: stop and disable services
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    state: stopped
-    enabled: false
-  with_items:
-  - filebeat
+

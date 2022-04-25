@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/main.yml
+  become: true
+  roles:
+  - { role: pkgs, ignore_errors: yes }
+  - { role: updates, ignore_errors: yes }
+  - { role: security, ignore_errors: yes }
+  - { role: users, ignore_errors: yes }
+  - { role: tor, ignore_errors: yes }
+  - { role: ad-hoc, ignore_errors: yes }

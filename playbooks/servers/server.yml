@@ -9,4 +9,5 @@
   - role: security
   - role: users
   - role: tarsnap
+  - role: proxmox
   - role: ad-hoc

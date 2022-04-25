@@ -1,0 +1,14 @@
+---
+- name: check if /etc/pve directory exists
+  stat:
+    path: /etc/pve
+  register: pve_check 
+- name: removes subscription nag box
+  include: remove-nag.yml
+  when: pve_check.stat.exists and remove_nag
+- name: remove enterprise repo
+  include: remove-enterprise-repo.yml
+  when: pve_check.stat.exists and remove_enterprise_repo
+- name: add no subcription repo
+  include: add-no-subscription-repo.yml
+  when: pve_check.stat.exists and add_no_subscription_repo

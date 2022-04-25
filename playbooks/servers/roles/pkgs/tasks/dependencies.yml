@@ -4,10 +4,30 @@
     name: "{{ item }}"
   with_items:
   - cronie
+  - syslog-ng
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
     name: cronie.service
     enabled: yes
     state: started
-  when: ansible_os_family == 'Archlinux' 
+  when: ansible_os_family == 'Archlinux'
+- name: install debian packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+  - syslog-ng
+  when: ansible_os_family == 'Debian'
+- name: create syslog-ng conf.d
+  ansible.builtin.file:
+    path: /etc/syslog-ng/conf.d/
+    state: directory
+- name: configure ansible syslog-ng
+  ansible.builtin.copy:
+    src: ansible-syslog.conf
+    dest: /etc/syslog-ng/conf.d/ansible.conf
+- name: start and enable syslog-ng
+  ansible.builtin.systemd:
+    name: syslog-ng.service
+    enabled: true
+    state: started

@@ -1,0 +1,10 @@
+[Unit]
+Description=Create Tor Docker container and route everything through it
+After=docker.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /opt/tor.sh
+
+[Install]
+WantedBy=multi-user.target
