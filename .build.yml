@@ -1,13 +1,13 @@
-image: archlinux
+image: debian
 packages:
   - git
-  - python
-  - python-pip
-  - ansible
+  - python3
+  - python3-pip
 sources:
   - https://git.sr.ht/~heywoodlh/ansible
 tasks:
   - setup: |
+      pip3 install ansible
       cd ansible
       ansible-playbook setup.yml
       cd playbooks/servers
