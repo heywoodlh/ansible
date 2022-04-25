@@ -1,5 +1,3 @@
-boba.wireguard
-cloak.wireguard
 master.wireguard
 apps.wireguard
 pve-precision.lan
