@@ -5,9 +5,9 @@ packages:
   - python3-pip
 tasks:
   - setup: |
-      pip3 install ansible
-      /usr/local/bin/ansible-pull -U 'https://git.sr.ht/~heywoodlh/ansible' setup.yml
-      /usr/local/bin/ansible-pull -U 'https://git.sr.ht/~heywoodlh/ansible' playbooks/servers/server.yml \
+      sudo pip3 install ansible
+      sudo ansible-pull -U 'https://git.sr.ht/~heywoodlh/ansible' setup.yml
+      sudo ansible-pull -U 'https://git.sr.ht/~heywoodlh/ansible' playbooks/servers/server.yml \
         && ls -l /usr/local/bin/gotify
 triggers:
   - action: email
