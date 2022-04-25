@@ -31,3 +31,9 @@
     name: syslog-ng.service
     enabled: true
     state: started
+  when: ansible_os_family == 'Debian'
+- name: start and enable syslog-ng
+  ansible.builtin.systemd:
+    name: syslog-ng@default.service
+    enabled: true
+    state: started 
