@@ -37,3 +37,4 @@
     name: syslog-ng@default.service
     enabled: true
     state: started 
+  when: ansible_os_family == 'Archlinux'
