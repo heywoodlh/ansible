@@ -19,10 +19,17 @@
   ansible.builtin.copy:
     src: syslog-ng/syslog-ng.conf
     dest: /etc/syslog-ng/syslog-ng.conf
+    force: yes
 - name: configure ansible syslog-ng
   ansible.builtin.copy:
     src: syslog-ng/conf.d/ansible.conf
     dest: /etc/syslog-ng/conf.d/ansible.conf
+    force: yes
+- name: increase max open file count
+  ansible.posix.sysctl:
+    name: fs.file-max
+    value: '500000'
+    reload: yes
 - name: start and enable syslog-ng
   ansible.builtin.systemd:
     name: syslog-ng.service
