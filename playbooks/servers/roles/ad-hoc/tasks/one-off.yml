@@ -9,19 +9,15 @@
     name: ansible-pull
     minute: 0
     job: ANSIBLE_LOG_PATH="/var/log/ansible.log" ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
-- name: remove arch pkgs 
-  community.general.pacman:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-  - falco-bin-dkms
-  - falco-bin
-  when: ansible_os_family == 'Archlinux'
-- name: remove debian pkgs 
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-  - falco 
+- name: restart syslog-ng
+  ansible.builtin.systemd:
+    name: syslog-ng.service
   when: ansible_os_family == 'Debian'
-
+- name: restart syslog-ng
+  ansible.builtin.systemd:
+    name: syslog-ng@default.service
+  when: ansible_os_family == 'Archlinux'
+- name: remove falco kernel module
+  ansible.builtin.file:
+    path: /etc/modules-load.d/falco.conf
+    state: absent
