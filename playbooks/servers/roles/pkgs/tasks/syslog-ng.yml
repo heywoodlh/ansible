@@ -1,0 +1,37 @@
+---
+- name: install syslog-ng 
+  community.general.pacman:
+    name: "{{ item }}"
+  with_items:
+  - syslog-ng
+  when: ansible_os_family == 'Archlinux' 
+- name: install syslog-ng 
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+  - syslog-ng
+  when: ansible_os_family == 'Debian'
+- name: create syslog-ng conf.d
+  ansible.builtin.file:
+    path: /etc/syslog-ng/conf.d/
+    state: directory
+- name: configure syslog-ng to use /etc/syslog-ng/conf.d
+  ansible.builtin.copy:
+    src: syslog-ng/syslog-ng.conf
+    dest: /etc/syslog-ng/syslog-ng.conf
+- name: configure ansible syslog-ng
+  ansible.builtin.copy:
+    src: syslog-ng/conf.d/ansible.conf
+    dest: /etc/syslog-ng/conf.d/ansible.conf
+- name: start and enable syslog-ng
+  ansible.builtin.systemd:
+    name: syslog-ng.service
+    enabled: true
+    state: started
+  when: ansible_os_family == 'Debian'
+- name: start and enable syslog-ng
+  ansible.builtin.systemd:
+    name: syslog-ng@default.service
+    enabled: true
+    state: started 
+  when: ansible_os_family == 'Archlinux'
