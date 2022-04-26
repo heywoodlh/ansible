@@ -21,3 +21,4 @@
   ansible.builtin.file:
     path: /etc/modules-load.d/falco.conf
     state: absent
+  when: ansible_os_family == 'Archlinux'
