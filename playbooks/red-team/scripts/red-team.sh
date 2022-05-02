@@ -54,8 +54,6 @@ sudo -u heywoodlh bash -c '
 				pip3 install --user peru
 				python3 -m peru sync 
 				echo 'source ~/.bash_profile' >> /home/heywoodlh/.bashrc
-                                echo "export docker_http_proxy=socks5://127.0.0.1:9150" >> /home/heywoodlh/.bash.d/custom
-				(crontab -l ; echo "@reboot docker run -d --restart=unless-stopped --name tor-socks-proxy --net=host peterdavehello/tor-socks-proxy:latest") | sudo crontab -
 				'
 chsh -s /bin/bash heywoodlh
 
