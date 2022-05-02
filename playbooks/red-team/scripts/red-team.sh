@@ -3,7 +3,7 @@
 # If Arch Linux
 if grep -q 'Arch Linux' /etc/os-release
 then
-	pacman -Syu --noconfirm ansible git vim python-pip curl \
+	pacman -Syu --noconfirm ansible git vim python-pip curl mosh \
 		&& echo 'Installed base packages' | tee -a /opt/setup.log
         ln -s /usr/bin/vim /usr/bin/vi
 fi
@@ -12,7 +12,7 @@ fi
 if [[ -e /etc/debian_version ]]
 then
 	apt-get update && apt-get dist-upgrade -y
-	apt-get install -y python3-pip vim git curl \
+	apt-get install -y python3-pip vim git curl mosh \
 		&& echo 'Installed base packages' | tee -a /opt/setup.log
 
 	pip3 install ansible
