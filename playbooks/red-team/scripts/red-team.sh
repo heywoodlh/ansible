@@ -3,7 +3,7 @@
 # If Arch Linux
 if grep -q 'Arch Linux' /etc/os-release
 then
-	pacman -Syu --noconfirm ansible git vim \
+	pacman -Syu --noconfirm ansible git vim curl \
 		&& echo 'Installed base packages' | tee -a /opt/setup.log
         ln -s /usr/bin/vim /usr/bin/vi
 fi
