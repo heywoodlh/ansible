@@ -12,7 +12,7 @@
   with_items:
   - sudo
   - cron
-  when: ansible_os_family == 'Archlinux' 
+  when: ansible_os_family == 'Debian' 
 - name: enable cronie service
   ansible.builtin.systemd:
     name: cronie.service
