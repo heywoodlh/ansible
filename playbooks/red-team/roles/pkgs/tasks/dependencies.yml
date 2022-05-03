@@ -4,6 +4,14 @@
     name: "{{ item }}"
   with_items:
   - cronie
+  - sudo
+  when: ansible_os_family == 'Archlinux' 
+- name: install debian packages
+  community.general.pacman:
+    name: "{{ item }}"
+  with_items:
+  - sudo
+  - cron
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
