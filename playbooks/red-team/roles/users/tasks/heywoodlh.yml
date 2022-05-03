@@ -34,3 +34,56 @@
     name: heywoodlh
     group: docker
     append: yes
+- name: install user packages
+  community.general.pacman:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+  - "vim"
+  - "git"
+  - "python-pip"
+  - "curl"
+  - "mosh"
+  when: ansible_os_family == 'Archlinux'
+- name: install user packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+  - "vim"
+  - "git"
+  - "curl"
+  - "python3-pip"
+  - "mosh"
+  when: ansible_os_family == 'Debian'
+- name: download dotfiles
+  ansible.builtin.git:
+    repo: 'https://git.sr.ht/~heywoodlh/conf'
+    dest: '/home/heywoodlh/opt/conf'
+  become: yes
+  become_user: heywoodlh
+- name: setup home symlinks
+  ansible.builtin.command: 'for file in /home/heywoodlh/opt/conf/home/*; do; basename=$(basename ${file}); filename="/home/heywoodlh/${basename}"; if [[ -e ${filename} ]]; then; mv -v ${filename} ${filename}.orig; fi; ln -sv ${file} ${filename}'
+  become: yes
+  become_user: "heywoodlh"
+- name: setup dotfiles symlinks
+  ansible.builtin.command: 'for file in /home/heywoodlh/opt/conf/dotfiles/*; do; basename=$(basename ${file}); filename="/home/heywoodlh/.${basename}"; if [[ -e ${filename} ]]; then; mv -v ${filename} ${filename}.orig; fi; ln -sv ${file} ${filename}'
+  become: yes
+  become_user: "heywoodlh"
+- name: install peru
+  ansible.builtin.pip:
+    name: peru
+    extra_args: "--user"
+  become: yes
+  become_user: "heywoodlh"
+- name: sync peru modules
+  ansible.builtin.command: "cd /home/heywoodlh/opt/conf && python3 -m peru sync"
+  become: yes
+  become_user: "heywoodlh"
+- name: make sure bash_profile is sourced by .bashrc
+  ansible.builtin.lineinfile:
+    path: /home/heywoodlh/.bashrc
+    create: yes
+    line: "source ~/.bash_profile"
+  become: yes
+  become_user: "heywoodlh"
