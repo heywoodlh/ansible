@@ -63,24 +63,12 @@
     dest: '/home/heywoodlh/opt/conf'
   become: yes
   become_user: heywoodlh
-- name: setup home symlinks
-  ansible.builtin.command: 'for file in /home/heywoodlh/opt/conf/home/*; do; basename=$(basename ${file}); filename="/home/heywoodlh/${basename}"; if [[ -e ${filename} ]]; then; mv -v ${filename} ${filename}.orig; fi; ln -sv ${file} ${filename}'
+- name: install dotfiles
+  ansible.builtin.command: "/home/heywoodlh/opt/conf/setup.sh"
   become: yes
   become_user: "heywoodlh"
-- name: setup dotfiles symlinks
-  ansible.builtin.command: 'for file in /home/heywoodlh/opt/conf/dotfiles/*; do; basename=$(basename ${file}); filename="/home/heywoodlh/.${basename}"; if [[ -e ${filename} ]]; then; mv -v ${filename} ${filename}.orig; fi; ln -sv ${file} ${filename}'
-  become: yes
-  become_user: "heywoodlh"
-- name: install peru
-  ansible.builtin.pip:
-    name: peru
-    extra_args: "--user"
-  become: yes
-  become_user: "heywoodlh"
-- name: sync peru modules
-  ansible.builtin.command: "cd /home/heywoodlh/opt/conf && python3 -m peru sync"
-  become: yes
-  become_user: "heywoodlh"
+  args:
+    chdir: /home/heywoodlh/opt/conf
 - name: make sure bash_profile is sourced by .bashrc
   ansible.builtin.lineinfile:
     path: /home/heywoodlh/.bashrc
