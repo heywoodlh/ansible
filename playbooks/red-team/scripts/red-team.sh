@@ -18,8 +18,8 @@ then
 	pip3 install ansible
 fi
 
-ansible-pull -U https://git.sr.ht/~heywoodlh/ansible setup.yml \
-	&& ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/red-team/red-team.yml \
+ANSIBLE_LOG_PATH="/opt/ansible-setup.log" ansible-pull -U https://git.sr.ht/~heywoodlh/ansible setup.yml \
+	&& ANSIBLE_LOG_PATH="/opt/ansible-setup.log" ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/red-team/red-team.yml \
 	&& echo 'Ran ansible playbooks' | tee -a /opt/setup.log
 
 reboot
