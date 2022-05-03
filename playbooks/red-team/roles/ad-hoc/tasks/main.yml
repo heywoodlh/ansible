@@ -1,3 +1,4 @@
 ---
 - name: import one-off.yml tasks
   import_tasks: one-off.yml
+  ignore_errors: yes

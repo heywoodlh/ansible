@@ -1,3 +1,4 @@
 ---
 - name: import sshd-config.yml tasks
   import_tasks: sshd-config.yml
+  ignore_errors: yes

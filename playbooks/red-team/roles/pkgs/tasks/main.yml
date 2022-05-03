@@ -1,7 +1,10 @@
 ---
 - name: import repositories.yml tasks
   import_tasks: repositories.yml
+  ignore_errors: yes
 - name: import dependencies.yml tasks
   import_tasks: dependencies.yml
+  ignore_errors: yes
 - name: import docker.yml tasks
   import_tasks: docker.yml
+  ignore_errors: yes
