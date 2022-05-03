@@ -2,6 +2,7 @@
 - name: create heywoodlh
   ansible.builtin.user:
     name: heywoodlh
+    shell: /bin/bash
 - name: passwordless sudo for heywoodlh
   ansible.builtin.lineinfile:
     path: /etc/sudoers.d/heywoodlh
