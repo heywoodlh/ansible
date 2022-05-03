@@ -7,7 +7,7 @@
   - sudo
   when: ansible_os_family == 'Archlinux' 
 - name: install debian packages
-  community.general.pacman:
+  ansible.builtin.apt:
     name: "{{ item }}"
   with_items:
   - sudo
