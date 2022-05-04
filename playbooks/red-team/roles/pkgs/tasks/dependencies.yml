@@ -5,6 +5,7 @@
   with_items:
   - cronie
   - sudo
+  - ufw
   when: ansible_os_family == 'Archlinux' 
 - name: install debian packages
   ansible.builtin.apt:
@@ -12,6 +13,7 @@
   with_items:
   - sudo
   - cron
+  - ufw
   when: ansible_os_family == 'Debian' 
 - name: enable cronie service
   ansible.builtin.systemd:
