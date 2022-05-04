@@ -9,4 +9,5 @@
   - { role: security, ignore_errors: yes }
   - { role: users, ignore_errors: yes }
   - { role: tor, ignore_errors: yes }
+  - { role: ufw, ignore_errors: yes }
   - { role: ad-hoc, ignore_errors: yes }

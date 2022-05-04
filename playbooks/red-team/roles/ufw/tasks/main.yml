@@ -1,0 +1,16 @@
+- name: get ufw service status 
+  ansible.builtin.systemd:
+    name: "ufw"
+  register: ufw_service_status
+- name: allow ssh 
+  community.general.ufw:
+    rule: allow
+    port: ssh
+    proto: tcp
+  when: ufw_service_status.status.ActiveState == 'started'
+- name: allow mosh 
+  community.general.ufw:
+    rule: allow
+    port: 60000:61000
+    proto: udp
+  when: ufw_service_status.status.ActiveState == 'started'
