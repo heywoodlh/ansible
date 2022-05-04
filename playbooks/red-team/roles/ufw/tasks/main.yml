@@ -8,8 +8,11 @@
     rule: allow
     port: 60000:61000
     proto: udp
-- name: get ufw service status 
+- name: enable and start ufw systemd service
   ansible.builtin.systemd:
     name: "ufw"
     state: started
     enabled: yes
+- name: enable ufw
+  community.general.ufw:
+    state: enabled
