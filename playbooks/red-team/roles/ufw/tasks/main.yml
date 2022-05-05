@@ -8,6 +8,11 @@
     rule: allow
     port: 60000:61000
     proto: udp
+- name: allow port 5000 (reverse shells) 
+  community.general.ufw:
+    rule: allow
+    port: 5000 
+    proto: tcp
 - name: enable and start ufw systemd service
   ansible.builtin.systemd:
     name: "ufw"
