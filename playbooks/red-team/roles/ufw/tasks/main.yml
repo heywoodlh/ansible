@@ -24,10 +24,10 @@
     port: "{{ item }}"
     proto: tcp
   with_items:
-  - "3000"
   - "6789"
   - "61985"
   - "61986"
+  #- "3000" ## Don't allow 3000 -- access it via localhost
 - name: enable and start ufw systemd service
   ansible.builtin.systemd:
     name: "ufw"
