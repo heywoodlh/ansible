@@ -27,7 +27,7 @@
   - "6789"
   - "61985"
   - "61986"
-  #- "3000" ## Don't allow 3000 -- access it via localhost
+  - "3000"
 - name: enable and start ufw systemd service
   ansible.builtin.systemd:
     name: "ufw"
