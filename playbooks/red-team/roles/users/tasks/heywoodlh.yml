@@ -63,12 +63,17 @@
     dest: '/home/heywoodlh/opt/conf'
   become: yes
   become_user: heywoodlh
+- name: check if ~/.bash.d exists (to know if dotfiles should be installed)
+  stat:
+    path: /home/heywoodlh/.bash.d
+  register: bash_d
 - name: install dotfiles
   ansible.builtin.command: "/home/heywoodlh/opt/conf/setup.sh"
   become: yes
   become_user: "heywoodlh"
   args:
     chdir: /home/heywoodlh/opt/conf
+  when: not bash_d.stat.exists
 - name: make sure bash_profile is sourced by .bashrc
   ansible.builtin.lineinfile:
     path: /home/heywoodlh/.bashrc
