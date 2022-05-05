@@ -13,6 +13,21 @@
     rule: allow
     port: 5000 
     proto: tcp
+- name: allow port 4444 (default metasploit lport)
+  community.general.ufw:
+    rule: allow
+    port: 4444
+    proto: tcp
+- name: allow beef ports
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+  - "3000"
+  - "6789"
+  - "61985"
+  - "61986"
 - name: enable and start ufw systemd service
   ansible.builtin.systemd:
     name: "ufw"
