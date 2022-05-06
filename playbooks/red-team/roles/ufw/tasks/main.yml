@@ -28,6 +28,15 @@
   - "61985"
   - "61986"
   - "3000"
+- name: allow common http ports
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+  - "80"
+  - "443"
+  - "8080"
 - name: enable and start ufw systemd service
   ansible.builtin.systemd:
     name: "ufw"
