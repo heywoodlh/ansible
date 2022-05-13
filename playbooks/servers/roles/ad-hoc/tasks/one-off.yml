@@ -2,8 +2,15 @@
 - name: remove old cron to keep state in sync
   ansible.builtin.cron:
     name: ansible-pull
+    state: absent
     minute: 0
-    job: ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
+    job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
+- name: remove old cron to keep state in sync
+  ansible.builtin.cron:
+    name: ansible-pull
+    state: absent
+    minute: 0
+    job: ANSIBLE_LOG_PATH="/var/log/ansible.log" ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
 - name: create cron to keep state in sync
   ansible.builtin.cron:
     name: ansible-pull
