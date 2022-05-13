@@ -17,4 +17,4 @@
     ansible.builtin.cron:
       name: ansible-pull
       minute: 0
-      job: ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
+      job: ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null

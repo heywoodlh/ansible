@@ -11,19 +11,19 @@ pip3 install ansible
 Install requirements:
 
 ```
-ansible-pull -U https://git.sr.ht/~heywoodlh/ansible setup.yml
+ansible-pull -U https://github.com/heywoodlh/ansible setup.yml
 ```
 
 One-time run:
 
 ```
-ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/server.yml 
+ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml 
 ```
 
 Make the job recurring:
 
 ```
-ansible-pull -U https://git.sr.ht/~heywoodlh/ansible playbooks/servers/bootstrap/cron.yml
+ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/bootstrap/cron.yml
 ```
 
 ## Configure Gotify CLI:

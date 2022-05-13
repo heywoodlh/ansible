@@ -59,7 +59,7 @@
   when: ansible_os_family == 'Debian'
 - name: download dotfiles
   ansible.builtin.git:
-    repo: 'https://git.sr.ht/~heywoodlh/conf'
+    repo: 'https://github.com/heywoodlh/conf'
     dest: '/home/heywoodlh/opt/conf'
   become: yes
   become_user: heywoodlh
