@@ -6,3 +6,4 @@ node-1.wireguard
 node-2.wireguard
 node-3.wireguard
 pve-mac.lan
+matrix.wireguard
