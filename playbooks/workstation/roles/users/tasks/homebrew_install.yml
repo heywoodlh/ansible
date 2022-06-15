@@ -15,6 +15,6 @@
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
 - name: install homebrew
-  ansible.builtin.command: ""
+  ansible.builtin.command: '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"' 
   become: yes
   become_user: heywoodlh
