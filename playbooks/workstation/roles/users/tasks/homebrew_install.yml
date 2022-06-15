@@ -15,7 +15,7 @@
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
 - name: install homebrew
-  ansible.builtin.command: "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash " 
+  ansible.builtin.shell: 'bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"' 
   become: yes
   become_user: heywoodlh
 - name: remove passwordless sudo for heywoodlh
