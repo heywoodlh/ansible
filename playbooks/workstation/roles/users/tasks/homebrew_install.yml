@@ -26,7 +26,7 @@
     regexp: "^heywoodlh"
     line: "heywoodlh ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
- - name: remove sudo configuration from archinstall script if exists
+- name: remove sudo configuration from archinstall script if exists
   ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: absent
