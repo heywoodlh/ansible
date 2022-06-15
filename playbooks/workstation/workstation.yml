@@ -2,7 +2,7 @@
 - hosts: localhost
   become: true
   roles:
-  - role: pkgs
+  - role: deps
   - role: users
   - role: desktop
   - role: security
