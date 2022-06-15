@@ -9,6 +9,7 @@
   - gnome-terminal
   - firefox
   - kitty
+  - network-manager
   when: ansible_os_family == 'Debian'
 - name: install gnome and gdm
   community.general.pacman:
@@ -20,8 +21,15 @@
   - gnome-terminal
   - firefox
   - kitty
+  - networkmanager
+  when: ansible_os_family == 'Archlinux'
 - name: enable gdm
   ansible.builtin.systemd:
     name: gdm
+    enabled: yes
+  when: ansible_os_family == 'Archlinux'
+- name: enable network manager 
+  ansible.builtin.systemd:
+    name: NetworkManager.service 
     enabled: yes
   when: ansible_os_family == 'Archlinux'
