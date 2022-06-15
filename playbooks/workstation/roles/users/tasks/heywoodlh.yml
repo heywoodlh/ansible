@@ -1,0 +1,102 @@
+---
+- name: check if homebrew is installed (m1 mac)
+  ansible.builtin.stat:
+    path: /opt/homebrew/bin/brew
+  register: mac_m1_brew_bin
+  when: ansible_os_family == 'Darwin'
+- name: check if homebrew is installed (intel mac)
+  ansible.builtin.stat:
+    path: /usr/local/bin/brew
+  register: mac_intel_brew_bin
+  when: ansible_os_family == 'Darwin'
+- name: check if homebrew is installed (linux)
+  ansible.builtin.stat:
+    path: /home/linuxbrew/.linuxbrew/bin/brew
+  register: brew_bin
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
+- name: check if zsh is installed with homebrew
+  ansible.builtin.stat:
+    path: /home/linuxbrew/.linuxbrew/bin/zsh
+  register: homebrew_zsh
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
+- name: create heywoodlh
+  ansible.builtin.user:
+    name: heywoodlh
+    shell: /bin/bash
+  when: not homebrew_zsh.stat.exists
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
+- name: import homebrew_install tasks if not installed (linux)
+  import_tasks: homebrew_install.yml
+  when: not brew_bin.exists and not mac_m1_brew_bin.exists and not mac_intel_brew_bin.exists
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
+- name: install essential homebrew packages
+  community.general.homebrew: 
+    name: "{{ item }}"
+  become: yes
+  become_user: "heywoodlh"
+  with_items:
+  - "aerc"
+  - "ansible"
+  - "argocd"
+  - "aria2"
+  - "aws-iam-authenticator"
+  - "awscli"
+  - "bandit"
+  - "bash"
+  - "browserpass"
+  - "buildkit"
+  - "coreutils"
+  - "curl"
+  - "dante"
+  - "doctl"
+  - "dos2unix"
+  - "ffmpeg"
+  - "findutils"
+  - "fzf"
+  - "gcc"
+  - "gh"
+  - "git"
+  - "glib"
+  - "gnupg"
+  - "go"
+  - "harfbuzz"
+  - "hashcat"
+  - "helm"
+  - "htop"
+  - "jailkit"
+  - "jq"
+  - "k9s"
+  - "lima"
+  - "mosh"
+  - "neofetch"
+  - "node"
+  - "openssl@3"
+  - "pre-commit"
+  - "proxychains-ng"
+  - "pwgen"
+  - "python"
+  - "ripgrep"
+  - "screen"
+  - "speedtest-cli"
+  - "tcpdump"
+  - "tfenv"
+  - "tmux"
+  - "tor"
+  - "torsocks"
+  - "tree"
+  - "vim"
+  - "w3m"
+  - "watch"
+  - "weechat"
+  - "wireguard-go"
+  - "wireguard-tools"
+- name: add linuxbrew shell to /etc/shells
+  ansible.builtin.lineinfile:
+    path: /etc/shells
+    line: "/home/linuxbrew/.linuxbrew/bin/zsh"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
+- name: set heywoodlh shell to zsh
+  ansible.builtin.user:
+    name: heywoodlh
+    shell: /home/linuxbrew/.linuxbrew/bin/zsh
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'

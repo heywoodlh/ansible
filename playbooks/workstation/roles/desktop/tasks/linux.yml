@@ -1,0 +1,27 @@
+---
+- name: install gnome and gdm
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+  - gdm3
+  - gnome-shell
+  - gnome-terminal
+  - firefox
+  - kitty
+  when: ansible_os_family == 'Debian'
+- name: install gnome and gdm
+  community.general.pacman:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+  - gdm
+  - gnome-shell
+  - gnome-terminal
+  - firefox
+  - kitty
+- name: enable gdm
+  ansible.builtin.systemd:
+    name: gdm
+    enabled: yes
+  when: ansible_os_family == 'Archlinux'

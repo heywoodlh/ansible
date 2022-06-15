@@ -1,0 +1,20 @@
+---
+- name: passwordless sudo for heywoodlh
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/heywoodlh
+    state: present
+    create: yes
+    regexp: "^heywoodlh"
+    line: "heywoodlh ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+- name: remove sudo configuration from archinstall script if exists
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: "^heywoodlh"
+    line: "heywoodlh ALL=(ALL) ALL"
+    validate: 'visudo -cf %s'
+- name: install homebrew
+  ansible.builtin.command: ""
+  become: yes
+  become_user: heywoodlh
