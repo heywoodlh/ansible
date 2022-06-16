@@ -26,7 +26,7 @@
   when: not homebrew_zsh.stat.exists and (ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux')
 - name: import homebrew_install tasks if not installed
   import_tasks: homebrew_install.yml
-  when: not (mac_m1_brew_bin.stat.exists and mac_intel_brew_bin.stat.exists and brew_bin.stat.exists) 
+  when: not homebrew_zsh.stat.exists 
 - name: install essential homebrew packages
   community.general.homebrew: 
     name: "{{ item }}"
