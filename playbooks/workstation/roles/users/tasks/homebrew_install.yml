@@ -36,7 +36,7 @@
     msg: Homebrew is still not installed
   when: not brew_bin.stat.exists
 - name: update homebrew core
-  ansible.builtin.command: git -C /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+  ansible.builtin.command: git -C /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core pull --depth=1 
   become: yes
   become_user: heywoodlh
 - name: remove passwordless sudo for heywoodlh
