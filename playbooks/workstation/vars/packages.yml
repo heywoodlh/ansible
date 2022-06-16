@@ -21,7 +21,6 @@ global_packages:
 - mosh
 - neofetch
 - playerctl
-- pre-commit
 - pwgen
 - ripgrep
 - rofi
@@ -36,7 +35,6 @@ global_packages:
 - vim
 - vultr-cli
 - w3m
-- watch
 - wireguard-tools
 - xclip
 - xdotool
@@ -54,7 +52,9 @@ arch_packages:
 - openssh
 - pass-otp
 - popeye
+- procps-ng
 - python-pip
+- python-pre-commit
 - qemu-headless
 - rofi-pass
 - ttc-iosevka
@@ -68,8 +68,10 @@ debian_packages:
 - qemu-system
 - pass-extension-otp
 - pinentry-gnome3
+- pre-commit
 - python3-pip
 - sed
+- watch
 
 ## Packages to install non-package manager:
 # aws-cli-v2
