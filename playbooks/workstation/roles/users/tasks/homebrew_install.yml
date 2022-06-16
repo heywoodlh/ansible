@@ -15,14 +15,16 @@
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
 - name: copy brew-install.sh
-  ansible.builtin.copy:
-    src: brew-install.sh
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh 
     dest: /tmp/brew-install.sh
     mode: +x
 - name: install homebrew
-  ansible.builtin.shell: bash /tmp/brew-install.sh 
+  ansible.builtin.command: bash /tmp/brew-install.sh 
   become: yes
   become_user: heywoodlh
+  environment:
+    NONINTERACTIVE: 1
 - name: remove passwordless sudo for heywoodlh
   ansible.builtin.lineinfile:
     path: /etc/sudoers.d/heywoodlh
