@@ -20,7 +20,7 @@
     dest: /tmp/brew-install.sh
     mode: +x
 - name: install homebrew
-  ansible.builtin.command: /bin/bash /tmp/brew-install.sh 
+  ansible.builtin.script: /tmp/brew-install.sh 
   become: yes
   become_user: heywoodlh
 - name: remove passwordless sudo for heywoodlh
