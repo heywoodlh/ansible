@@ -25,7 +25,7 @@
       path: /usr/local/bin/doctl
     register: doctl_check
   - name: download doctl
-    ansible.builtin.url:
+    ansible.builtin.get_url:
       url: https://github.com/digitalocean/doctl/releases/download/v1.77.0/doctl-1.77.0-linux-amd64.tar.gz
       dest: /tmp/doctl.tar.gz
     when: not doctl_check.stat.exists and ansible_architecture == "x86_64"
