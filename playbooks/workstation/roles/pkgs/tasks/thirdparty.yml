@@ -6,7 +6,7 @@
       path: /usr/local/bin/aws
     register: aws_cli_check
   - name: download aws-cli
-    ansible.builtin.url:
+    ansible.builtin.get_url:
       url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip 
       dest: /tmp/aws-cli.zip
     when: not aws_cli_check.stat.exists and ansible_architecture == "x86_64"
