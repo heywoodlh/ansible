@@ -22,7 +22,7 @@
       dest: /tmp/
     when: not aws_cli_check.stat.exists
   - name: install aws-cli
-    ansible.builtin.script: /tmp/aws/install
+    ansible.builtin.command: /tmp/aws/install
     when: not aws_cli_check.stat.exists
   - name: remove zip
     ansible.builtin.file:
