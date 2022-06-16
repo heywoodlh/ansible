@@ -38,3 +38,11 @@
     regexp: "^heywoodlh"
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
+- name: source homebrew globally 
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' 
+- name: disable homebrew analytics
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: "export HOMEBREW_NO_ANALYTICS=1"
