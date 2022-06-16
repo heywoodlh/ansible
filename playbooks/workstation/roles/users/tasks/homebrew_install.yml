@@ -19,12 +19,14 @@
     url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh 
     dest: /tmp/brew-install.sh
     mode: +x
-- name: install homebrew
+- name: install homebrew (will complete after 30 seconds)
   ansible.builtin.script: /tmp/brew-install.sh 
+  timeout: 60
   become: yes
   become_user: heywoodlh
   environment:
     NONINTERACTIVE: 1
+  ignore_errors: yes
 - name: remove passwordless sudo for heywoodlh
   ansible.builtin.lineinfile:
     path: /etc/sudoers.d/heywoodlh
