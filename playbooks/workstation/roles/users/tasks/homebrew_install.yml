@@ -18,6 +18,7 @@
   ansible.builtin.copy:
     src: brew-install.sh
     dest: /tmp/brew-install.sh
+    mode: +x
 - name: install homebrew
   ansible.builtin.shell: /tmp/brew-install.sh 
   become: yes
