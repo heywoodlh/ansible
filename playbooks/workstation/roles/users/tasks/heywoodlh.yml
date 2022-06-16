@@ -27,7 +27,9 @@
 - name: import homebrew_install tasks if not installed (linux)
   import_tasks: homebrew_install.yml
   when: 
-  - not brew_bin.exists and not mac_m1_brew_bin.exists and not mac_intel_brew_bin.exists
+  - not brew_bin.exists
+  - not mac_m1_brew_bin.exists
+  - not mac_intel_brew_bin.exists
   - ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
 - name: install essential homebrew packages
   community.general.homebrew: 
