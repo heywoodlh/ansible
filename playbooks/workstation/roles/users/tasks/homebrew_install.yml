@@ -19,14 +19,6 @@
     url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh 
     dest: /tmp/brew-install.sh
     mode: +x
-- name: check if homebrew exists
-  ansible.builtin.stat:
-    path: /home/linuxbrew/.linuxbrew/bin/brew 
-  register: brew_bin
-- name: fail if homebrew does not exist
-  ansible.builtin.fail:
-    msg: Homebrew is still not installed
-  when: not brew_bin.stat.exists
 - name: install homebrew (will complete after 30 seconds)
   ansible.builtin.script: /tmp/brew-install.sh 
   timeout: 60
@@ -35,6 +27,14 @@
   environment:
     NONINTERACTIVE: 1
   ignore_errors: yes
+- name: check if homebrew exists
+  ansible.builtin.stat:
+    path: /home/linuxbrew/.linuxbrew/bin/brew 
+  register: brew_bin
+- name: fail if homebrew does not exist
+  ansible.builtin.fail:
+    msg: Homebrew is still not installed
+  when: not brew_bin.stat.exists
 - name: remove passwordless sudo for heywoodlh
   ansible.builtin.lineinfile:
     path: /etc/sudoers.d/heywoodlh
