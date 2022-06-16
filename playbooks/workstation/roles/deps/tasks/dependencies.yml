@@ -7,10 +7,10 @@
   - cronie
   - git
   - curl
-  - ruby
   - sudo
   - ufw
   - vim
+  - zsh
   when: ansible_os_family == 'Archlinux' 
 - name: install debian packages
   ansible.builtin.apt:
@@ -19,11 +19,10 @@
   with_items:
   - git
   - curl
-  - ruby
-  - sudo
   - sudo
   - ufw
   - vim
+  - zsh
   when: ansible_os_family == 'Debian' 
 - name: enable cronie service
   ansible.builtin.systemd:

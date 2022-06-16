@@ -1,0 +1,63 @@
+---
+- name: install aws-cli
+  block:
+  - name: check if aws-cli is installed
+    ansible.builtin.stat:
+      path: /usr/local/bin/aws
+    register: aws_cli_check
+  - name: download aws-cli
+    ansible.builtin.url:
+      url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip 
+      dest: /tmp/aws-cli.zip
+    when: not aws_cli_check.stat.exists and ansible_architecture == "x86_64"
+  - name: download aws-cli
+    ansible.builtin.get_url:
+      url: https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip
+      dest: /tmp/aws-cli.zip
+    when: not aws_cli_check.stat.exists and ansible_architecture == "arm64"
+  - name: extract aws-cli
+    ansible.builtin.unarchive:
+      remote_src: yes
+      src: /tmp/aws-cli.zip
+      dest: /tmp/
+    when: not aws_cli_check.stat.exists
+  - name: install aws-cli
+    ansible.builtin.script: /tmp/aws/install
+    when: not aws_cli_check.stat.exists
+  - name: remove zip
+    ansible.builtin.file:
+      path: /tmp/aws-cli.zip
+      state: absent
+    when: not aws_cli_check.stat.exists
+
+- name: install lima
+  block:
+  - name: check if lima is installed
+    ansible.builtin.stat:
+      path: /usr/local/bin/lima
+    register: lima_check
+  - name: download lima
+    ansible.builtin.get_url:
+      url: https://github.com/lima-vm/lima/releases/download/v0.11.0/lima-0.11.0-Linux-x86_64.tar.gz
+      dest: /tmp/lima.tar.gz
+    when: not lima_check.stat.exists and ansible_architecture == "amd64"
+  - name: download lima
+    ansible.builtin.get_url:
+      url: https://github.com/lima-vm/lima/releases/download/v0.11.0/lima-0.11.0-Linux-aarch64.tar.gz
+      dest: /tmp/lima.tar.gz
+    when: not lima_check.stat.exists and ansible_architecture == "arm64"
+  - name: extract lima
+    ansible.builtin.unarchive:
+      remote_src: yes
+      src: /tmp/aws-cli.zip
+      dest: /tmp/lima/ 
+    when: not lima_check.stat.exists
+  - name: move lima binaries to /usr/local/bin
+    ansible.builtin.copy:
+      remote_src: yes
+      src: /tmp/lima/bin/*
+      dest: /usr/local/bin/
+  - name: remove /tmp/lima
+    ansible.builtin.file:
+      path: /tmp/lima
+      state: absent

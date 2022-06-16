@@ -1,0 +1,87 @@
+---
+global_packages:
+- ansible
+- bandit
+- aria2
+- bash
+- coreutils
+- curl
+- dante
+- dos2unix
+- ffmpeg
+- firefox
+- fzf
+- gcc
+- git
+- gnupg
+- htop
+- jq
+- kitty
+- make
+- mosh
+- neofetch
+- playerctl
+- pre-commit
+- pwgen
+- ripgrep
+- rofi
+- scdoc
+- screen
+- syncthing
+- tcpdump
+- tmux
+- tor
+- tree
+- unzip
+- vim
+- vultr-cli
+- w3m
+- watch
+- wireguard-tools
+- xclip
+- xdotool
+- zsh
+
+arch_packages:
+- aerc
+- argocd
+- doctl
+- github-cli
+- go
+- helm
+- k9s
+- kubectl
+- openssh
+- pass-otp
+- popeye
+- python-pip
+- qemu-headless
+- rofi-pass
+- ttc-iosevka
+
+debian_packages:
+- apt-transport-https
+- gawk
+- golang
+- kubernetes-client
+- openssh-client
+- qemu-system
+- pass-extension-otp
+- pinentry-gnome3
+- python3-pip
+- sed
+
+## Packages to install non-package manager:
+# aws-cli-v2
+# argocd (debian)
+# doctl (debian)
+# gh (debian)
+# helm (debian)
+# iosevka (debian)
+# k9s (debian)
+# lima
+# popeye (debian)
+# slack
+# rofi-pass (debian)
+# tfenv 
+# zoom
