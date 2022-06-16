@@ -30,7 +30,7 @@
 - name: install essential homebrew packages
   community.general.homebrew: 
     name: "{{ item }}"
-    path: “/usr/local/bin:/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin"
+    path: "/usr/local/bin:/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin"
   become: yes
   become_user: "heywoodlh"
   with_items:
