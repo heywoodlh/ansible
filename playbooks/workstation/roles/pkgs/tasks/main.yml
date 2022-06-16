@@ -10,4 +10,4 @@
   when: ansible_os_family == 'Debian'
 - name: import thirdparty.yml tasks
   import_tasks: thirdparty.yml
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'Arch'
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Archlinux'
