@@ -50,6 +50,7 @@ arch_packages:
 - kubectl
 - openssh
 - pass-otp
+- pipewire
 - popeye
 - procps-ng
 - python-pip
@@ -68,6 +69,8 @@ debian_packages:
 - qemu-system
 - pass-extension-otp
 - pinentry-gnome3
+- pipewire
+- pipewire-bin
 - pre-commit
 - python3-pip
 - sed
