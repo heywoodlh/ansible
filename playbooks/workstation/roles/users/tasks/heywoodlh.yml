@@ -3,4 +3,16 @@
   ansible.builtin.user:
     name: heywoodlh
     shell: /bin/zsh
+- name: remove sudo configuration from archinstall script if exists
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: "^heywoodlh"
+    line: "heywoodlh ALL=(ALL) ALL"
+    validate: 'visudo -cf %s'
+- name: sudo configuration from archinstall script if exists
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/heywoodlh
+    line: "heywoodlh ALL=(ALL) ALL"
+    validate: 'visudo -cf %s'
 
