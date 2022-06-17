@@ -46,10 +46,15 @@
       url: https://github.com/lima-vm/lima/releases/download/v0.11.0/lima-0.11.0-Linux-aarch64.tar.gz
       dest: /tmp/lima.tar.gz
     when: not lima_check.stat.exists and ansible_architecture == "arm64"
+  - name: create /tmp/lima
+    ansible.builtin.file:
+      path: /tmp/lima
+      state: directory
+    when: not lima_check.stat.exists
   - name: extract lima
     ansible.builtin.unarchive:
       remote_src: yes
-      src: /tmp/aws-cli.zip
+      src: /tmp/lima.tar.gz
       dest: /tmp/lima/ 
     when: not lima_check.stat.exists
   - name: move lima binaries to /usr/local/bin
