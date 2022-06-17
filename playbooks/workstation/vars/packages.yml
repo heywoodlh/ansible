@@ -33,7 +33,6 @@ global_packages:
 - tree
 - unzip
 - vim
-- vultr-cli
 - w3m
 - wireguard-tools
 - xclip
@@ -73,17 +72,3 @@ debian_packages:
 - sed
 - watch
 
-## Packages to install non-package manager:
-# aws-cli-v2
-# argocd (debian)
-# doctl (debian)
-# gh (debian)
-# helm (debian)
-# iosevka (debian)
-# k9s (debian)
-# lima
-# popeye (debian)
-# slack
-# rofi-pass (debian)
-# tfenv 
-# zoom
