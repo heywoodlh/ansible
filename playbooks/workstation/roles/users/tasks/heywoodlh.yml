@@ -10,6 +10,10 @@
     regexp: "^heywoodlh"
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
+- name: create sudoers.d directory
+  ansible.builtin.file:
+    path: /etc/sudoers.d/
+    state: directory
 - name: sudo configuration from archinstall script if exists
   ansible.builtin.lineinfile:
     path: /etc/sudoers.d/heywoodlh
