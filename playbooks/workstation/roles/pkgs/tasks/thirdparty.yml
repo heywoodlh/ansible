@@ -58,7 +58,7 @@
       dest: /tmp/lima/ 
     when: not lima_check.stat.exists
   - name: move lima binaries to /usr/local/bin
-    ansible.builtin.command: mv /tmp/lima/bin/* /usr/local/bin/
+    ansible.builtin.shell: 'mv /tmp/lima/bin/* /usr/local/bin/'
   - name: remove /tmp/lima
     ansible.builtin.file:
       path: /tmp/lima
