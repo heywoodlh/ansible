@@ -16,16 +16,21 @@
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
     create: yes
+- name: check if dotfiles exist
+  ansible.builtin.stat:
+    path: /home/heywoodlh/opt/conf
+  register: conf_check
+- name: check if ~/.bash.d exists (to know if dotfiles should be installed)
+  stat:
+    path: /home/heywoodlh/.bash.d
+  register: bash_d
 - name: download dotfiles
   ansible.builtin.git:
     repo: 'https://github.com/heywoodlh/conf'
     dest: '/home/heywoodlh/opt/conf'
   become: yes
   become_user: heywoodlh
-- name: check if ~/.bash.d exists (to know if dotfiles should be installed)
-  stat:
-    path: /home/heywoodlh/.bash.d
-  register: bash_d
+  when: not conf_check.stat.exists
 - name: install dotfiles
   ansible.builtin.command: "/home/heywoodlh/opt/conf/setup.sh"
   become: yes
