@@ -57,6 +57,7 @@ arch_packages:
 - qemu-headless
 - rofi-pass
 - ttc-iosevka
+- vultr-cli
 
 debian_packages:
 - apt-transport-https
