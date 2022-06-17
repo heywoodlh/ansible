@@ -51,6 +51,8 @@ arch_packages:
 - openssh
 - pass-otp
 - pipewire
+- pipewire-alsa
+- pipewire-pulse
 - popeye
 - procps-ng
 - python-pip
