@@ -7,6 +7,6 @@
     name: "{{ item }}"
   with_items: "{{ global_packages }}"
 - name: install debian-specific packages
-  community.general.pacman:
+  ansible.builtin.apt:
     name: "{{ item }}"
   with_items: "{{ debian_packages }}"
