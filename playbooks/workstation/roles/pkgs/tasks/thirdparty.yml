@@ -59,8 +59,10 @@
     when: not lima_check.stat.exists
   - name: move lima binaries to /usr/local/bin
     ansible.builtin.shell: 'mv /tmp/lima/bin/* /usr/local/bin/'
+    when: not lima_check.stat.exists
   - name: move lima share directory to /usr/local/bin
     ansible.builtin.shell: 'mv /tmp/lima/share/* /usr/local/share/'
+    when: not lima_check.stat.exists
   - name: remove /tmp/lima
     ansible.builtin.file:
       path: /tmp/lima
