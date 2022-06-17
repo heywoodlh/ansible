@@ -6,7 +6,6 @@ global_packages:
 - bash
 - coreutils
 - curl
-- dante
 - dos2unix
 - ffmpeg
 - firefox
@@ -42,6 +41,7 @@ global_packages:
 arch_packages:
 - aerc
 - argocd
+- dante
 - doctl
 - github-cli
 - go
@@ -61,6 +61,7 @@ arch_packages:
 
 debian_packages:
 - apt-transport-https
+- dante-client
 - gawk
 - golang
 - kubernetes-client
