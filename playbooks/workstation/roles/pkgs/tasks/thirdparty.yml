@@ -40,12 +40,12 @@
     ansible.builtin.get_url:
       url: https://github.com/lima-vm/lima/releases/download/v0.11.0/lima-0.11.0-Linux-x86_64.tar.gz
       dest: /tmp/lima.tar.gz
-    when: (ansible_architecture == "amd64") and not (lima_check.stat.exists)
+    when: ansible_architecture == "x86_64" and not lima_check.stat.exists
   - name: download lima
     ansible.builtin.get_url:
       url: https://github.com/lima-vm/lima/releases/download/v0.11.0/lima-0.11.0-Linux-aarch64.tar.gz
       dest: /tmp/lima.tar.gz
-    when: (ansible_architecture == "arm64") and not (lima_check.stat.exists)
+    when: ansible_architecture == "arm64" and not lima_check.stat.exists
   - name: create /tmp/lima
     ansible.builtin.file:
       path: /tmp/lima

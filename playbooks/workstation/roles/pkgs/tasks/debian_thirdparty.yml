@@ -59,12 +59,12 @@
     ansible.builtin.lineinfile: 
       path: /etc/apt/sources.list.d/github-cli.list
       line: "deb [arch=amd64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" 
-    when: ansible_architecture == "amd64" and not gh_check.stat.exists
+    when: ansible_architecture == "x86_64" and not gh_check.stat.exists
   - name: add github-cli apt source
     ansible.builtin.lineinfile: 
       path: /etc/apt/sources.list.d/github-cli.list
       line: "deb [arch=arm64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" 
-    when: ansible_architecture == "arm64" and not gh_check.stat.exists
+    when: ansible_architecture == "x86_64" and not gh_check.stat.exists
   - name: install github-cli
     ansible.builtin.apt:
       name: gh
