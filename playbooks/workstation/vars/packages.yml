@@ -64,7 +64,6 @@ debian_packages:
 - dante-client
 - gawk
 - golang
-- kubernetes-client
 - openssh-client
 - qemu-system
 - pass-extension-otp
