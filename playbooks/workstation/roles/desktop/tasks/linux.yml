@@ -5,6 +5,7 @@
     update_cache: yes
   with_items:
   - gdm3
+  - gnome-control-center
   - gnome-shell
   - gnome-terminal
   - firefox
@@ -17,6 +18,7 @@
     update_cache: yes
   with_items:
   - gdm
+  - gnome-control-center
   - gnome-shell
   - gnome-terminal
   - firefox

@@ -7,6 +7,7 @@
   - cronie
   - git
   - curl
+  - python-pip
   - sudo
   - ufw
   - vim
@@ -19,6 +20,7 @@
   with_items:
   - git
   - curl
+  - python3-pip
   - sudo
   - ufw
   - vim
