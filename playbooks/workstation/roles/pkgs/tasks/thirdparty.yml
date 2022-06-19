@@ -30,6 +30,25 @@
       state: absent
     when: not aws_cli_check.stat.exists
 
+- name: install lefthook
+  block:
+  - name: check if lefthook is installed
+    ansible.builtin.stat:
+      path: /usr/local/bin/lefthook
+    register: lefthook_check
+  - name: git clone lefthook
+    ansible.builtin.git:
+      repo: https://github.com/evilmartians/lefthook
+      dest: /tmp/lefthook
+    when: not lefthook_check.stat.exists
+  - name: build and install lefthook 
+    ansible.builtin.command: go build -o /usr/local/bin/lefthook /tmp/lefthook/cmd/lefthook/*.go
+    when: not lefthook_check.stat.exists
+  - name: remove the temporary lefthook
+    ansible.builtin.file:
+      path: /tmp/lefthook
+      state: absent 
+
 - name: install lima
   block:
   - name: check if lima is installed
