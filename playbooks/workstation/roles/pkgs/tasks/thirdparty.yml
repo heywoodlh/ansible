@@ -71,8 +71,4 @@
     ansible.builtin.file:
       path: /tmp/lima.tar.gz
       state: absent
-  - name: create docker symlink to lima
-    ansible.builtin.file:
-      src: "/usr/local/bin/docker.lima"
-      dest: "/usr/local/bin/docker"
-      state: "link"
+
