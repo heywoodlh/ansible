@@ -42,7 +42,8 @@
       dest: /tmp/lefthook
     when: not lefthook_check.stat.exists
   - name: build and install lefthook 
-    ansible.builtin.command: go build -o /usr/local/bin/lefthook /tmp/lefthook/cmd/lefthook/*.go
+    ansible.builtin.command: go build -o /usr/local/bin/lefthook ./cmd/lefthook/*.go
+    chdir: /tmp/lefthook
     when: not lefthook_check.stat.exists
   - name: remove the temporary lefthook
     ansible.builtin.file:
