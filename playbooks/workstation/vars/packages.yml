@@ -42,6 +42,7 @@ global_packages:
 arch_packages:
 - aerc
 - argocd
+- bluez-utils
 - dante
 - doctl
 - github-cli
