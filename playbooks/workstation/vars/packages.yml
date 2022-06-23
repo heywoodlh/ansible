@@ -50,6 +50,7 @@ arch_packages:
 - helm
 - k9s
 - kubectl
+- npm
 - openssh
 - pass-otp
 - popeye
