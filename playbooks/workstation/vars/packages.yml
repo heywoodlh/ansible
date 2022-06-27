@@ -44,6 +44,7 @@ arch_packages:
 - aerc
 - argocd
 - bluez-utils
+- btrfs-progs
 - dante
 - dconf
 - doctl
