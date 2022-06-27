@@ -45,6 +45,7 @@ arch_packages:
 - argocd
 - bluez-utils
 - dante
+- dconf
 - doctl
 - github-cli
 - go
