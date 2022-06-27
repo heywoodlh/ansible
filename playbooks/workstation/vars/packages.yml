@@ -49,6 +49,7 @@ arch_packages:
 - dconf
 - doctl
 - github-cli
+- gnome-keyring
 - go
 - helm
 - k9s
