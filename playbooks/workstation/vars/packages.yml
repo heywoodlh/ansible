@@ -43,6 +43,7 @@ global_packages:
 arch_packages:
 - aerc
 - argocd
+- bind
 - bluez-utils
 - btrfs-progs
 - dante
@@ -57,6 +58,7 @@ arch_packages:
 - npm
 - openssh
 - pass-otp
+- pkgfile
 - popeye
 - procps-ng
 - python-pip
