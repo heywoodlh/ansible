@@ -27,6 +27,7 @@ global_packages:
 - rofi
 - scdoc
 - screen
+- scrot
 - syncthing
 - tcpdump
 - tmux
