@@ -61,6 +61,7 @@ arch_packages:
 - openssh
 - pass-otp
 - pkgfile
+- pngquant
 - popeye
 - procps-ng
 - python-pip
