@@ -12,6 +12,7 @@ global_packages:
 - fzf
 - gcc
 - git
+- gnome-boxes
 - gnupg
 - guake
 - htop
@@ -66,7 +67,6 @@ arch_packages:
 - procps-ng
 - python-pip
 - python-pre-commit
-- qemu-headless
 - rofi-pass
 - ttc-iosevka
 - vultr-cli
@@ -77,7 +77,6 @@ debian_packages:
 - gawk
 - golang
 - openssh-client
-- qemu-system
 - pass-extension-otp
 - pinentry-gnome3
 - pre-commit
