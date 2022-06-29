@@ -56,6 +56,7 @@ arch_packages:
 - helm
 - k9s
 - kubectl
+- man-db
 - npm
 - openssh
 - pass-otp
