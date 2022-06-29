@@ -17,6 +17,7 @@ global_packages:
 - htop
 - jq
 - kitty
+- maim
 - make
 - mosh
 - neofetch
@@ -27,7 +28,6 @@ global_packages:
 - rofi
 - scdoc
 - screen
-- scrot
 - syncthing
 - tcpdump
 - tmux
@@ -61,7 +61,6 @@ arch_packages:
 - openssh
 - pass-otp
 - pkgfile
-- pngquant
 - popeye
 - procps-ng
 - python-pip
