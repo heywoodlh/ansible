@@ -23,6 +23,7 @@ global_packages:
 - mosh
 - neofetch
 - net-tools
+- packer
 - playerctl
 - pwgen
 - ripgrep
