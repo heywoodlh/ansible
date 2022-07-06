@@ -71,6 +71,7 @@ arch_packages:
 - rofi-pass
 - ttc-iosevka
 - vultr-cli
+- yt-dlp
 
 debian_packages:
 - apt-transport-https

@@ -93,3 +93,24 @@
       path: /tmp/lima.tar.gz
       state: absent
 
+- name: install tfenv
+  block:
+  - name: check if tfenv is installed
+    ansible.builtin.stat:
+      path: /usr/local/bin/tfenv
+    register: tfenv_check
+  - name: download tfenv
+    ansible.builtin.git:
+      repo: https://github.com/tfutils/tfenv.git
+      dest: /tmp/tfenv
+    when: not tfenv_check.stat.exists
+  - name: move tfenv binaries to /usr/local/bin
+    ansible.builtin.shell: 'mv /tmp/tfenv/bin/* /usr/local/bin/'
+    when: not tfenv_check.stat.exists
+  - name: move tfenv share directory to /usr/local/bin
+    ansible.builtin.shell: 'mv /tmp/tfenv/share/* /usr/local/share/'
+    when: not tfenv_check.stat.exists
+  - name: remove /tmp/tfenv
+    ansible.builtin.file:
+      path: /tmp/tfenv
+      state: absent
