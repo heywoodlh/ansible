@@ -9,6 +9,8 @@ global_packages:
 - dos2unix
 - ffmpeg
 - firefox
+- firejail
+- firetools
 - fzf
 - gcc
 - git
