@@ -20,6 +20,7 @@ global_packages:
 - gnupg
 - guake
 - htop
+- inotify-tools
 - jq
 - kitty
 - maim
