@@ -1,9 +1,11 @@
 ---
 global_packages:
 - ansible
-- bandit
 - aria2
+- bandit
 - bash
+- clamav
+- clamtk
 - coreutils
 - curl
 - dos2unix
