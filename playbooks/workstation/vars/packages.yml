@@ -42,7 +42,6 @@ global_packages:
 - tree
 - unzip
 - vim
-- virsh
 - w3m
 - wireguard-tools
 - xclip
