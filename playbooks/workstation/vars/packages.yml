@@ -72,6 +72,7 @@ arch_packages:
 - pkgfile
 - popeye
 - procps-ng
+- pulumi
 - python-pip
 - python-pre-commit
 - rofi-pass
