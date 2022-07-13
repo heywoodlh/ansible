@@ -1,4 +1,5 @@
 arch-precision.lan
+arch-firewall.wireguard
 shadow.wireguard
 matrix.wireguard
 ct-1.wireguard
