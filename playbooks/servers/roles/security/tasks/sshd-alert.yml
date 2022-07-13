@@ -21,7 +21,7 @@
     owner: root
     group: root
     mode: '0700'
-    force: no
+    force: yes
 - name: copy sshd-alert systemd service
   ansible.builtin.copy:
     src: sshd-alert.service
