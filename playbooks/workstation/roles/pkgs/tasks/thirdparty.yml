@@ -126,3 +126,15 @@
     ansible.builtin.file:
       path: /tmp/tfenv
       state: absent
+
+- name: install kind
+  block:
+  - name: check if kind is installed
+    ansible.builtin.stat:
+      path: /usr/local/bin/kind
+    register: kind_check
+  - name: install kind
+    ansible.builtin.command: go install sigs.k8s.io/kind@v0.14.0
+    environment:
+      GOBIN: /usr/local/bin
+    when: not kind_check.stat.exists
