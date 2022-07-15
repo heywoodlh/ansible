@@ -16,16 +16,3 @@
     name: ansible-pull
     minute: 0
     job: ANSIBLE_LOG_PATH="/var/log/ansible.log" ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml 2>&1 1>/dev/null
-- name: restart syslog-ng
-  ansible.builtin.systemd:
-    name: syslog-ng.service
-  when: ansible_os_family == 'Debian'
-- name: restart syslog-ng
-  ansible.builtin.systemd:
-    name: syslog-ng@default.service
-  when: ansible_os_family == 'Archlinux'
-- name: remove falco kernel module
-  ansible.builtin.file:
-    path: /etc/modules-load.d/falco.conf
-    state: absent
-  when: ansible_os_family == 'Archlinux'
