@@ -22,7 +22,7 @@
     force: yes
 - name: configure syslog-ng conf.d
   ansible.builtin.copy:
-    src: syslog-ng/conf.d
+    src: syslog-ng/conf.d/*.conf
     dest: /etc/syslog-ng/conf.d
     force: yes
   register: conf_d
