@@ -20,11 +20,12 @@
     src: syslog-ng/syslog-ng.conf
     dest: /etc/syslog-ng/syslog-ng.conf
     force: yes
-- name: configure ansible syslog-ng
+- name: configure syslog-ng conf.d
   ansible.builtin.copy:
-    src: syslog-ng/conf.d/ansible.conf
-    dest: /etc/syslog-ng/conf.d/ansible.conf
+    src: syslog-ng/conf.d
+    dest: /etc/syslog-ng/conf.d
     force: yes
+  register: conf_d
 - name: increase max open file count
   ansible.posix.sysctl:
     name: fs.file-max
@@ -42,3 +43,14 @@
     enabled: true
     state: started 
   when: ansible_os_family == 'Archlinux'
+- name: restart syslog-ng if changes to /etc/syslog-ng/conf.d were detected
+  ansible.builtin.systemd:
+    name: syslog-ng.service
+    state: restarted
+  when: ansible_os_family == 'Debian' and conf_d.changed
+- name: restart syslog-ng if changes to /etc/syslog-ng/conf.d were detected
+  ansible.builtin.systemd:
+    name: syslog-ng@default.service
+    state: restarted 
+  when: ansible_os_family == 'Archlinux' and conf_d.changed
+
