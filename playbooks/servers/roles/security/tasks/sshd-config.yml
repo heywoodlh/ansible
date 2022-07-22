@@ -10,13 +10,23 @@
     path: /etc/ssh/sshd_config
     line: "PasswordAuthentication no"
   register: ssh_pass_conf
+- name: enable ssh logging for authentication events
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'SyslogFacility AUTHPRIV'
+  register: ssh_syslog_conf
+- name: set ssh loglevel to verbose for authentication events
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'LogLevel VERBOSE'
+  register: ssh_loglevel_conf
 - name: restart sshd
   ansible.builtin.systemd:
     name: ssh
     state: restarted
-  when: (ssh_root_conf.changed or ssh_pass_conf.changed) and ansible_os_family == 'Debian'
+  when: (ssh_root_conf.changed or ssh_pass_conf.changed or ssh_syslog_conf.changed or ssh_loglevel_conf.changed) and ansible_os_family == 'Debian'
 - name: restart sshd
   ansible.builtin.systemd:
     name: sshd
     state: restarted
-  when: (ssh_root_conf.changed or ssh_pass_conf.changed) and ansible_os_family != 'Debian'
+  when: (ssh_root_conf.changed or ssh_pass_conf.changed or ssh_syslog_conf.changed or ssh_loglevel_conf.changed) and ansible_os_family != 'Debian'
