@@ -28,6 +28,7 @@ global_packages:
 - mosh
 - neofetch
 - net-tools
+- newsboat
 - packer
 - playerctl
 - pwgen
