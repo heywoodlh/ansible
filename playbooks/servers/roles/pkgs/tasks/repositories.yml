@@ -1,7 +1,4 @@
 ---
-- name: read the /etc/os-release file
-  shell: cat /etc/os-release
-  register: os_release 
 - name: arch linux mirrorlist repo configuration
   ansible.builtin.copy:
     src: mirrorlist
@@ -9,7 +6,7 @@
     backup: true
     owner: root
     mode: 644
-  when: ansible_distribution == 'Archlinux' and os_release.stdout.find('Arch Linux ARM') == -1
+  when: ansible_distribution == 'Archlinux' and ansible_architecture == 'x86_64'
 - name: arch linux arm mirrorlist repo configuration
   ansible.builtin.copy:
     src: mirrorlist-alarm
@@ -17,4 +14,4 @@
     backup: true
     owner: root
     mode: 644
-  when: ansible_distribution == 'Archlinux' and os_release.stdout.find('Arch Linux ARM') != -1
+  when: ansible_distribution == 'Archlinux' and ansible_architecture != 'x86_64' 
