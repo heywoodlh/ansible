@@ -16,7 +16,7 @@
       url: https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
       dest: /usr/local/bin/argocd
       mode: +x
-    when: not argo_check.stat.exists and ansible_architecture == "arm64"
+    when: not argo_check.stat.exists and ansible_architecture == "aarch64"
 
 - name: install doctl
   block:
@@ -33,7 +33,7 @@
     ansible.builtin.get_url:
       url: https://github.com/digitalocean/doctl/releases/download/v1.77.0/doctl-1.77.0-linux-arm64.tar.gz
       dest: /tmp/doctl.tar.gz
-    when: not doctl_check.stat.exists and ansible_architecture == "arm64"
+    when: not doctl_check.stat.exists and ansible_architecture == "aarch64"
   - name: extract doctl
     ansible.builtin.unarchive:
       remote_src: yes
@@ -132,7 +132,7 @@
       url: https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_arm64.tar.gz 
       dest: /tmp/k9s.tar.gz
       mode: +x
-    when: not argo_check.stat.exists and ansible_architecture == "arm64"
+    when: not argo_check.stat.exists and ansible_architecture == "aarch64"
   - name: extract k9s
     ansible.builtin.unarchive:
       remote_src: yes
@@ -160,7 +160,7 @@
       url: https://github.com/derailed/popeye/releases/latest/download/popeye_Linux_arm64.tar.gz 
       dest: /tmp/popeye.tar.gz
       mode: +x
-    when: not argo_check.stat.exists and ansible_architecture == "arm64"
+    when: not argo_check.stat.exists and ansible_architecture == "aarch64"
   - name: extract popeye
     ansible.builtin.unarchive:
       remote_src: yes

@@ -14,7 +14,7 @@
     ansible.builtin.get_url:
       url: https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip
       dest: /tmp/aws-cli.zip
-    when: not aws_cli_check.stat.exists and ansible_architecture == "arm64"
+    when: not aws_cli_check.stat.exists and ansible_architecture == "aarch64"
   - name: extract aws-cli
     ansible.builtin.unarchive:
       remote_src: yes
@@ -66,7 +66,7 @@
     ansible.builtin.get_url:
       url: https://github.com/lima-vm/lima/releases/download/v0.11.0/lima-0.11.0-Linux-aarch64.tar.gz
       dest: /tmp/lima.tar.gz
-    when: ansible_architecture == "arm64" and not lima_check.stat.exists
+    when: ansible_architecture == "aarch64" and not lima_check.stat.exists
   - name: create /tmp/lima
     ansible.builtin.file:
       path: /tmp/lima
