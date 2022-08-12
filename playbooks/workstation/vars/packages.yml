@@ -30,6 +30,7 @@ global_packages:
 - net-tools
 - newsboat
 - packer
+- pandoc
 - playerctl
 - pwgen
 - ripgrep
