@@ -1,0 +1,12 @@
+---
+- name: copy journald.conf
+  ansible.builtin.copy:
+    src: journald.conf
+    dest: /etc/systemd/journald.conf
+    force: yes
+  register: journald_config
+- name: restart journald
+  ansible.builtin.systemd:
+    name: systemd-journald.service
+    state: restarted
+  when: journald_config.changed

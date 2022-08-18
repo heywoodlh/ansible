@@ -10,4 +10,5 @@
   - role: users
   - role: tarsnap
   - role: proxmox
+  - role: systemd
   - role: ad-hoc
