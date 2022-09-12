@@ -36,7 +36,7 @@
 - name: restart sshd-alert.service if sshd-alert.sh script changed
   ansible.builtin.systemd:
     name: sshd-alert.service
-    state: restart
+    state: restarted
   when: sshd_alert_script_copy.changed
 - name: check if /usr/local/bin/gotify exists 
   ansible.builtin.stat: 
