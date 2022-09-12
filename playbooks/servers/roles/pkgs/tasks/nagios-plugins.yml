@@ -18,3 +18,7 @@
   - make
   - make install
   when: not plugins_installed.stat.exists
+- name: remove nagios-plugins directory
+  ansible.builtin.file:
+    path: /tmp/nagios-plugins
+    state: absent
