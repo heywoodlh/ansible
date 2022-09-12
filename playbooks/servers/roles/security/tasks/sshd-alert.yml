@@ -22,7 +22,7 @@
     group: root
     mode: '0700'
     force: yes
-  register: sshd-alert-script-copy
+  register: sshd_alert_script_copy
 - name: copy sshd-alert systemd service
   ansible.builtin.copy:
     src: sshd-alert.service
@@ -37,7 +37,7 @@
   ansible.builtin.systemd:
     name: sshd-alert.service
     state: restart
-  when: sshd-alert-script-copy.changed
+  when: sshd_alert_script_copy.changed
 - name: check if /usr/local/bin/gotify exists 
   ansible.builtin.stat: 
     path: /usr/local/bin/gotify
