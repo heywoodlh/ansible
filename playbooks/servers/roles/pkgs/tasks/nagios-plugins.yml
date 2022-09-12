@@ -10,8 +10,10 @@
   when: not plugins_installed.stat.exists
 - name: compile nagios-plugins 
   ansible.builtin.command: "{{ item }} chdir=/tmp/nagios-plugins"
+  environment:
+    CONFIG_SHELL: /bin/bash
   with_items:
-  - CONFIG_SHELL=/bin/bash ./configure CONFIG_SHELL=/bin/bash
+  - ./configure
   - make
   - make install
   when: not plugins_installed.stat.exists
