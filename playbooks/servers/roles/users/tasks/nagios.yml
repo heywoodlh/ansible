@@ -1,16 +1,24 @@
 ---
-- name: create nagios-monitor
+- name: remove nagios-monitor user
   ansible.builtin.user:
     name: nagios-monitor
-- name: create nagios-monitor .ssh directory
+    state: absent
+- name: remove nagios-monitor user home directory
   ansible.builtin.file:
-    path: /home/nagios-monitor/.ssh
+    path: /home/nagios-monitor
+    state: absent
+- name: create nagios
+  ansible.builtin.user:
+    name: nagios
+- name: create nagios .ssh directory
+  ansible.builtin.file:
+    path: /home/nagios/.ssh
     mode: '0700'
-    owner: nagios-monitor
+    owner: nagios
     state: directory
 - name: grab authorized_keys file
   ansible.builtin.copy:
-    src: nagios-monitor_authorized_keys
-    dest: /home/nagios-monitor/.ssh/authorized_keys
+    src: nagios_authorized_keys
+    dest: /home/nagios/.ssh/authorized_keys
     mode: '0600'
-    owner: nagios-monitor
+    owner: nagios
