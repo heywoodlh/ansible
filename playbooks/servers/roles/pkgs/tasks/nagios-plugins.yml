@@ -13,6 +13,7 @@
   environment:
     CONFIG_SHELL: /bin/bash
   with_items:
+  - ./tools/setup
   - ./configure
   - make
   - make install
