@@ -1,4 +1,5 @@
 ---
 - name: import heywoodlh.yml tasks
   import_tasks: heywoodlh.yml
-
+- name: import nagios.yml tasks
+  import_tasks: nagios.yml

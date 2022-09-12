@@ -1,0 +1,17 @@
+---
+- name: check if nagios-plugins is already installed
+  ansible.builtin.stat:
+    path: /usr/local/nagios/libexec/
+  register: plugins_installed
+- name: download nagios-plugins 
+  ansible.builtin.git:
+    repo: https://github.com/nagios-plugins/nagios-plugins
+    dest: /tmp/nagios-plugins
+  when: not plugins_installed.stat.exists
+- name: compile nagios-plugins 
+  ansible.builtin.command: "{{ item }} chdir=/tmp/nagios-plugins"
+  with_items:
+  - "CONFIG_SHELL=/bin/bash ./configure CONFIG_SHELL=/bin/bash"
+  - make
+  - make install
+  when: not plugins_installed.stat.exists

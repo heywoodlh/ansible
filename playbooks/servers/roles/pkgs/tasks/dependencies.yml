@@ -4,6 +4,14 @@
     name: "{{ item }}"
   with_items:
   - cronie
+  - git
+  - gcc
+  - glibc
+  - make
+  - wget
+  - dnsutils
+  - unzip
+  - traceroute
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
@@ -11,10 +19,24 @@
     enabled: yes
     state: started
   when: ansible_os_family == 'Archlinux'
-#- name: install debian packages
-#  ansible.builtin.apt:
-#    name: "{{ item }}"
-#  with_items:
-#  - cronie 
-#  when: ansible_os_family == 'Debian'
+- name: install debian packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+  - git
+  - autoconf
+  - gcc
+  - libc6
+  - libmcrypt-dev
+  - make
+  - libssl-dev
+  - wget
+  - bc
+  - gawk
+  - dc
+  - build-essential
+  - snmp
+  - libnet-snmp-perl
+  - gettext
+  when: ansible_os_family == 'Debian'
 
