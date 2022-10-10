@@ -87,7 +87,6 @@ debian_packages:
 - dante-client
 - gawk
 - golang
-- libvirt-bin
 - openssh-client
 - pass-extension-otp
 - pinentry-gnome3
