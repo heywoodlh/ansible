@@ -2,7 +2,7 @@
 - name: create heywoodlh
   ansible.builtin.user:
     name: heywoodlh
-    shell: /bin/bash
+    shell: /bin/pwsh
 - name: passwordless sudo for heywoodlh
   ansible.builtin.lineinfile:
     path: /etc/sudoers.d/heywoodlh
@@ -36,17 +36,6 @@
     group: docker
     append: yes
 - name: install user packages
-  community.general.pacman:
-    name: "{{ item }}"
-    update_cache: yes
-  with_items:
-  - "vim"
-  - "git"
-  - "python-pip"
-  - "curl"
-  - "mosh"
-  when: ansible_os_family == 'Archlinux'
-- name: install user packages
   ansible.builtin.apt:
     name: "{{ item }}"
     update_cache: yes
@@ -63,21 +52,21 @@
     dest: '/home/heywoodlh/opt/conf'
   become: yes
   become_user: heywoodlh
-- name: check if ~/.bash.d exists (to know if dotfiles should be installed)
-  stat:
-    path: /home/heywoodlh/.bash.d
-  register: bash_d
+- name: check if ~/.config/powershell/linux.ps1 exists (to know if dotfiles should be installed)
+  ansible.builtin.stat:
+    path: /home/heywoodlh/.config/powershell/linux.ps1
+  register: pwsh_conf
 - name: install dotfiles
-  ansible.builtin.command: "/home/heywoodlh/opt/conf/setup.sh"
+  ansible.builtin.command: "pwsh -c '. /home/heywoodlh/opt/conf/setup.ps1'"
   become: yes
   become_user: "heywoodlh"
+  when: not pwsh_conf.stat.exists
+- name: install peru with pip
+  ansible.builtin.pip:
+    name: peru
+    extra_args: --user
+- name: sync modules with peru
+  ansible.builtin.command: python3 -m peru sync
+  become_user: heywoodlh
   args:
     chdir: /home/heywoodlh/opt/conf
-  when: not bash_d.stat.exists
-- name: make sure bash_profile is sourced by .bashrc
-  ansible.builtin.lineinfile:
-    path: /home/heywoodlh/.bashrc
-    create: yes
-    line: "source ~/.bash_profile"
-  become: yes
-  become_user: "heywoodlh"

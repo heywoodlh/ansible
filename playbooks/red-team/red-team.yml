@@ -11,3 +11,4 @@
   - { role: tor, ignore_errors: yes }
   - { role: ufw, ignore_errors: yes }
   - { role: ad-hoc, ignore_errors: yes }
+  when: ansible_os_distribution == 'Ubuntu'
