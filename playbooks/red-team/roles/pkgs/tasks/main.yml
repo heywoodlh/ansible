@@ -8,3 +8,7 @@
 - name: import docker.yml tasks
   import_tasks: docker.yml
   ignore_errors: yes
+- name: import powershell.yml tasks
+  import_tasks: powershell.yml
+  ignore_errors: yes
+  when: ansible_distribution == 'Ubuntu'
