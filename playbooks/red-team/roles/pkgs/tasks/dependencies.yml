@@ -6,6 +6,7 @@
   - cronie
   - sudo
   - ufw
+  - neofetch
   when: ansible_os_family == 'Archlinux' 
 - name: install debian packages
   ansible.builtin.apt:
@@ -14,6 +15,7 @@
   - sudo
   - cron
   - ufw
+  - neofetch
   when: ansible_os_family == 'Debian' 
 - name: enable cronie service
   ansible.builtin.systemd:
