@@ -1,7 +1,7 @@
 ---
 - name: download powershell repo package
   ansible.builtin.get_url:
-    url: "https://packages.microsoft.com/cconfig/ubuntu/{{ ansible_distribution_major_version }}.04/packages-microsoft-prod.deb"
+    url: "https://packages.microsoft.com/config/ubuntu/{{ ansible_distribution_major_version }}.04/packages-microsoft-prod.deb"
     dest: /tmp/packages-microsoft-prod.deb
     force_basic_auth: yes
 - name: install microsoft powershell repo
