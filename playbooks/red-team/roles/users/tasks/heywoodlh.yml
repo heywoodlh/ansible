@@ -41,6 +41,7 @@
     update_cache: yes
   with_items:
   - "vim"
+  - "w3m"
   - "git"
   - "curl"
   - "python3-pip"
