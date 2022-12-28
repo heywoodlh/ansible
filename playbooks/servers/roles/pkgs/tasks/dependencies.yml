@@ -12,6 +12,7 @@
   - dnsutils
   - unzip
   - traceroute
+  - openssl-1.1 # For nagios script
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
