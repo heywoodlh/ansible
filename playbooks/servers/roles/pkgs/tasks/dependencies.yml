@@ -3,7 +3,6 @@
   community.general.pacman:
     name: archlinux-keyring
     update_cache: yes
-    upgrade: yes
   when: ansible_os_family == 'Archlinux' 
 - name: install arch packages
   community.general.pacman:
