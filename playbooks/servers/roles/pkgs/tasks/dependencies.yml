@@ -2,6 +2,7 @@
 - name: install arch packages
   community.general.pacman:
     name: "{{ item }}"
+    update_cache: yes
   with_items:
   - cronie
   - git
