@@ -1,8 +1,12 @@
 ---
+- name: update cache and archlinux-keyring before moving to other packages
+  community.general.pacman:
+    name: archlinux-keyring
+    update_cache: yes
+  when: ansible_os_family == 'Archlinux' 
 - name: install arch packages
   community.general.pacman:
     name: "{{ item }}"
-    update_cache: yes
   with_items:
   - cronie
   - git
@@ -13,7 +17,6 @@
   - dnsutils
   - unzip
   - traceroute
-  - openssl-1.1 # For nagios script
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
@@ -24,6 +27,7 @@
 - name: install debian packages
   ansible.builtin.apt:
     name: "{{ item }}"
+    update_cache: yes
   with_items:
   - git
   - autoconf
