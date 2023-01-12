@@ -1,5 +1,3 @@
 arch-precision.wireguard
-matrix.wireguard
 ct-1.wireguard
-arch-pi.wireguard
 tools.wireguard
