@@ -15,3 +15,15 @@
     owner: root
     mode: 644
   when: ansible_distribution == 'Archlinux' and ansible_architecture != 'x86_64' 
+- name: ensure that /etc/pacman.d/mirrorlist has 644 permissions
+  ansible.builtin.file:
+    path: /etc/pacman.d/mirrorlist
+    mode: '0644'
+    force: true
+  when: ansible_distribution == 'Archlinux'
+  register: mirrorlist_perms
+- name: restart archlinux-keyring-wkd-sync.service if permissions on /etc/pacman.d/mirrorlist changed
+  ansible.builtin.systemd:
+    name: archlinux-keyring-wkd-sync.service
+    state: restarted
+  when: mirrorlist_perms.changed
