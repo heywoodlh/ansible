@@ -18,6 +18,7 @@
   - unzip
   - traceroute
   - openssl-1.1 # Necessary for nagios
+  - pcre
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
