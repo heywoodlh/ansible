@@ -3,3 +3,5 @@
   import_tasks: heywoodlh.yml
 - name: import nagios.yml tasks
   import_tasks: nagios.yml
+- name: import root.yml tasks
+  import_tasks: root.yml
