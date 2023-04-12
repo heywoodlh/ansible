@@ -1,5 +1,10 @@
 ---
 - name: set http/https_proxy
+  ansible.builtin.replace:
+    path: /etc/environment
+    regexp: '10.50.50.1'
+    replace: 'ct-1.tailscale'
+- name: set http/https_proxy
   ansible.builtin.lineinfile:
     path: /etc/environment
     line: "{{ item }}"
@@ -7,6 +12,6 @@
     owner: root
     create: yes
   with_items:
-  - http_proxy=http://10.50.50.1:3128
-  - https_proxy=http://10.50.50.1:3128
-  - no_proxy="'localhost,127.0.0.1,10.50.50.37,master.wireguard'"
+  - http_proxy=http://ct-1.tailscale:3128
+  - https_proxy=http://ct-1.tailscale:3128
+  - no_proxy="'localhost,127.0.0.1'"
