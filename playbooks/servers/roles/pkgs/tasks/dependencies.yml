@@ -9,16 +9,17 @@
     name: "{{ item }}"
   with_items:
   - cronie
-  - git
+  - dnsutils
   - gcc
+  - git
   - glibc
   - make
-  - wget
-  - dnsutils
-  - unzip
-  - traceroute
   - openssl-1.1 # Necessary for nagios
   - pcre
+  - rsync # Necessary for rsync backups (nix-backups)
+  - traceroute
+  - unzip
+  - wget
   when: ansible_os_family == 'Archlinux' 
 - name: enable cronie service
   ansible.builtin.systemd:
