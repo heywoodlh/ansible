@@ -2,5 +2,5 @@
 - name: set http/https_proxy
   ansible.builtin.copy:
     src: environment
-    dst: /etc/environment
+    dest: /etc/environment
     mode: '0644'
