@@ -1,22 +1,6 @@
 ---
 - name: set http/https_proxy
-  ansible.builtin.replace:
-    path: /etc/environment
-    regexp: '10.50.50.1'
-    replace: '100.91.102.3'
-- name: set http/https_proxy
-  ansible.builtin.replace:
-    path: /etc/environment
-    regexp: 'ct-1.tailscale'
-    replace: '100.91.102.3'
-- name: set http/https_proxy
-  ansible.builtin.lineinfile:
-    path: /etc/environment
-    line: "{{ item }}"
-    mode: 755
-    owner: root
-    create: yes
-  with_items:
-  - http_proxy=http://ct-1.tailscale:3128
-  - https_proxy=http://ct-1.tailscale:3128
-  - no_proxy="'localhost,127.0.0.1'"
+  ansible.builtin.copy:
+    src: environment
+    dst: /etc/environment
+    mode: '0644'
