@@ -4,6 +4,7 @@
   - vars/main.yml
   become: true
   roles:
+  - role: danielrolls.nix
   - role: pkgs
   - role: updates
   - role: security
