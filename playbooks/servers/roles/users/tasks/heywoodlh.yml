@@ -50,6 +50,6 @@
 - name: add ansible-switch alias to /home/heywoodlh/.zsh.d/custom
   ansible.builtin.lineinfile:
     path: /home/heywoodlh/.zsh.d/custom
-    line: "alias ansible-switch='[[ -d ~/opt/ansible ]] || git clone https://github.com/heywoodlh/ansible ~/opt/ansible; git -C ~/opt/ansible pull origin master; nix run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server-$(arch).activationPackage'"
+    line: "alias ansible-switch='sudo ansible-pull -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'"
     create: yes
     owner: heywoodlh
