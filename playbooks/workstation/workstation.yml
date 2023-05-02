@@ -4,7 +4,6 @@
   - vars/packages.yml
   become: true
   roles:
-  - role: danielrolls.nix
   - role: deps
   - role: users
   - role: desktop

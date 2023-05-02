@@ -26,7 +26,3 @@
       path: /etc/ansible/roles
       state: directory
       mode: 755
-  - name: download nix-install role
-    ansible.builtin.git:
-      repo: https://github.com/danielrolls/nix-install
-      dest: /etc/ansible/roles/danielrolls.nix
