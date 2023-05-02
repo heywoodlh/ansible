@@ -1,0 +1,3 @@
+[submodule "roles/nix-install"]
+	path = roles/nix-install
+	url = https://github.com/danielrolls/nix-install
