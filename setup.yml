@@ -21,3 +21,12 @@
     become: true
   - name: install roles in requirements.yml
     command: ansible-galaxy install -r roles/requirements.yml
+  - name: mkdir -p /etc/ansible/roles
+    ansible.builtin.file:
+      path: /etc/ansible/roles
+      state: directory
+      mode: 755
+  - name: download nix-install role
+    ansible.builtin.git:
+      repo: https://github.com/danielrolls/nix-install
+      dest: /etc/ansible/roles/danielrolls.nix
