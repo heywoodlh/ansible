@@ -30,7 +30,7 @@
     mode: '0600'
     owner: heywoodlh
 - name: install my nixos-configs flake
-  ansible.builtin.command: "nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server-{{ ansible_architecture }}.activationPackage"
+  ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server-{{ ansible_architecture }}.activationPackage"
   become: yes
   become_user: heywoodlh
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
