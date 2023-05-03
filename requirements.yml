@@ -2,9 +2,9 @@
 roles:
   - name: geerlingguy.pip
   - name: geerlingguy.docker
+  - name: danielrolls.nix
 collections:
   - name: ansible.posix
   - name: community.general
   - name: community.docker
   - name: ansible.windows
-  - name: danielrolls.nix
