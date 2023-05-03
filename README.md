@@ -17,5 +17,5 @@ sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/serv
 
 ```
 sudo ansible-pull -U https://github.com/heywoodlh/ansible setup.yml
-sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/workstations/workstation.yml
+sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/workstation/workstation.yml
 ```
