@@ -7,6 +7,7 @@
   - role: pkgs
   - role: updates
   - role: security
+  - role: danielrolls.nix
   - role: users
   - role: tarsnap
   - role: proxmox

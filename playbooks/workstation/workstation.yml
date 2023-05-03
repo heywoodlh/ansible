@@ -5,6 +5,7 @@
   become: true
   roles:
   - role: deps
+  - role: danielrolls.nix
   - role: users
   - role: desktop
   - role: security

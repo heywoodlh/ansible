@@ -1,8 +1,0 @@
----
-- name: check if nix is installed
-  shell: command -v nix >/dev/null 2>&1
-  register: nix_installed
-  ignore_errors: yes
-- name: install nix 
-  ansible.builtin.command: curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes 
-  when: nix_installed.rc not in [ 0 ]

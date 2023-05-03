@@ -7,3 +7,4 @@ collections:
   - name: community.general
   - name: community.docker
   - name: ansible.windows
+  - name: danielrolls.nix

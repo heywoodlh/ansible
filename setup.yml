@@ -20,9 +20,4 @@
       force: no
     become: true
   - name: install roles in requirements.yml
-    command: ansible-galaxy install -r roles/requirements.yml
-  - name: mkdir -p /etc/ansible/roles
-    ansible.builtin.file:
-      path: /etc/ansible/roles
-      state: directory
-      mode: 755
+    command: ansible-galaxy install -r requirements.yml

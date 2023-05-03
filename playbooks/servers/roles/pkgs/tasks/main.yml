@@ -7,5 +7,3 @@
   import_tasks: syslog.yml
 - name: import nagios-plugins.yml tasks
   import_tasks: nagios-plugins.yml
-- name: import nix.yml tasks
-  import_tasks: nix.yml
