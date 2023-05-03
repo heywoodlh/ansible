@@ -3,6 +3,6 @@
   shell: command -v nix >/dev/null 2>&1
   register: nix_installed
   ignore_errors: yes
-- name: install nix with determinate systems installer
-  ansible.builtin.command: "curl -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm"
+- name: install nix 
+  ansible.builtin.command: "sh <(curl -L https://nixos.org/nix/install) --daemon --yes"
   when: nix_installed.rc not in [ 0 ]
