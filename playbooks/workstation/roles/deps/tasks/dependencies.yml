@@ -8,11 +8,17 @@
   - git
   - curl
   - python-pip
+  - nix
   - sudo
   - ufw
   - vim
   - zsh
   when: ansible_os_family == 'Archlinux' 
+- name: start nix-daemon
+  ansible.builtin.systemd:
+    name: nix-daemon.service
+    start: started
+    enabled: true
 - name: install debian packages
   ansible.builtin.apt:
     name: "{{ item }}"

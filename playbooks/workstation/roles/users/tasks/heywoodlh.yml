@@ -2,6 +2,12 @@
 - name: create heywoodlh (don't set shell until home-manager is setup)
   ansible.builtin.user:
     name: heywoodlh
+- name: add heywoodlh to nix-users on arch 
+  ansible.builtin.user:
+    name: heywoodlh
+    append: true
+    groups: nix-users
+  when: ansible_os_family == 'Archlinux'
 - name: remove sudo configuration from archinstall script if exists
   ansible.builtin.lineinfile:
     path: /etc/sudoers
