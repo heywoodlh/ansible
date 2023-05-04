@@ -22,7 +22,7 @@
     state: directory
     mode: 755
 - name: install my nixos-configs flake
-  ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage --impure --out-link ~/.nix-profile"
+  ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage --impure"
   become: yes
   become_user: heywoodlh
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
