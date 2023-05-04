@@ -17,7 +17,7 @@
 - name: start nix-daemon
   ansible.builtin.systemd:
     name: nix-daemon.service
-    start: started
+    state: started
     enabled: true
   when: ansible_os_family == 'Archlinux' 
 - name: install debian packages
