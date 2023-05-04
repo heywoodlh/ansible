@@ -12,4 +12,3 @@
   - role: users
   - role: desktop
   - role: security
-  - role: pkgs
