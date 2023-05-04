@@ -19,6 +19,7 @@
     name: nix-daemon.service
     start: started
     enabled: true
+  when: ansible_os_family == 'Archlinux' 
 - name: install debian packages
   ansible.builtin.apt:
     name: "{{ item }}"
