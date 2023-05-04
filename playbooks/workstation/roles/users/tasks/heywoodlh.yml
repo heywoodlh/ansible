@@ -15,6 +15,12 @@
     line: "heywoodlh ALL=(ALL) ALL"
     validate: 'visudo -cf %s'
     create: yes
+- name: create nix-profile heywoodlh folder
+  ansible.builtin.file:
+    path: /nix/var/nix/profiles/per-user/heywoodlh
+    owner: heywoodlh
+    state: directory
+    mode: 700
 - name: install my nixos-configs flake
   ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage"
   become: yes
