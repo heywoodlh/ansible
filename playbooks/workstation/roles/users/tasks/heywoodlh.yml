@@ -51,4 +51,5 @@
   ansible.builtin.lineinfile:
     path: /home/heywoodlh/.zsh.d/custom
     line: "alias ansible-switch='sudo ansible-pull -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/workstations/workstation.yml'"
+    create: true
     owner: heywoodlh
