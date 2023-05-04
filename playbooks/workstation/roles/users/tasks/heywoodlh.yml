@@ -39,7 +39,6 @@
   ansible.builtin.file:
     path: /home/heywoodlh/.zsh.d
     state: directory
-    create: true
     mode: '0700' 
     owner: heywoodlh
 - name: add ansible-switch alias to /home/heywoodlh/.zsh.d/custom
