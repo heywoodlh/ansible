@@ -23,6 +23,7 @@
     create: yes
 - name: create symlink for nix profiles to work 
   ansible.builtin.shell: "ln -srf /nix/var/nix/profiles/per-user/$(id -u heywoodlh) /nix/var/nix/profiles/per-user/$(id -un heywoodlh)"
+  when: ansible_os_family != 'Archlinux'
 - name: install my nixos-configs flake
   ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage --impure"
   become: yes
