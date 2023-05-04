@@ -20,7 +20,7 @@
     path: /nix/var/nix/profiles/per-user/heywoodlh
     owner: heywoodlh
     state: directory
-    mode: 700
+    mode: 755
 - name: install my nixos-configs flake
   ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage"
   become: yes
