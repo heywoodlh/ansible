@@ -26,10 +26,15 @@
   ansible.builtin.lineinfile:
     path: /etc/shells
     line: "/home/heywoodlh/.nix-profile/bin/zsh"
+- name: check if /home/heywoodlh/.nix-profile/bin/zsh exists
+  ansible.builtin.stat:
+    path: /home/heywoodlh/.nix-profile/bin/zsh
+  register: nix_zsh
 - name: set heywoodlh's shell to /home/heywoodlh/.nix-profile/bin/zsh
   ansible.builtin.user:
     name: heywoodlh
     shell: /home/heywoodlh/.nix-profile/bin/zsh
+  when: nix_zsh.stat.exists
 - name: create /home/heywoodlh/.zsh.d
   ansible.builtin.file:
     state: directory
