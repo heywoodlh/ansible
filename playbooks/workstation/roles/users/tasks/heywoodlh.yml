@@ -16,7 +16,7 @@
     validate: 'visudo -cf %s'
     create: yes
 - name: create symlink for nix profiles to work 
-  ansible.builtin.command: ln -srf /nix/var/nix/profiles/per-user/$(id -u heywoodlh) /nix/var/nix/profiles/per-user/$(id -un heywoodlh)
+  ansible.builtin.shell: "ln -srf /nix/var/nix/profiles/per-user/$(id -u heywoodlh) /nix/var/nix/profiles/per-user/$(id -un heywoodlh)"
 - name: install my nixos-configs flake
   ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage --impure"
   become: yes
