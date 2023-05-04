@@ -37,6 +37,7 @@
   when: nix_zsh.stat.exists
 - name: create /home/heywoodlh/.zsh.d
   ansible.builtin.file:
+    path: /home/heywoodlh/.zsh.d
     state: directory
     create: true
     mode: '0700' 
