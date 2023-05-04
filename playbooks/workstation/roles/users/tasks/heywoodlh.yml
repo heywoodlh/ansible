@@ -29,6 +29,13 @@
   become: yes
   become_user: heywoodlh
   ignore_errors: yes
+  when: ansible_os_family != 'Archlinux'
+- name: install my nixos-configs flake
+  ansible.builtin.command: "/usr/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-{{ ansible_architecture }}.activationPackage --impure"
+  become: yes
+  become_user: heywoodlh
+  ignore_errors: yes
+  when: ansible_os_family == 'Archlinux'
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
