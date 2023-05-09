@@ -31,6 +31,7 @@
   when: nix_check.stat.exists == false
 - name: install nixos-configs
   ansible.builtin.shell: "source /home/heywoodlh/.nix-profile/etc/profile.d/nix.sh && nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-desktop-$(arch).activationPackage"
+  args:
     executable: /bin/bash
   become_user: heywoodlh
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
