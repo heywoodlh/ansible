@@ -34,5 +34,5 @@
   when: ansible_os_family == 'Archlinux'
 - name: import ubuntu.yml
   import_tasks: ubuntu.yml
-  when: ansible_os_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu'
 
