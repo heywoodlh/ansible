@@ -2,8 +2,6 @@
 roles:
   - name: geerlingguy.pip
   - name: geerlingguy.docker
-  - name: danielrolls.nix
-  - name: bodsch.snapd
 collections:
   - name: ansible.posix
   - name: community.general

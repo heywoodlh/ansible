@@ -5,10 +5,6 @@
   become: true
   roles:
   - role: deps
-  - role: danielrolls.nix
-    when: ansible_distribution == "Ubuntu"
-  #- role: bodsch.snapd
-  #  when: ansible_distribution == "Ubuntu"
   - role: users
   - role: desktop
   - role: security
