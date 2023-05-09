@@ -34,6 +34,7 @@
   args:
     executable: /bin/bash
   become_user: heywoodlh
+  ignore_errors: true
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
