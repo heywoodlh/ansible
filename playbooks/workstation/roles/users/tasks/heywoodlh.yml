@@ -36,7 +36,7 @@
     nix-channel --update
     nix-shell '<home-manager>' -A install
     source /home/heywoodlh/.nix-profile/etc/profile.d/hm-session-vars.sh
-    home-manager --flake github:heywoodlh/nixos-configs#heywoodlh-desktop-$(arch) -b switch
+    home-manager --extra-experimental-features 'nix-command flakes' --flake github:heywoodlh/nixos-configs#heywoodlh-desktop-$(arch) -b switch
   args:
     executable: /bin/bash
   become_user: heywoodlh
