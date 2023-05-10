@@ -34,13 +34,13 @@
     source /home/heywoodlh/.nix-profile/etc/profile.d/nix.sh
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
-    if [[ ! -e /home/heywoodlh/.nix-profile/etc/profile.d/hm-session-vars.sh ]]
+    if [[ ! -e /home/heywoodlh/.nix-profile/bin/home-manager ]]
     then
       nix-shell '<home-manager>' -A install
     fi
     source /home/heywoodlh/.nix-profile/etc/profile.d/hm-session-vars.sh
     export NIX_CONFIG="experimental-features = nix-command flakes"
-    home-manager --flake github:heywoodlh/nixos-configs#heywoodlh-desktop-$(arch) -b bak switch
+    /home/heywoodlh/.nix-profile/bin/home-manager --flake github:heywoodlh/nixos-configs#heywoodlh-desktop-$(arch) -b bak switch
   args:
     executable: /bin/bash
   become_user: heywoodlh
