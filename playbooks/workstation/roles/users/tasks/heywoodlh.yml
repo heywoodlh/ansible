@@ -29,22 +29,6 @@
   ansible.builtin.shell: curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
   become_user: heywoodlh
   when: nix_check.stat.exists == false
-- name: install nixos-configs
-  ansible.builtin.shell: |
-    source /home/heywoodlh/.nix-profile/etc/profile.d/nix.sh
-    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-    nix-channel --update
-    if [[ ! -e /home/heywoodlh/.nix-profile/bin/home-manager ]]
-    then
-      nix-shell '<home-manager>' -A install
-    fi
-    source /home/heywoodlh/.nix-profile/etc/profile.d/hm-session-vars.sh
-    export NIX_CONFIG="experimental-features = nix-command flakes"
-    /home/heywoodlh/.nix-profile/bin/home-manager --flake github:heywoodlh/nixos-configs#heywoodlh-desktop-$(arch) -b bak switch
-  args:
-    executable: /bin/bash
-  become_user: heywoodlh
-  ignore_errors: true
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
