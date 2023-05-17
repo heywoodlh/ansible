@@ -54,3 +54,10 @@
     line: "alias ansible-switch='sudo ansible-pull -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/workstation/workstation.yml'"
     create: true
     owner: heywoodlh
+- name: enable and start syncthing service for heywoodlh
+  ansible.builtin.systemd:
+    name: syncthing
+    state: started
+    enabled: true
+    scope: user
+  become_user: heywoodlh
