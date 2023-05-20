@@ -1,0 +1,12 @@
+apiVersion: inventory.heywoodlh.io/v1alpha1
+kind: Vultr
+metadata:
+  labels:
+    app.kubernetes.io/name: vultr
+    app.kubernetes.io/instance: vultr-sample
+    app.kubernetes.io/part-of: operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator
+  name: vultr-sample
+spec:
+  # TODO(user): Add fields here

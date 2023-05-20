@@ -1,0 +1,4 @@
+---
+- name: run "nixos-switch" command as heywoodlh
+  ansible.builtin.command: /home/heywoodlh/.nix-profile/bin/zsh -c "source /home/heywoodlh/.zshrc && nixos-switch -p ansible"
+  become_user: heywoodlh
