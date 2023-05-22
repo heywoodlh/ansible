@@ -1,7 +1,0 @@
-## Append samples of your project ##
-resources:
-- inventory_v1alpha1_vultr.yaml
-- inventory_v1alpha1_libvirt.yaml
-- inventory_v1alpha1_server.yaml
-- inventory_v1alpha1_tailscale.yaml
-#+kubebuilder:scaffold:manifestskustomizesamples

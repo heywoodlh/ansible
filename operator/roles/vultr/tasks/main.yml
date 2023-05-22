@@ -1,4 +1,0 @@
----
-- name: get vultr inventory
-  vultr.cloud.vultr:
-    
