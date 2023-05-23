@@ -29,6 +29,10 @@
     dest: /home/heywoodlh/.ssh/authorized_keys
     mode: '0600'
     owner: heywoodlh
+- name: check if nix installed
+  ansible.builtin.stat:
+    path: /home/heywoodlh/.nix-profile/bin/nix
+  register: nix_check
 - name: install nix in single-user mode
   ansible.builtin.shell: curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
   become_user: heywoodlh
