@@ -51,7 +51,7 @@
 - name: add ansible-switch alias to /home/heywoodlh/.zsh.d/custom
   ansible.builtin.lineinfile:
     path: /home/heywoodlh/.zsh.d/custom
-    line: "alias ansible-switch='sudo ansible-pull -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/workstation/workstation.yml'"
+    line: "alias ansible-switch='sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible playbooks/workstation/workstation.yml'"
     create: true
     owner: heywoodlh
 - name: enable and start syncthing service for heywoodlh
