@@ -29,8 +29,12 @@
     dest: /home/heywoodlh/.ssh/authorized_keys
     mode: '0600'
     owner: heywoodlh
-- name: install my nixos-configs flake
-  ansible.builtin.command: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server-{{ ansible_architecture }}.activationPackage"
+- name: install nix in single-user mode
+  ansible.builtin.shell: curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
+  become_user: heywoodlh
+  when: nix_check.stat.exists == false
+- name: install my nixos-configs server flake
+  ansible.builtin.command: "/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server.activationPackage --impure"
   become: yes
   become_user: heywoodlh
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
