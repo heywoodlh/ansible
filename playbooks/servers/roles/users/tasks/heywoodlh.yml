@@ -51,6 +51,7 @@
     shell: /home/heywoodlh/.nix-profile/bin/zsh
 - name: create /home/heywoodlh/.zsh.d
   ansible.builtin.file:
+    path: /home/heywoodlh/.zsh.d
     state: directory
     create: true
     mode: '0700'
@@ -58,6 +59,6 @@
 - name: add ansible-switch alias to /home/heywoodlh/.zsh.d/custom
   ansible.builtin.lineinfile:
     path: /home/heywoodlh/.zsh.d/custom
-    line: "alias ansible-switch='sudo ansible-pull -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'"
+    line: "alias ansible-switch='sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'"
     create: yes
     owner: heywoodlh
