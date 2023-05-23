@@ -5,20 +5,20 @@
   become: true
   roles:
   - role: pkgs
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: updates
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: security
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: users
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: tarsnap
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: proxmox
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: systemd
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: ad-hoc
-    when: ansible_os_distribution == "Debian" or ansible_os_distribution == "Archlinux"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
   - role: nixos
-    when: ansible_os_distribution == "NixOS"
+    when: ansible_os_family == "NixOS"
