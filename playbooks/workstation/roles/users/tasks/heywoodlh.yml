@@ -28,7 +28,9 @@
     path: /home/heywoodlh/.nix-profile/bin/zsh
   register: nix_zsh
 - name: install my nixos-configs home-manager flake
-  ansible.builtin.command: "/home/heywoodlh/.nix-profile/bin/zsh -c '/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh.activationPackage --impure'"
+  ansible.builtin.shell: "/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh.activationPackage --impure"
+  args:
+    executable: /home/heywoodlh/.nix-profile/bin/zsh
   become: yes
   become_user: heywoodlh
   when: nix_zsh.stat.exists
