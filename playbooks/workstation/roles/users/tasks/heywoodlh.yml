@@ -23,15 +23,25 @@
   ansible.builtin.shell: curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
   become_user: heywoodlh
   when: nix_check.stat.exists == false
+- name: check if /home/heywoodlh/.nix-profile/bin/zsh exists (in case it is before install)
+  ansible.builtin.stat:
+    path: /home/heywoodlh/.nix-profile/bin/zsh
+  register: nix_zsh
+- name: install my nixos-configs home-manager flake
+  ansible.builtin.command: "/home/heywoodlh/.nix-profile/bin/zsh -c '/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh.activationPackage --impure'"
+  become: yes
+  become_user: heywoodlh
+  when: nix_zsh.stat.exists
 - name: install my nixos-configs home-manager flake
   ansible.builtin.command: "/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh.activationPackage --impure"
   become: yes
   become_user: heywoodlh
+  when: not nix_zsh.stat.exists
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
     line: "/home/heywoodlh/.nix-profile/bin/zsh"
-- name: check if /home/heywoodlh/.nix-profile/bin/zsh exists
+- name: check if /home/heywoodlh/.nix-profile/bin/zsh exists (again, after install)
   ansible.builtin.stat:
     path: /home/heywoodlh/.nix-profile/bin/zsh
   register: nix_zsh
