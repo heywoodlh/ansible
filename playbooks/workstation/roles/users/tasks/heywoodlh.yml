@@ -29,6 +29,10 @@
   ansible.builtin.shell: curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
   become_user: heywoodlh
   when: nix_check.stat.exists == false
+- name: install my nixos-configs home-manager flake
+  ansible.builtin.command: "/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh.activationPackage --impure"
+  become: yes
+  become_user: heywoodlh
 - name: add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
