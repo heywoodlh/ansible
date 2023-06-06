@@ -1,15 +1,15 @@
 ---
-- name: install syslog-ng 
+- name: install syslog-ng
   community.general.pacman:
     name: "{{ item }}"
   with_items:
-  - syslog-ng
-  when: ansible_os_family == 'Archlinux' 
-- name: install syslog-ng 
+    - syslog-ng
+  when: ansible_os_family == 'Archlinux'
+- name: install syslog-ng
   ansible.builtin.apt:
     name: "{{ item }}"
   with_items:
-  - syslog-ng
+    - syslog-ng
   when: ansible_os_family == 'Debian'
 - name: create syslog-ng conf.d
   ansible.builtin.file:
@@ -19,18 +19,18 @@
   ansible.builtin.copy:
     src: syslog-ng/syslog-ng.conf
     dest: /etc/syslog-ng/syslog-ng.conf
-    force: yes
+    force: true
 - name: configure syslog-ng conf.d
   ansible.builtin.copy:
     src: syslog-ng/conf.d/
     dest: /etc/syslog-ng/conf.d/
-    force: yes
+    force: true
   register: conf_d
 - name: increase max open file count
   ansible.posix.sysctl:
     name: fs.file-max
     value: '500000'
-    reload: yes
+    reload: true
 - name: start and enable syslog-ng
   ansible.builtin.systemd:
     name: syslog-ng.service
@@ -41,7 +41,7 @@
   ansible.builtin.systemd:
     name: syslog-ng@default.service
     enabled: true
-    state: started 
+    state: started
   when: ansible_os_family == 'Archlinux'
 - name: restart syslog-ng if changes to /etc/syslog-ng/conf.d were detected
   ansible.builtin.systemd:
@@ -51,6 +51,6 @@
 - name: restart syslog-ng if changes to /etc/syslog-ng/conf.d were detected
   ansible.builtin.systemd:
     name: syslog-ng@default.service
-    state: restarted 
+    state: restarted
   when: ansible_os_family == 'Archlinux' and conf_d.changed
 

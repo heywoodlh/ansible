@@ -1,24 +1,34 @@
 ---
 - hosts: localhost
   vars_files:
-  - vars/main.yml
+    - vars/main.yml
   become: true
   roles:
-  - role: pkgs
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: updates
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: security
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: users
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: tarsnap
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: proxmox
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: systemd
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: ad-hoc
-    when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
-  - role: nixos
-    when: ansible_os_family == "NixOS"
+    - role: pkgs
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_os_family == "Archlinux"
+
+    - role: updates
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_os_family == "Archlinux"
+
+    - role: security
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_os_family == "Archlinux"
+
+    - role: users
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_os_family == "Archlinux"
+
+    - role: systemd
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_os_family == "Archlinux"
+
+    - role: nixos
+      when:
+        - ansible_os_family == "NixOS"
