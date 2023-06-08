@@ -1,0 +1,11 @@
+---
+- name: Delete old generations
+  ansible.builtin.command: nix-collect-garbage --delete-older-than 7d
+
+- name: Run "nixos-switch" command as heywoodlh
+  ansible.builtin.shell: |
+    source /home/heywoodlh/.zshrc
+    nixos-switch -p ansible
+  args:
+    executable: /home/heywoodlh/.nix-profile/bin/zsh
+  become_user: heywoodlh

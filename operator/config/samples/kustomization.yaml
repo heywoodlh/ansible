@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- compute_v1_server.yaml
+- compute_v1_tailnet.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

@@ -1,0 +1,46 @@
+---
+- name: Retrieve status variables
+  kubernetes.core.k8s_info:
+    api_version: compute.heywoodlh.io/v1
+    kind: Server
+    namespace: "{{ ansible_operator_meta.namespace }}"
+    name: "{{ ansible_operator_meta.name }}"
+  register: server_status
+
+- name: Set server facts
+  ansible.builtin.set_fact:
+    hostname: "{{ server_status.results | json_query('spec.hostname') }}"
+    username: "{{ server_status.results | json_query('spec.username') }}"
+    sshkey: "{{ server_status.results | json_query('spec.sshkey') }}"
+    sshport: "{{ server_status.results | json_query('spec.sshport') }}"
+
+- name: Create ssh key file
+  ansible.builtin.tempfile:
+    state: file
+  register: ssh_keyfile
+
+- name: Write ssh key contents to file
+  ansible.builtin.copy:
+    src: "{{ sshkey }}"
+    dest: "{{ ssh_keyfile.path }}"
+    mode: "0600"
+
+- name: Add host to in-memory inventory
+  ansible.builtin.add_host:
+    name: "{{ hostname }}"
+    ansible_user: "{{ username }}"
+    ansible_ssh_private_key_file: "{{ ssh_keyfile.path }}"
+
+- name: Run Linux tasks when Linux
+  ansible.builtin.import_tasks: ./linux/main.yml
+  when:
+    # Supported Linux distros
+    - ansible_os_family == "Debian"
+    - ansible_os_family == "Archlinux"
+    - ansible_os_family == "NixOS"
+  delegate_to: "{{ hostname }}"
+
+- name: Remove keyfile
+  ansible.builtin.file:
+    path: "{{ ssh_keyfile.path }}"
+    state: absent
