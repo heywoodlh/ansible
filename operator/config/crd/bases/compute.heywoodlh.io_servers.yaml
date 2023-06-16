@@ -56,3 +56,10 @@ spec:
     storage: true
     subresources:
       status: {}
+    additionalPrinterColumns:
+      - jsonPath: .status.conditions[?(@.type=="ServerStat")].reason
+        name: Reason
+        type: string
+      - jsonPath: .status.conditions[?(@.type=="ServerStat")].message
+        name: Message
+        type: string

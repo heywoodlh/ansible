@@ -69,6 +69,7 @@ spec:
       - args:
         - --leader-elect
         - --leader-election-id=operator
+        - --max-concurrent-reconciles=5
         image: controller:latest
         name: manager
         env:

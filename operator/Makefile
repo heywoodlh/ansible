@@ -74,7 +74,7 @@ help: ## Display this help.
 .PHONY: run
 ANSIBLE_ROLES_PATH?="$(shell pwd)/roles"
 run: ansible-operator ## Run against the configured Kubernetes cluster in ~/.kube/config
-	$(ANSIBLE_OPERATOR) run
+	$(ANSIBLE_OPERATOR) run --zap-log-level error --max-concurrent-reconciles 5
 
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.
