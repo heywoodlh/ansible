@@ -5,29 +5,29 @@
   become: true
   roles:
     - role: pkgs
-      when:
-        - ansible_os_family == "Debian"
-        - ansible_os_family == "Archlinux"
+      when: >
+        ansible_os_family == "Debian" or
+        ansible_os_family == "Archlinux"
 
     - role: updates
-      when:
-        - ansible_os_family == "Debian"
-        - ansible_os_family == "Archlinux"
+      when: >
+        ansible_os_family == "Debian" or
+        ansible_os_family == "Archlinux"
 
     - role: security
-      when:
-        - ansible_os_family == "Debian"
-        - ansible_os_family == "Archlinux"
+      when: >
+        ansible_os_family == "Debian" or
+        ansible_os_family == "Archlinux"
 
     - role: users
-      when:
-        - ansible_os_family == "Debian"
-        - ansible_os_family == "Archlinux"
+      when: >
+        ansible_os_family == "Debian" or
+        ansible_os_family == "Archlinux"
 
     - role: systemd
-      when:
-        - ansible_os_family == "Debian"
-        - ansible_os_family == "Archlinux"
+      when: >
+        ansible_os_family == "Debian" or
+        ansible_os_family == "Archlinux"
 
     - role: nixos
       when:
