@@ -1,0 +1,6 @@
+---
+# Use the 'create api' subcommand to add watches to this file.
+- version: v1
+  group: compute.heywoodlh.io
+  kind: Server
+  role: server

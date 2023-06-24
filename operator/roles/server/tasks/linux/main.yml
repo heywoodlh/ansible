@@ -1,0 +1,24 @@
+---
+- name: Debian/Arch Linux tasks
+  when: >
+    ansible_os_family == "Debian" or
+    ansible_os_family == "Archlinux"
+  block:
+    - name: Include deps tasks
+      ansible.builtin.include_tasks: deps.yml
+
+    - name: Include config tasks
+      ansible.builtin.include_tasks: config.yml
+
+    - name: Include security tasks
+      ansible.builtin.include_tasks: security.yml
+
+    - name: Include users tasks
+      ansible.builtin.include_tasks: users.yml
+
+- name: NixOS tasks
+  when:
+    - ansible_os_family == "NixOS"
+  block:
+    - name: Include NixOS tasks
+      ansible.builtin.include_tasks: nixos.yml

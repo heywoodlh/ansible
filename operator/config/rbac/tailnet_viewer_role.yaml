@@ -1,0 +1,27 @@
+# permissions for end users to view tailnets.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: tailnet-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: operator
+    app.kubernetes.io/part-of: operator
+    app.kubernetes.io/managed-by: kustomize
+  name: tailnet-viewer-role
+rules:
+- apiGroups:
+  - compute.heywoodlh.io
+  resources:
+  - tailnets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - compute.heywoodlh.io
+  resources:
+  - tailnets/status
+  verbs:
+  - get

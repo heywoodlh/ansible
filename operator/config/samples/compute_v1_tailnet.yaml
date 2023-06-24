@@ -1,0 +1,12 @@
+apiVersion: compute.heywoodlh.io/v1
+kind: Tailnet
+metadata:
+  labels:
+    app.kubernetes.io/name: tailnet
+    app.kubernetes.io/instance: tailnet-sample
+    app.kubernetes.io/part-of: operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator
+  name: tailnet-sample
+spec:
+  # TODO(user): Add fields here

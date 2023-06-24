@@ -1,0 +1,29 @@
+---
+- name: Arch Linux tasks
+  when:
+    - ansible_os_family == 'Archlinux'
+  block:
+    - name: Arch Linux ARM mirrorlist repo configuration
+      ansible.builtin.copy:
+        src: "archlinux/mirrorlist-{{ ansible_architecture }}"
+        dest: /etc/pacman.d/mirrorlist
+        backup: true
+        owner: root
+        mode: 644
+
+    - name: Ensure that /etc/pacman.d/mirrorlist has 644 permissions
+      ansible.builtin.file:
+        path: /etc/pacman.d/mirrorlist
+        mode: '0644'
+        force: true
+      register: mirrorlist_perms
+
+    - name: Restart archlinux-keyring-wkd-sync.service
+      ansible.builtin.systemd:
+        name: archlinux-keyring-wkd-sync.service
+        state: restarted
+      when: mirrorlist_perms.changed
+
+- name: Debian tasks
+  when:
+    - ansible_os_family == "Debian"
