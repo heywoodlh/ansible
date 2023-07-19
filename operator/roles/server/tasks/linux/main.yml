@@ -1,8 +1,11 @@
 ---
+- name: Gather facts
+  ansible.builtin.gather_facts:
+
 - name: Debian/Arch Linux tasks
   when: >
-    ansible_os_family == "Debian" or
-    ansible_os_family == "Archlinux"
+    (ansible_os_family == "Debian") or
+    (ansible_os_family == "Archlinux")
   block:
     - name: Include deps tasks
       ansible.builtin.include_tasks: deps.yml

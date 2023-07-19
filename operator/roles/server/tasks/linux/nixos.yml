@@ -15,4 +15,3 @@
   ansible.builtin.file:
     path: /tmp/nixos-configs
     state: absent
-    recurse: true

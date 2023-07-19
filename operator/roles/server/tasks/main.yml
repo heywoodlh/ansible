@@ -60,12 +60,8 @@
         status: "False"
         message: "Running server tasks"
 
-- name: Run Linux tasks when Linux
+- name: Run Linux tasks
   ansible.builtin.import_tasks: ./linux/main.yml
-  when: >
-    ansible_os_family == "Debian" or
-    ansible_os_family == "Archlinux" or
-    ansible_os_family == "NixOS"
   delegate_to: "{{ hostname }}"
 
 - name: Remove keyfile

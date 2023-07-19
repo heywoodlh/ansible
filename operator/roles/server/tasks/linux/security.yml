@@ -57,7 +57,7 @@
     mode: '0755'
   when:
     - ansible_architecture == "x86_64"
-    - (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux')
+    - (ansible_os_family == 'Debian') or (ansible_distribution == 'Archlinux')
     - gotify_path.stat.exists != true
 
 - name: Download gotify cli for arm64
@@ -67,5 +67,5 @@
     mode: '0755'
   when:
     - ansible_architecture == "aarch64"
-    - (ansible_os_family == 'Debian' or ansible_distribution == 'Archlinux')
+    - (ansible_os_family == 'Debian') or (ansible_distribution == 'Archlinux')
     - gotify_path.stat.exists != true
