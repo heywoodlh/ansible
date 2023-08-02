@@ -52,7 +52,7 @@
 
 - name: Download gotify cli for x86_64
   ansible.builtin.get_url:
-    url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-amd64"
+    url: "https://github.com/gotify/cli/releases/download/v2.2.3/gotify-cli-linux-amd64"
     dest: /usr/local/bin/gotify
     mode: '0755'
   when:
@@ -62,7 +62,7 @@
 
 - name: Download gotify cli for arm64
   ansible.builtin.get_url:
-    url: "https://github.com/gotify/cli/releases/download/v{{ gotify_version }}/gotify-cli-linux-arm64"
+    url: "https://github.com/gotify/cli/releases/download/v2.2.3/gotify-cli-linux-arm64"
     dest: /usr/local/bin/gotify
     mode: '0755'
   when:

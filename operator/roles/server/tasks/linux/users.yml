@@ -46,47 +46,39 @@
         state: directory
 
     - name: Grab authorized_keys file
-      ansible.builtin.copy:
-        src: users/heywoodlh/authorized_keys
+      ansible.builtin.get_url:
+        url: https://github.com/heywoodlh.keys
         dest: /home/heywoodlh/.ssh/authorized_keys
         mode: '0600'
         owner: heywoodlh
 
-    - name: Check if nix installed
-      ansible.builtin.stat:
-        path: /home/heywoodlh/.nix-profile/bin/nix
-      register: nix_check
-
-    - name: Install nix in single-user mode
-      ansible.builtin.shell: curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
+    - name: Install nix
+      ansible.builtin.shell: curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix/tags/v0.10.0 | sh -s -- install --no-confirm
       become_user: heywoodlh
-      when: nix_check.stat.exists == false
+      args:
+        executable: /bin/bash
 
-    - name: Install my nixos-configs server flake
-      ansible.builtin.command: "/home/heywoodlh/.nix-profile/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server.activationPackage --impure"
+    - name: Install Home-Manager config
+      ansible.builtin.shell: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server.activationPackage --impure"
+      become_user: heywoodlh
       become: true
-      become_user: heywoodlh
+      args:
+        executable: /bin/bash
 
-    - name: Add /home/heywoodlh/.nix-profile/bin/zsh to /etc/shells
+    - name: Check if /home/heywoodlh/.nix-profile/bin/fish exists
+      ansible.builtin.stat:
+        path: "/home/heywoodlh/.nix-profile/bin/fish"
+      register: fish_check
+
+    - name: Add /home/heywoodlh/.nix-profile/bin/fish to /etc/shells
       ansible.builtin.lineinfile:
         path: /etc/shells
-        line: "/home/heywoodlh/.nix-profile/bin/zsh"
+        line: "/home/heywoodlh/.nix-profile/bin/fish"
+      when: fish_check.stat.exists
 
-    - name: Set heywoodlh's shell to /home/heywoodlh/.nix-profile/bin/zsh
+    - name: Set heywoodlh's shell to /home/heywoodlh/.nix-profile/bin/fish
       ansible.builtin.user:
         name: heywoodlh
-        shell: /home/heywoodlh/.nix-profile/bin/zsh
+        shell: /home/heywoodlh/.nix-profile/bin/fish
+      when: fish_check.stat.exists
 
-    - name: Create /home/heywoodlh/.zsh.d
-      ansible.builtin.file:
-        path: /home/heywoodlh/.zsh.d
-        state: directory
-        mode: '0700'
-        owner: heywoodlh
-
-    - name: Add ansible-switch alias to /home/heywoodlh/.zsh.d/custom
-      ansible.builtin.lineinfile:
-        path: /home/heywoodlh/.zsh.d/custom
-        line: "alias ansible-switch='sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'"
-        create: true
-        owner: heywoodlh
