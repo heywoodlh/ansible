@@ -69,3 +69,12 @@
       - gettext
       - lsb-release
       - sudo
+
+- name: Generic tasks
+  block:
+    - name: Install Tailscale
+      block:
+        - ansible.builtin.get_url:
+            url: https://tailscale.com/install.sh
+            dest: /tmp/tailscale.sh
+        - ansible.builtin.command: bash /tmp/tailscale.sh
