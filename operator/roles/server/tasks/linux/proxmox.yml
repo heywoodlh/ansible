@@ -1,10 +1,13 @@
 ---
 - name: Install lsb_release
   ansible.builtin.apt:
-    name: lsb-release
+    name: "{{ item }}"
     install_recommends: no
     update_cache: yes
     cache_valid_time: 3600
+  loop:
+    - lsb-release
+    - ufw
 
 - name: Disable Enterprise repository
   ansible.builtin.file:
@@ -34,3 +37,6 @@
   ansible.builtin.systemd_service:
     name: pveproxy.service
     state: restarted
+
+- name: Allow port 8006 in ufw
+  ansible.builtin.command: ufw allow 8006

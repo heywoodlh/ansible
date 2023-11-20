@@ -44,3 +44,17 @@
     name: sshd-alert.service
     state: restarted
   when: sshd_alert_script_copy.changed
+
+- name: Enable UFW with default rules
+  block:
+    - ansible.builtin.command: "{{ item }}"
+      loop:
+        - ufw allow 22
+        - ufw allow in on tailscale0 to any
+        - ufw allow out on tailscale0 to any
+        - yes | ufw enable
+
+    - ansible.builtin.systemd:
+        name: ufw.service
+        state: started
+        enabled: true

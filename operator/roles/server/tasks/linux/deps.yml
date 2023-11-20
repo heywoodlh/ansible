@@ -69,6 +69,7 @@
       - gettext
       - lsb-release
       - sudo
+      - ufw
 
 - name: Generic tasks
   block:
