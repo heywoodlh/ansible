@@ -21,6 +21,11 @@
       ansible.builtin.user:
         name: heywoodlh
 
+    - name: Create /etc/sudoers.d
+      ansible.builtin.file:
+        path: /etc/sudoers.d/
+        state: directory
+
     - name: Passwordless sudo for heywoodlh
       ansible.builtin.lineinfile:
         path: /etc/sudoers.d/heywoodlh
@@ -52,33 +57,31 @@
         mode: '0600'
         owner: heywoodlh
 
-    - name: Install nix
-      ansible.builtin.shell: curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix/tags/v0.10.0 | sh -s -- install --no-confirm
-      become_user: heywoodlh
-      args:
-        executable: /bin/bash
-
-    - name: Install Home-Manager config
-      ansible.builtin.shell: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' run github:heywoodlh/nixos-configs#homeConfigurations.heywoodlh-server.activationPackage --impure"
+    - name: Install flakes
+      ansible.builtin.shell: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' profile install github:heywoodlh/flakes#{{ item }} --no-write-lock-file"
       become_user: heywoodlh
       become: true
       args:
         executable: /bin/bash
+      loop:
+      - tmux
+      - vim
+      - git
 
-    - name: Check if /home/heywoodlh/.nix-profile/bin/fish exists
+    - name: Check if /home/heywoodlh/.nix-profile/bin/tmux exists
       ansible.builtin.stat:
-        path: "/home/heywoodlh/.nix-profile/bin/fish"
-      register: fish_check
+        path: "/home/heywoodlh/.nix-profile/bin/tmux"
+      register: tmux_check
 
-    - name: Add /home/heywoodlh/.nix-profile/bin/fish to /etc/shells
+    - name: Add /home/heywoodlh/.nix-profile/bin/tmux to /etc/shells
       ansible.builtin.lineinfile:
         path: /etc/shells
-        line: "/home/heywoodlh/.nix-profile/bin/fish"
-      when: fish_check.stat.exists
+        line: "/home/heywoodlh/.nix-profile/bin/tmux"
+      when: tmux_check.stat.exists
 
-    - name: Set heywoodlh's shell to /home/heywoodlh/.nix-profile/bin/fish
+    - name: Set heywoodlh's shell to /home/heywoodlh/.nix-profile/bin/tmux
       ansible.builtin.user:
         name: heywoodlh
-        shell: /home/heywoodlh/.nix-profile/bin/fish
-      when: fish_check.stat.exists
+        shell: /home/heywoodlh/.nix-profile/bin/tmux
+      when: tmux_check.stat.exists
 
