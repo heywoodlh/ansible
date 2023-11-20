@@ -32,17 +32,22 @@
       ansible.builtin.shell: "cat /etc/os-release | grep UBUNTU_CODENAME | cut -d= -f2"
       when: ansible_distribution == "Ubuntu"
       register: ubuntu_version
+
     - name: set ubuntu_codename
       ansible.builtin.set_fact:
         ubuntu_codename: "{{ ubuntu_version.stdout }}"
       when: ansible_distribution == "Ubuntu"
+
     - name: setup ubuntu repositories
       ansible.builtin.template:
         src: "ubuntu/sources.list-{{ ansible_architecture }}.j2"
         dest: /etc/apt/sources.list
+      when: ansible_distribution == "Ubuntu"
+
     - name: update apt cache
       ansible.builtin.apt:
         update_cache: yes
+
     - name: install debian packages
       ansible.builtin.apt:
         name: "{{ item }}"
@@ -63,4 +68,3 @@
       - libnet-snmp-perl
       - gettext
       - lsb-release
-

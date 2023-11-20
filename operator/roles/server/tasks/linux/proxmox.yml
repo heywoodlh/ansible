@@ -1,0 +1,9 @@
+---
+- name: Disable subscription notice
+  ansible.builtin.command: sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+  register: disable_sub_warning
+
+- name: Restart proxmox web interface
+  ansible.builtin.systemd_service:
+    name: pveproxy.service
+    state: restarted
