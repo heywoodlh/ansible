@@ -47,7 +47,7 @@
 
 - name: Enable UFW with default rules
   block:
-    - ansible.builtin.command: "{{ item }}"
+    - ansible.builtin.shell: "{{ item }}"
       loop:
         - ufw allow 22
         - ufw allow in on tailscale0 to any

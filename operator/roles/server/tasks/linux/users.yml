@@ -85,3 +85,10 @@
         shell: /home/heywoodlh/.nix-profile/bin/tmux
       when: tmux_check.stat.exists
 
+    - name: Add ansible-switch alias to /home/heywoodlh/.config/fish/config.fish
+      ansible.builtin.lineinfile:
+        path: /home/heywoodlh/.config/fish/config.fish
+        create: true
+        owner: heywoodlh
+        line: alias ansible-switch "sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml"
+      when: tmux_check.stat.exists
