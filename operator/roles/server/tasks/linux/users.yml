@@ -92,3 +92,5 @@
         owner: heywoodlh
         line: alias ansible-switch "sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible operator/roles/server/standalone.yml"
       when: tmux_check.stat.exists
+      become_user: heywoodlh
+      become: true
