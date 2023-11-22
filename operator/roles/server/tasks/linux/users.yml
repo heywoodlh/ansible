@@ -94,3 +94,12 @@
       when: tmux_check.stat.exists
       become_user: heywoodlh
       become: true
+
+    - name: Remove old ansible-switch alias from /home/heywoodlh/.config/fish/config.fish
+      ansible.builtin.lineinfile:
+        path: /home/heywoodlh/.config/fish/config.fish
+        state: absent
+        line: alias ansible-switch "sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml"
+      when: tmux_check.stat.exists
+      become_user: heywoodlh
+      become: true
