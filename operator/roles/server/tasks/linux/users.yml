@@ -58,11 +58,7 @@
         owner: heywoodlh
 
     - name: Install flakes
-      ansible.builtin.shell: "/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' profile install github:heywoodlh/flakes#{{ item }} --no-write-lock-file"
-      become_user: heywoodlh
-      become: true
-      args:
-        executable: /bin/bash
+      include_tasks: ./include/flakes.yml
       loop:
       - tmux
       - vim
