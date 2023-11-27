@@ -20,6 +20,7 @@
     - name: Create heywoodlh
       ansible.builtin.user:
         name: heywoodlh
+        shell: /bin/bash
 
     - name: Create /etc/sudoers.d
       ansible.builtin.file:
@@ -71,14 +72,10 @@
 
     - name: Add /home/heywoodlh/.nix-profile/bin/tmux to /etc/shells
       ansible.builtin.lineinfile:
-        path: /etc/shells
-        line: "/home/heywoodlh/.nix-profile/bin/tmux"
-      when: tmux_check.stat.exists
-
-    - name: Set heywoodlh's shell to /home/heywoodlh/.nix-profile/bin/tmux
-      ansible.builtin.user:
-        name: heywoodlh
-        shell: /home/heywoodlh/.nix-profile/bin/tmux
+        path: /home/heywoodlh/.bashrc
+        create: true
+        line: "[ -z ${TMUX} ] && { /home/heywoodlh/.nix-profile/bin/tmux attach || exec /home/heywoodlh/.nix-profile/bin/tmux new-session && exit;}"
+        owner: heywoodlh
       when: tmux_check.stat.exists
 
     - name: Add ansible-switch alias to /home/heywoodlh/.config/fish/config.fish
@@ -87,15 +84,6 @@
         create: true
         owner: heywoodlh
         line: alias ansible-switch "sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible operator/roles/server/standalone.yml"
-      when: tmux_check.stat.exists
-      become_user: heywoodlh
-      become: true
-
-    - name: Remove old ansible-switch alias from /home/heywoodlh/.config/fish/config.fish
-      ansible.builtin.lineinfile:
-        path: /home/heywoodlh/.config/fish/config.fish
-        state: absent
-        line: alias ansible-switch "sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible setup.yml; sudo ansible-pull -c=local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml"
       when: tmux_check.stat.exists
       become_user: heywoodlh
       become: true
