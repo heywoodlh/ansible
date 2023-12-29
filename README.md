@@ -1,3 +1,6 @@
+# Archived:
+My Ansible playbooks have moved to [heywoodlh/flakes](https://github.com/heywoodlh/flakes). No further development will happen here.
+
 ## Setup:
 
 Install `ansible` globally:
